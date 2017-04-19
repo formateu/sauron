@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5e6ffd5_b8ec254b",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-04-19T19:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a886ed4_0c9b7c26",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5271b870_f755c053",
         "filename": "doc/sauron.tex",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2017-04-19T16:44:29Z",
       "side": 1,
       "message": "zaczynamy z wielkiej litery",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7493eec_5ba1e7d7",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-04-19T19:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5271b870_f755c053",
       "range": {
         "startLine": 78,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "45463ea1_326a3122",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-04-19T19:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08c1941c_cf4ea371",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9976a3a9_120dca27",
         "filename": "doc/sauron.tex",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2017-04-19T16:44:29Z",
       "side": 1,
       "message": "zaczynamy z wielkiej litery",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a60d08ff_52f02040",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-04-19T19:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9976a3a9_120dca27",
       "range": {
         "startLine": 92,
         "startChar": 16,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "8c2fafd5_94a22d73",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-04-19T19:18:22Z",
+      "side": 1,
+      "message": "Nie ma raczej takiej potrzeby przy wyliczaniu",
+      "parentUuid": "5af79ead_285b8c9c",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "69b1ae8b_2db18d5e",
         "filename": "doc/sauron.tex",
         "patchSetId": 4
@@ -151,6 +271,30 @@
       "writtenOn": "2017-04-19T16:45:03Z",
       "side": 1,
       "message": "zdanie niepotrzebne?",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 78
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73319ffa_73cb2dee",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-04-19T19:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69b1ae8b_2db18d5e",
       "range": {
         "startLine": 270,
         "startChar": 0,
