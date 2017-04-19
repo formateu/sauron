@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a886ed4_0c9b7c26",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-04-19T16:44:29Z",
+      "side": 1,
+      "message": "literowka",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 34
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5271b870_f755c053",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-04-19T16:44:29Z",
+      "side": 1,
+      "message": "zaczynamy z wielkiej litery",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c1941c_cf4ea371",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-04-19T16:44:29Z",
+      "side": 1,
+      "message": "zaczynamy z wielkiej litery",
+      "range": {
+        "startLine": 84,
+        "startChar": 16,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9976a3a9_120dca27",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-04-19T16:44:29Z",
+      "side": 1,
+      "message": "zaczynamy z wielkiej litery",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4768b18_149a224c",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 4
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-04-19T16:44:29Z",
+      "side": 1,
+      "message": "zaczynamy z wielkiej litery",
+      "range": {
+        "startLine": 99,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 17
+      },
+      "revId": "3c5da59e33de8d1d03a2d7ca398991df49a0f7e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5af79ead_285b8c9c",
         "filename": "doc/sauron.tex",
         "patchSetId": 4
