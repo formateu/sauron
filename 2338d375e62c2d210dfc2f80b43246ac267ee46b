@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2744db5e_ad11b5b9",
+        "filename": "main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-03T10:50:07Z",
+      "side": 1,
+      "message": "warning: second argument of ‘int main(int, int**)’ should be ‘char **’",
+      "revId": "2338d375e62c2d210dfc2f80b43246ac267ee46b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
