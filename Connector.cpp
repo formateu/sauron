@@ -3,6 +3,7 @@
 //
 
 #include <stdexcept>
+#include <arpa/inet.h>
 #include "Connector.h"
 
 Connector::Connector(size_t listenPort) : m_listenPort(listenPort) {
@@ -16,7 +17,7 @@ Connector::Connector(size_t listenPort) : m_listenPort(listenPort) {
         throw std::runtime_error("Socket creation failed");
 
     int ipV6OnlyFalse = 0;
-    if (setsockopt(m_listenSocket, IPPROTO_IPV6, IPV6_V6ONLY, (void *)&ipV6OnlyFalse, sizeof(int)) == -1)
+    if (setsockopt(m_listenSocket, IPPROTO_IPV6, IPV6_V6ONLY, (void *) &ipV6OnlyFalse, sizeof(int)) == -1)
         throw std::runtime_error("Setting IPv4 compatibility set failed");
 
     name.sin6_family = AF_INET6;
@@ -24,10 +25,16 @@ Connector::Connector(size_t listenPort) : m_listenPort(listenPort) {
     name.sin6_port = htons(static_cast<uint16_t>(m_listenPort));
 
     if (bind(m_listenSocket, (struct sockaddr *) &name, sizeof name) == -1)
-       throw std::runtime_error("Binding socket failed");
+        throw std::runtime_error("Binding socket failed");
 }
 
-void Connector::send(const std::string &address, size_t port, const Message &msg)
-{
+void Connector::send(const std::string &address, size_t port, const Message &msg) {
+    struct sockaddr_in6 name;
 
+    name.sin6_family = AF_INET6;
+    inet_pton(AF_INET6, address.data(), &(name.sin6_addr));
+    name.sin6_port = htons(static_cast<uint16_t>(port));
+
+    //if (sendto(m_listenSocket, (void*)msg, sizeof msg, 0,(struct sockaddr *) &name, sizeof name) == -1)
+    //    throw std::runtime_error("Sending message failed");
 }
