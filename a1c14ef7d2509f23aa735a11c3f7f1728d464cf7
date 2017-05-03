@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b1c2fee0_26505084",
+        "filename": "Connector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-03T14:58:00Z",
+      "side": 1,
+      "message": "Yeah, but that\u0027s a hint not for this commit.\nAnyway, important one.",
+      "parentUuid": "5f6dc5e5_c13940cf",
+      "revId": "a1c14ef7d2509f23aa735a11c3f7f1728d464cf7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d93a1839_1b2cedeb",
         "filename": "Connector.h",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-03T13:58:04Z",
       "side": 1,
       "message": "I think explicit destructor is missing (it could call terminate())",
+      "revId": "a1c14ef7d2509f23aa735a11c3f7f1728d464cf7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af2d9171_27aef184",
+        "filename": "Connector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-03T14:58:00Z",
+      "side": 1,
+      "message": "That\u0027s important, it will be added in next commits.",
+      "parentUuid": "d93a1839_1b2cedeb",
       "revId": "a1c14ef7d2509f23aa735a11c3f7f1728d464cf7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
