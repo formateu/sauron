@@ -4,8 +4,34 @@
 
 #include "Connector.h"
 
+extern char *optarg;
+
+void showUsage(const char* prog) {
+    std::cout << "Usage: "
+        << prog
+        << " [-r configfile] | [-t unit|int] | -h"
+        << endl;
+}
+
 int main(int argc, char** argv)
 {
+    int opt;
+    string stringParam;
+    opt = getopt(argc, argv, "r:t:h");
+
+    switch (opt) {
+        case 'r':
+            stringParam = optarg;
+            break;
+        case 't':
+            stringParam = optarg;
+            break;
+        default:
+            showUsage(argv[0]);
+            exit(EXIT_FAILURE);
+            break;
+    }
+
     Connector connector;
     return 0;
 }
