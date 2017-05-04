@@ -10,12 +10,12 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <vector>
+#include "Message.h"
 
 /**
  * Simple BSD c++ wrapper
  */
 
-class Message;
 
 class Connector {
 public:
