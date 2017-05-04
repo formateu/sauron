@@ -58,8 +58,10 @@ void Connector::send(const std::string &address, const Message &msg)
 
 void Connector::listen(MessageBuffer &msgBuffer) {
     int recvMsgSize = 0;
-    std::unique_ptr<Message> msg(new Message);
+    std::unique_ptr<Message> msg(new Message());
     struct sockaddr_in6 sa6;
+    const size_t senderAddrLen = 16;
+    std::unique_ptr<char> senderAddr(new char[senderAddrLen]);
 
     sa6.sin6_family = AF_INET6;
     sa6.sin6_addr = in6addr_any;
@@ -70,6 +72,10 @@ void Connector::listen(MessageBuffer &msgBuffer) {
         if ((recvMsgSize = recvfrom(m_listenSocket, msg.get(), sizeof(*msg.get()), 0, (struct sockaddr *) &sa6, &size)) == -1)
             throw std::runtime_error("Receiving message failed");
 
-        //msgBuffer.insert(msg);
+        std::unique_ptr<char> senderAddr(inet_ntop(AF_INET6, (void*) &sa6.sin6_addr, senderAddr.get(), senderAddrLen));
+        if (senderAddr.get() == nullptr)
+            throw std::runtime_error("Getting sender address failed");
+
+        msgBuffer.push(std::make_pair(*msg.get(), std::string(senderAddr.get())));
     }
 }

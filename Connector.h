@@ -12,6 +12,7 @@
 #include <vector>
 #include "Message.h"
 #include <memory>
+#include "MessageBuffer.h"
 
 /**
  * Simple BSD c++ wrapper
@@ -34,10 +35,11 @@ public:
 class Connector {
 public:
     Connector(MsgBuffer &msgBuffer, size_t listenPort);
-
+    
     void send(const std::string &address, const Message&msg);
     void listen() { }
     void terminate() {}
+
 protected:
     size_t m_listenPort;
     int m_listenSocket;
