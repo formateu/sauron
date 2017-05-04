@@ -26,16 +26,19 @@ private:
      * @param messagePair
      */
     void handleStateInitPhaseFirst(MessagePair messagePair);
+
     /**
      * Awating for successor's initialization.
      * @param messagePair
      */
     void handleStateInitPhaseSecond(MessagePair messagePair);
+
     /**
      * Awating for ack after successor's initialization.
      * @param messagePair
      */
     void handleStateInitPhaseThird(MessagePair messagePair);
+
     /**
      * Connection has been established properly.
      * @param messagePair

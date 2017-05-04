@@ -14,12 +14,11 @@ enum MessageType {
 
 struct Message {
     Message() {}
-    Message(MessageType mtype)
-        : mtype(mtype)
-    {}
-    MessageType mtype;
-    unsigned char pipeAddress[16]; // ip, can be either ip4 or ip6
-    int measureValue; // value of measurement
+    Message(MessageType m_type) : m_type(m_type) {}
+
+    MessageType m_type;
+    unsigned char m_pipeAddress[16]; // ip, can be either ip4 or ip6
+    int m_measureValue; // value of measurement
 };
 
 #endif //SAURON_MESSAGE_H

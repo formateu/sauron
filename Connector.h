@@ -21,7 +21,7 @@ typedef std::pair<std::string, Message> MessagePair;
 
 class MsgBuffer {
 public:
-    void push() {
+    void push(const MessagePair &msgPair) {
 
     }
 
@@ -36,10 +36,10 @@ public:
     Connector(MsgBuffer &msgBuffer, size_t listenPort);
 
     void send(const std::string &address, const Message&msg);
-    void listen() { }
+    void listen();
     void terminate() {}
 protected:
-    size_t m_listenPort;
+    size_t m_port;
     int m_listenSocket;
     MsgBuffer &msgBuffer;
 };

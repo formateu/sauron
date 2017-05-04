@@ -5,18 +5,18 @@ Client::Client(MsgBuffer &msgBuffer, const std::string &address, size_t port)
     , msgBuffer(msgBuffer)
     , connector(Connector(msgBuffer, port))
     , state(1)
-    , finish(false)
-{
-}
+    , finish(false) {}
 
 void Client::run() {
     std::thread listenThread(&Connector::listen, connector);
+
     while (!finish) {
         MessagePair messagePair = msgBuffer.pop();
 
-        if (messagePair.second.mtype == MessageType::Finish) {
+        if (messagePair.second.m_type == MessageType::Finish) {
             handleFinish(messagePair);
         }
+
         switch (state) {
             case 1:
                 handleStateInitPhaseFirst(messagePair);
@@ -34,14 +34,16 @@ void Client::run() {
                 std::cout << "Undefined state" << std::endl;
         }
     }
+
     listenThread.join();
 }
 
 void Client::handleStateInitPhaseFirst(MessagePair messagePair) {
-    if (messagePair.second.mtype != MessageType::Init) {
+    if (messagePair.second.m_type != MessageType::Init) {
         //BLAD
         return;
     }
+
     predecessor = messagePair.first;
     state = 2;
     connector.send(predecessor, Message(MessageType::Ack));
@@ -49,10 +51,11 @@ void Client::handleStateInitPhaseFirst(MessagePair messagePair) {
 
 
 void Client::handleStateInitPhaseSecond(MessagePair messagePair) {
-    if (messagePair.second.mtype != MessageType::Init) {
+    if (messagePair.second.m_type != MessageType::Init) {
         //BLAD
         return;
     }
+
     successor = messagePair.first;
     state = 3;
     connector.send(successor, Message(MessageType::Init));
@@ -60,10 +63,11 @@ void Client::handleStateInitPhaseSecond(MessagePair messagePair) {
 
 
 void Client::handleStateInitPhaseThird(MessagePair messagePair) {
-    if (messagePair.second.mtype != MessageType::Ack) {
+    if (messagePair.second.m_type != MessageType::Ack) {
         //BLAD
         return;
     }
+
     state = 4;
     connector.send(predecessor, Message(MessageType::Ack));
 }

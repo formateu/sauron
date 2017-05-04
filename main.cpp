@@ -4,6 +4,7 @@
 
 #include "Connector.h"
 #include "Client.h"
+#include <unistd.h>
 
 extern char *optarg;
 
@@ -11,13 +12,13 @@ void showUsage(const char* prog) {
     std::cout << "Usage: "
               << prog
               << " [-r configfile] | [-t unit|int] | -h"
-              << endl;
+              << std::endl;
 }
 
 int main(int argc, char** argv)
 {
     int opt;
-    string stringParam;
+    std::string stringParam;
     opt = getopt(argc, argv, "r:t:h");
 
     switch (opt) {
