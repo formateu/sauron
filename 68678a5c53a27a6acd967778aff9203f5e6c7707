@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "06212fa8_00323ebb",
+        "filename": "Connector.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-04T20:34:57Z",
+      "side": 1,
+      "message": "reorder - najpierw globalne, pozniej lokalne libki",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 26
+      },
+      "revId": "68678a5c53a27a6acd967778aff9203f5e6c7707",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc124a80_a66f33fc",
         "filename": "Connector.h",
         "patchSetId": 1
