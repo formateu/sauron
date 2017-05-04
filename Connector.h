@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include "MessageBuffer.h"
 
 /**
  * Simple BSD c++ wrapper
@@ -24,7 +25,7 @@ public:
     Connector(size_t listenPort);
 
     void send(const std::string &address, size_t port, const Message&msg);
-    void listen(std::vector<Message> &msgBuffer);
+    void listen(MessageBuffer &msgBuffer);
     void terminate();
 protected:
     size_t m_listenPort;
