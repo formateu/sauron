@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40dc5bc4_06f44c78",
+        "filename": "Message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-04T16:33:49Z",
+      "side": 1,
+      "message": "przecinek powinien być na końcu linii",
+      "revId": "4a28e820bb2b032199e11788d3e55290d7e0afa9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
