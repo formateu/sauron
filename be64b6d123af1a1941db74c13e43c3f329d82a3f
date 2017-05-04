@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b16b75e_e92e8162",
+        "filename": "main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-04T17:34:02Z",
+      "side": 1,
+      "message": "wywal to xD",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "be64b6d123af1a1941db74c13e43c3f329d82a3f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e44752a_e3278671",
+        "filename": "main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-04T17:34:02Z",
+      "side": 1,
+      "message": "kazdy w osobnej linii tj : cout \u003c\u003c 1\n                                \u003c\u003c 2 itp",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 60
+      },
+      "revId": "be64b6d123af1a1941db74c13e43c3f329d82a3f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b58113b_d3981376",
+        "filename": "main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-04T17:34:02Z",
+      "side": 1,
+      "message": "niepotzebne klamry po etykietach",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "be64b6d123af1a1941db74c13e43c3f329d82a3f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
