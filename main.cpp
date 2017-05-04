@@ -8,12 +8,12 @@
 
 extern char *optarg;
 
-using namespace std;
-
 
 void showUsage(const char* prog) {
-    cout << "Usage: " << prog
-         << " [-r configfile] | [-t unit|int] | -h" << endl;
+  std::cout << "Usage: "
+            << prog
+            << " [-r configfile] | [-t unit|int] | -h"
+            << endl;
 }
 
 
@@ -23,19 +23,16 @@ int main(int argc, char** argv)
     string stringParam;
     opt = getopt(argc, argv, "r:t:h");
     switch (opt) {
-      case 'r': {
+      case 'r':
         stringParam = optarg;
         break;
-      }
-      case 't': {
+      case 't':
         stringParam = optarg;
         break;
-      }
-      default: {
+      default:
         showUsage(argv[0]);
         exit(EXIT_FAILURE);
         break;
-      }
     }
 
     Connector connector;
