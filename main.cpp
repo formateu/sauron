@@ -3,14 +3,15 @@
 //
 
 #include "Connector.h"
+#include "Client.h"
 
 extern char *optarg;
 
 void showUsage(const char* prog) {
     std::cout << "Usage: "
-        << prog
-        << " [-r configfile] | [-t unit|int] | -h"
-        << endl;
+              << prog
+              << " [-r configfile] | [-t unit|int] | -h"
+              << endl;
 }
 
 int main(int argc, char** argv)
@@ -32,6 +33,8 @@ int main(int argc, char** argv)
             break;
     }
 
-    Connector connector;
+    MsgBuffer msgBuffer;
+    Client client(msgBuffer, "127.0.0.1", 3000);
+    client.run();
     return 0;
 }

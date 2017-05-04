@@ -6,7 +6,9 @@
 #include <arpa/inet.h>
 #include "Connector.h"
 
-Connector::Connector(size_t listenPort) : m_listenPort(listenPort) {
+Connector::Connector(MsgBuffer &msgBuffer, size_t listenPort)
+        : msgBuffer(msgBuffer)
+        , m_listenPort(listenPort) {
     /*
      * ipv4 or ipv6 address resolve
      */
@@ -28,7 +30,8 @@ Connector::Connector(size_t listenPort) : m_listenPort(listenPort) {
         throw std::runtime_error("Binding socket failed");
 }
 
-void Connector::send(const std::string &address, size_t port, const Message &msg) {
+void Connector::send(const std::string &address, const Message &msg)
+{
     struct sockaddr_in6 sa6;
     struct sockaddr_in sa;
 
