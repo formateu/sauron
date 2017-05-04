@@ -8,10 +8,13 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+
 #include <iostream>
-#include <vector>
-#include "Message.h"
 #include <memory>
+#include <vector>
+
+#include "Message.h"
+#include "MessageBuffer.h"
 
 /**
  * Simple BSD c++ wrapper
@@ -21,9 +24,7 @@ typedef std::pair<std::string, Message> MessagePair;
 
 class MsgBuffer {
 public:
-    void push(const MessagePair &msgPair) {
-
-    }
+    void push() {}
 
     MessagePair pop() {
         Message message;
@@ -38,6 +39,7 @@ public:
     void send(const std::string &address, const Message&msg);
     void listen();
     void terminate() {}
+
 protected:
     size_t m_port;
     int m_listenSocket;
