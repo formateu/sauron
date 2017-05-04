@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include "Message.h"
+#include <memory>
 
 /**
  * Simple BSD c++ wrapper
