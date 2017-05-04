@@ -3,9 +3,12 @@
 //
 
 #include "Connector.h"
+#include "Client.h"
 
 int main(int argc, char** argv)
 {
-    Connector connector;
+    MsgBuffer msgBuffer;
+    Client client(msgBuffer, "127.0.0.1", 3000);
+    client.run();
     return 0;
 }
