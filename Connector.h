@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 /**
  * Simple BSD c++ wrapper
