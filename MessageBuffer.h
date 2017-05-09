@@ -8,22 +8,36 @@
 
 #include <queue>
 #include <mutex>
+#include <condition_variable>
 #include "Message.h"
+
+
+class Semaphore {
+public:
+    void notify();
+    void wait();
+
+private:
+    std::mutex mutex_;
+    std::condition_variable condition_;
+    unsigned long count_ = 0;
+};
+
 
 class MessageBuffer {
 public:
-    using MsgSenderPair = std::pair<Message, std::string>;
-    MessageBuffer() {}
+    MessageBuffer();
     ~MessageBuffer() {}
 
-    void push(const MsgSenderPair& msg);
+    void push(MsgSenderPair msg);
     MsgSenderPair pop();
+    typedef std::priority_queue<MsgSenderPair, std::vector<MsgSenderPair>,
+            std::function<bool(MsgSenderPair, MsgSenderPair)> > QueueType;
+
 protected:
-    auto m_cmp = [](const MsgSenderPair& left, const MsgSenderPair& right) {
-         return left.first.mtype == MessageType::Error;
-    };
-    std::priority_queue<MsgSenderPair, std::vector<MsgSenderPair>, decltype(m_cmp)> m_queue(m_cmp);
+    QueueType m_queue;
     std::mutex m_mutex;
+    Semaphore full;
 };
 
 

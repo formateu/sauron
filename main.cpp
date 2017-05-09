@@ -2,6 +2,9 @@
 // Created by Mateusz Forc on 03.05.17.
 //
 
+#include <iostream>
+#include <unistd.h>
+#include "MessageBuffer.h"
 #include "Connector.h"
 #include "Client.h"
 
@@ -11,13 +14,13 @@ void showUsage(const char* prog) {
     std::cout << "Usage: "
               << prog
               << " [-r configfile] | [-t unit|int] | -h"
-              << endl;
+              << std::endl;
 }
 
 int main(int argc, char** argv)
 {
     int opt;
-    string stringParam;
+    std::string stringParam;
     opt = getopt(argc, argv, "r:t:h");
 
     switch (opt) {
