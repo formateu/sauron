@@ -2,6 +2,10 @@
 // Created by Mateusz Forc on 03.05.17.
 //
 
+#include <iostream>
+#include <unistd.h>
+
+#include "MessageBuffer.h"
 #include "Connector.h"
 #include "Client.h"
 #include <unistd.h>
