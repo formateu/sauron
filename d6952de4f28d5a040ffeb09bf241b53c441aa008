@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49c101ac_c1dee1b2",
+        "filename": "wireshark/plugin.lua",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T15:10:57Z",
+      "side": 1,
+      "message": "remove linebreak",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "d6952de4f28d5a040ffeb09bf241b53c441aa008",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17e4c455_9bab3281",
+        "filename": "wireshark/plugin.lua",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T15:10:57Z",
+      "side": 1,
+      "message": "codestyle 100",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 118
+      },
+      "revId": "d6952de4f28d5a040ffeb09bf241b53c441aa008",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "507eeab0_0a7e19c7",
+        "filename": "wireshark/plugin.lua",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T15:10:57Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 3
+      },
+      "revId": "d6952de4f28d5a040ffeb09bf241b53c441aa008",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
