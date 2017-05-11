@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "72a5531a_f33dbf93",
+        "filename": "MessageBuffer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-05-11T15:36:57Z",
+      "side": 1,
+      "message": "zmien autora",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 2,
+        "endChar": 45
+      },
+      "revId": "80d9322b08e600e112628757db5d46fd3b92bd5f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "481a7042_c32622bc",
+        "filename": "MessageBuffer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-05-11T15:36:57Z",
+      "side": 1,
+      "message": "zmien autora",
+      "range": {
+        "startLine": 2,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 2
+      },
+      "revId": "80d9322b08e600e112628757db5d46fd3b92bd5f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1b7f6ad_65bb3e4e",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-05-11T15:36:57Z",
+      "side": 1,
+      "message": "brakuje autora",
+      "revId": "80d9322b08e600e112628757db5d46fd3b92bd5f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
