@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f22add02_cbd24c25",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T20:56:13Z",
+      "side": 1,
+      "message": "delete line break",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "1f098e708076a25c6056368929e92a488fa45583",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "889b7a3d_2d170332",
+        "filename": "Config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T20:56:13Z",
+      "side": 1,
+      "message": "Please use initializer list",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 32
+      },
+      "revId": "1f098e708076a25c6056368929e92a488fa45583",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
