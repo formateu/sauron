@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "267d5cdd_cc23a759",
+        "filename": "Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-11T20:58:28Z",
+      "side": 1,
+      "message": "remove braces",
+      "range": {
+        "startLine": 18,
+        "startChar": 61,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f6d16ba_3cd59e17",
         "filename": "Client.cpp",
         "patchSetId": 1
@@ -87,6 +110,30 @@
         "startChar": 3,
         "endLine": 29,
         "endChar": 8
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7369c9f_92795889",
+        "filename": "Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-11T20:58:28Z",
+      "side": 1,
+      "message": "stateRouter?",
+      "parentUuid": "c790dba1_3ecf04a5",
+      "range": {
+        "startLine": 29,
+        "startChar": 77,
+        "endLine": 29,
+        "endChar": 83
       },
       "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
