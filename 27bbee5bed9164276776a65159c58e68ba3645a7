@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0525e051_cc429720",
+        "filename": ".gitignore",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-11T21:51:23Z",
+      "side": 1,
+      "message": "to be removed",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 9
+      },
+      "revId": "27bbee5bed9164276776a65159c58e68ba3645a7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2279dd06_31763ed0",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-11T21:51:23Z",
+      "side": 1,
+      "message": "does not work, yaml-cpp is not cloned",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "27bbee5bed9164276776a65159c58e68ba3645a7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
