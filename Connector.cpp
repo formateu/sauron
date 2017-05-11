@@ -6,7 +6,7 @@
 #include <arpa/inet.h>
 #include "Connector.h"
 
-Connector::Connector(MsgBuffer &msgBuffer, size_t listenPort)
+Connector::Connector(MessageBuffer &msgBuffer, size_t listenPort)
         : msgBuffer(msgBuffer)
         , m_port(listenPort) {
     struct sockaddr_in6 name;
@@ -80,17 +80,17 @@ void Connector::listen() {
     sa6.sin6_port = htons(static_cast<uint16_t>(m_listenSocket));
     unsigned int size = sizeof sa6;
 
-    while(true) {
+    while (true) {
         recvMsgSize = recvfrom(m_listenSocket, msg.get(), sizeof(*msg.get()), 0, (struct sockaddr *) &sa6, &size);
 
-        if (recvMsgSize  == -1) {
+        if (recvMsgSize == -1) {
             throw std::runtime_error("Receiving message failed");
         }
 
-        std::unique_ptr<char> senderAddr(inet_ntop(AF_INET6, (void*) &sa6.sin6_addr, senderAddr.get(), senderAddrLen));
+        std::unique_ptr<char> senderAddr(const_cast<char*>(inet_ntop(AF_INET6, (void*) &sa6.sin6_addr, senderAddr.get(), senderAddrLen)));
         if (senderAddr.get() == nullptr)
             throw std::runtime_error("Getting sender address failed");
 
-        msgBuffer.push(std::make_pair(*msg.get(), std::string(senderAddr.get())));
+        msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
     }
 }

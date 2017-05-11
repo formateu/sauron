@@ -5,17 +5,19 @@
 #define SAURON_CLIENT_H
 
 #include <thread>
+
 #include "Connector.h"
+#include "MessageBuffer.h"
 
 class Client {
 public:
-    Client(MsgBuffer &msgBuffer, const std::string &address, size_t port);
+    Client(MessageBuffer &msgBuffer, const std::string &address, size_t port);
     void run();
 
 private:
     Connector connector;
     const std::string &mAddress;
-    MsgBuffer &msgBuffer;
+    MessageBuffer &msgBuffer;
     int state;
     bool finish;
     std::string predecessor;

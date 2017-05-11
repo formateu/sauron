@@ -1,5 +1,5 @@
 //
-// Created by Wiktor Franus and Mateusz Forc on 04.05.17.
+// Created by Przemyslaw Kopanski
 //
 
 #ifndef SAURON_MESSAGEBUFFER_H

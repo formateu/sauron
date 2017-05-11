@@ -8,7 +8,6 @@
 #include "MessageBuffer.h"
 #include "Connector.h"
 #include "Client.h"
-#include <unistd.h>
 
 extern char *optarg;
 
@@ -38,7 +37,7 @@ int main(int argc, char** argv)
             break;
     }
 
-    MsgBuffer msgBuffer;
+    MessageBuffer msgBuffer;
     Client client(msgBuffer, "127.0.0.1", 3000);
     client.run();
     return 0;

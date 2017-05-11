@@ -1,6 +1,6 @@
 #include "Client.h"
 
-Client::Client(MsgBuffer &msgBuffer, const std::string &address, size_t port)
+Client::Client(MessageBuffer &msgBuffer, const std::string &address, size_t port)
     : mAddress(address)
     , msgBuffer(msgBuffer)
     , connector(Connector(msgBuffer, port))
