@@ -4,10 +4,11 @@
 
 #include <stdexcept>
 #include <arpa/inet.h>
+
 #include "Connector.h"
 
-Connector::Connector(MessageBuffer &msgBuffer, size_t listenPort)
-        : msgBuffer(msgBuffer)
+InternetConnector::InternetConnector(MessageBuffer &msgBuffer, size_t listenPort)
+        : Connector(msgBuffer)
         , m_port(listenPort) {
     struct sockaddr_in6 name;
 
@@ -32,7 +33,7 @@ Connector::Connector(MessageBuffer &msgBuffer, size_t listenPort)
     }
 }
 
-void Connector::send(const std::string &address, const Message &msg) {
+void InternetConnector::send(const std::string &address, const Message &msg) {
     struct sockaddr_in6 sa6;
     struct sockaddr_in sa;
 
@@ -68,7 +69,7 @@ void Connector::send(const std::string &address, const Message &msg) {
     }
 }
 
-void Connector::listen() {
+void InternetConnector::listen() {
     int recvMsgSize = 0;
     std::unique_ptr<Message> msg(new Message());
     struct sockaddr_in6 sa6;
@@ -93,4 +94,13 @@ void Connector::listen() {
 
         msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
     }
+}
+
+
+void MockConnector::send(const std::string &address, const Message &msg) {
+  sentMessagesStack.push_back({address, msg});
+}
+
+void MockConnector::listen() {
+  // modify if needed, currently messages can be pushed to be listened via MessageBuffer
 }
