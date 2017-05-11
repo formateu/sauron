@@ -1,82 +1,72 @@
 #include "Client.h"
 
-Client::Client(MessageBuffer &msgBuffer, const std::string &address, size_t port)
+Client::Client(MessageBuffer &msgBuffer,
+               const std::string &address,
+               size_t port,
+               ClientState state)
     : mAddress(address)
     , msgBuffer(msgBuffer)
     , connector(Connector(msgBuffer, port))
-    , state(1)
-    , finish(false) {}
+    , state(state) {}
 
 void Client::run() {
     std::thread listenThread(&Connector::listen, connector);
 
-    while (!finish) {
+    while (state != ClientState::FINISHED) {
         MessagePair messagePair = msgBuffer.pop();
 
         if (messagePair.second.m_type == MessageType::Finish) {
-            handleFinish(messagePair);
+            handleFinishing(messagePair);
         }
-
-        switch (state) {
-            case 1:
-                handleStateInitPhaseFirst(messagePair);
-                break;
-            case 2:
-                handleStateInitPhaseSecond(messagePair);
-                break;
-            case 3:
-                handleStateInitPhaseThird(messagePair);
-                break;
-            case 4:
-                handleStateConnectionEstablished(messagePair);
-                break;
-            default:
-                std::cout << "Undefined state" << std::endl;
+        try {
+            router[state](messagePair);
+        } catch (const std::out_of_range &e) {
+            std::cout << "[ERROR]: Unkown state. " << e.what() << std::endl;
         }
     }
 
     listenThread.join();
 }
 
-void Client::handleStateInitPhaseFirst(MessagePair messagePair) {
+void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     if (messagePair.second.m_type != MessageType::Init) {
         //BLAD
         return;
     }
 
     predecessor = messagePair.first;
-    state = 2;
+    state = ClientState::INIT_PHASE_SECOND;
     connector.send(predecessor, Message(MessageType::Ack));
 }
 
 
-void Client::handleStateInitPhaseSecond(MessagePair messagePair) {
+void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
     if (messagePair.second.m_type != MessageType::Init) {
         //BLAD
         return;
     }
 
     successor = messagePair.first;
-    state = 3;
+    state = ClientState::INIT_PHASE_THIRD;
     connector.send(successor, Message(MessageType::Init));
 }
 
 
-void Client::handleStateInitPhaseThird(MessagePair messagePair) {
+void Client::handleStateInitPhaseThird(const MessagePair &messagePair) {
     if (messagePair.second.m_type != MessageType::Ack) {
         //BLAD
         return;
     }
 
-    state = 4;
+    state = ClientState::CONNECTION_ESTABLISHED;
     connector.send(predecessor, Message(MessageType::Ack));
 }
 
-void Client::handleStateConnectionEstablished(MessagePair messagePair) {
+void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
 
 }
 
-void Client::handleFinish(MessagePair messagePair) {
+void Client::handleFinishing(const MessagePair &messagePair) {
     connector.send(successor, messagePair.second);
-    finish = true;
+    state = ClientState::FINISHED;
 }
