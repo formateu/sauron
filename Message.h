@@ -12,7 +12,8 @@ enum MessageType {
   Measurement,
   Finish,
   Ack,
-  Error
+  Error,
+  Terminate // mainly for testing purposes
 };
 
 struct Message {
