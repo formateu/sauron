@@ -4,8 +4,8 @@ project(sauron)
 find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
-set(CMAKE_CXX_STANDARD 11)
-set(SOURCE_FILES main.cpp Client.h Client.cpp Connector.h Connector.cpp Message.h MessageBuffer.cpp MessageBuffer.h)
+set(CMAKE_CXX_STANDARD 14)
+set(SOURCE_FILES main.cpp Client.h Client.cpp Connector.h Connector.cpp Message.h MessageBuffer.cpp MessageBuffer.h ClientState.h)
 
 add_executable(sauron ${SOURCE_FILES})
 
