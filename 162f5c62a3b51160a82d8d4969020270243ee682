@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f55eaa9b_ba6d6ebe",
+        "filename": "Message.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "Please use c++11 alias instead of c++99 typedef.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 54
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bbb76571_9d5262eb",
+        "filename": "MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "we use 4 spaces as indent.",
+      "range": {
+        "startLine": 24,
+        "startChar": 5,
+        "endLine": 24,
+        "endChar": 6
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58e28cac_a4a57a1c",
+        "filename": "MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5145089_ee3b3223",
+        "filename": "MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 43,
+        "startChar": 2,
+        "endLine": 43,
+        "endChar": 4
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "926c4cfb_20e41f62",
+        "filename": "MessageBuffer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "We prefer new c++11 alias instead of c++99 typedef.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 74
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "42811eae_98cf39f6",
+        "filename": "main.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "line break before our headers.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e15cfb95_95387e14",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "add line break",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1e7015c_8621cc1b",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "delete line break.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 0
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44e490d9_731ffdf7",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "indent.",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 7
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "120787ad_222ab572",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 7
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b346d00d_8819a405",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dce52568_6a283903",
+        "filename": "test/MessageBuffer.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T14:54:34Z",
+      "side": 1,
+      "message": "same as other test",
+      "range": {
+        "startLine": 7,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 19
+      },
+      "revId": "162f5c62a3b51160a82d8d4969020270243ee682",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
