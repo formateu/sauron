@@ -3,14 +3,18 @@
 Client::Client(MessageBuffer &msgBuffer,
                const std::string &address,
                size_t port,
+               Connector *inputConnector,
                ClientState state)
-    : mAddress(address)
-    , msgBuffer(msgBuffer)
-    , connector(Connector(msgBuffer, port))
-    , state(state) {}
+    : mAddress(address) , msgBuffer(msgBuffer)
+    , state(state) {
+      if (inputConnector == nullptr)
+        connector.reset(new InternetConnector(msgBuffer, port));
+      else
+        connector.reset(inputConnector);
+    }
 
 void Client::run() {
-    std::thread listenThread(&Connector::listen, connector);
+    std::thread listenThread(&Connector::listen, connector.get());
 
     while (state != ClientState::FINISHED) {
         MessagePair messagePair = msgBuffer.pop();
@@ -39,7 +43,7 @@ void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
 
     predecessor = messagePair.first;
     state = ClientState::INIT_PHASE_SECOND;
-    connector.send(predecessor, Message(MessageType::Ack));
+    connector->send(predecessor, Message(MessageType::Ack));
 }
 
 
@@ -51,7 +55,7 @@ void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
 
     successor = messagePair.first;
     state = ClientState::INIT_PHASE_THIRD;
-    connector.send(successor, Message(MessageType::Init));
+    connector->send(successor, Message(MessageType::Init));
 }
 
 
@@ -62,7 +66,7 @@ void Client::handleStateInitPhaseThird(const MessagePair &messagePair) {
     }
 
     state = ClientState::CONNECTION_ESTABLISHED;
-    connector.send(predecessor, Message(MessageType::Ack));
+    connector->send(predecessor, Message(MessageType::Ack));
 }
 
 void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
@@ -70,6 +74,17 @@ void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
 }
 
 void Client::handleFinishing(const MessagePair &messagePair) {
-    connector.send(successor, messagePair.second);
+    connector->send(successor, messagePair.second);
     state = ClientState::FINISHED;
+}
+
+ClientState Client::getClientState() {
+    return state;
+}
+
+void Client::stop() {
+    Message msg;
+    msg.m_type = MessageType::Terminate;
+    // push any message to unlock the loop
+    msgBuffer.push({"127.0.0.1", msg});
 }

@@ -24,16 +24,38 @@ typedef std::pair<std::string, Message> MessagePair;
 
 class Connector {
 public:
-    Connector(MessageBuffer &msgBuffer, size_t listenPort);
+    //Connector(MessageBuffer &buffer) : msgBuffer(buffer) {}
+    virtual void send(const std::string &address, const Message &msg) = 0;
+    virtual void listen() = 0;
+    virtual ~Connector() {}
+};
 
-    void send(const std::string &address, const Message&msg);
+
+class InternetConnector : public Connector {
+public:
+    InternetConnector(MessageBuffer &buffer, size_t listenPort);
+    void send(const std::string &address, const Message &msg);
     void listen();
     void terminate() {}
 
-protected:
+private:
     size_t m_port;
     int m_listenSocket;
     MessageBuffer &msgBuffer;
 };
+
+
+class MockConnector : public Connector {
+public:
+    MockConnector(MessageBuffer &buffer);
+    void send(const std::string &address, const Message &msg);
+    void listen();
+
+private:
+    /* All messages sent by MockConnector::send method */
+    std::vector<MessagePair> sentMessagesStack;
+    MessageBuffer &msgBuffer;
+};
+
 
 #endif //SAURON_CONNECTOR_H
