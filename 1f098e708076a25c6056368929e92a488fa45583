@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9b05fb53_c86c38d5",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-11T21:14:03Z",
+      "side": 1,
+      "message": "remove that, it\u0027s submodule\u0027s directory",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 9
+      },
+      "revId": "1f098e708076a25c6056368929e92a488fa45583",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f22add02_cbd24c25",
         "filename": "CMakeLists.txt",
         "patchSetId": 1
