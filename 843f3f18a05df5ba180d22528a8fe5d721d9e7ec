@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f6d16ba_3cd59e17",
+        "filename": "Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T18:58:26Z",
+      "side": 1,
+      "message": "line break",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 9
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ad03aea_cac97fa0",
+        "filename": "Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T18:58:26Z",
+      "side": 1,
+      "message": "redundant",
+      "range": {
+        "startLine": 26,
+        "startChar": 21,
+        "endLine": 26,
+        "endChar": 54
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c790dba1_3ecf04a5",
+        "filename": "Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T18:58:26Z",
+      "side": 1,
+      "message": "maybe possible better self-commenting name?\nThis is only suggestion",
+      "range": {
+        "startLine": 29,
+        "startChar": 77,
+        "endLine": 29,
+        "endChar": 83
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f894414b_08a0971a",
+        "filename": "Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T18:58:26Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 29,
+        "startChar": 3,
+        "endLine": 29,
+        "endChar": 8
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fc85625_cc57dc07",
+        "filename": "Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T18:58:26Z",
+      "side": 1,
+      "message": "Optimization idea #1 for later : use lambda functions instead of std:: bind, to really speed up (not creatinc class nor virtual function/function call operator call)",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 110
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b73ae4c_f2694318",
+        "filename": "Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-11T18:58:26Z",
+      "side": 1,
+      "message": "CodeStyle, try to break lines to make it short and readable if possible.",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 34,
+        "endChar": 110
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
