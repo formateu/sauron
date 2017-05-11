@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05146d4e_3d3db26f",
+        "filename": "Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010917
+      },
+      "writtenOn": "2017-05-11T21:33:54Z",
+      "side": 1,
+      "message": "We decided to add braces in one line ifs.",
+      "parentUuid": "267d5cdd_cc23a759",
+      "range": {
+        "startLine": 18,
+        "startChar": 61,
+        "endLine": 18,
+        "endChar": 63
+      },
+      "revId": "843f3f18a05df5ba180d22528a8fe5d721d9e7ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f6d16ba_3cd59e17",
         "filename": "Client.cpp",
         "patchSetId": 1
