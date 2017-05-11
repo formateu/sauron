@@ -3,4 +3,4 @@
 #include <boost/test/unit_test.hpp>
 
 #include "test/MessageBuffer.cpp"
-
+#include "test/Client.cpp"

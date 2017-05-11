@@ -6,6 +6,7 @@
 
 #include <thread>
 #include <unordered_map>
+#include <memory>
 
 #include "Connector.h"
 #include "MessageBuffer.h"
@@ -16,14 +17,22 @@ public:
     Client(MessageBuffer &msgBuffer,
            const std::string &address,
            size_t port,
+           Connector *connector = nullptr,
            ClientState state = ClientState::INIT_PHASE_FIRST);
     void run();
+    ClientState getClientState();
+
+    /**
+     * Helper function for testing purposes,
+     * stops the main loop
+     */
+    void stop();
 
 private:
-    Connector connector;
+    std::unique_ptr<Connector> connector;
     const std::string &mAddress;
     MessageBuffer &msgBuffer;
-    ClientState state = ClientState::INIT_PHASE_FIRST;
+    ClientState state;
     std::string predecessor;
     std::string successor;
     std::unordered_map<ClientState, std::function<void(const MessagePair&)>> router = {
