@@ -8,6 +8,7 @@
 #include "MessageBuffer.h"
 #include "Connector.h"
 #include "Client.h"
+#include "Config.h"
 
 extern char *optarg;
 
@@ -22,11 +23,12 @@ int main(int argc, char** argv)
 {
     int opt;
     std::string stringParam;
+    std::string configFilePath;
     opt = getopt(argc, argv, "r:t:h");
 
     switch (opt) {
         case 'r':
-            stringParam = optarg;
+            configFilePath = optarg;
             break;
         case 't':
             stringParam = optarg;
@@ -34,11 +36,18 @@ int main(int argc, char** argv)
         default:
             showUsage(argv[0]);
             exit(EXIT_FAILURE);
-            break;
     }
 
-    MessageBuffer msgBuffer;
-    Client client(msgBuffer, "127.0.0.1", 3000);
-    client.run();
-    return 0;
+    Config config(configFilePath);
+    try {
+        config.read();
+    } catch (YAML::BadFile e) {
+        std::cout << "ERROR: Cannot find config file: " << configFilePath << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    std::cout << config.clientSleepSeconds << std::endl;
+    std::cout << config.clientWorkSeconds << std::endl;
+
+    exit(EXIT_SUCCESS);
 }
