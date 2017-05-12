@@ -1,4 +1,5 @@
 #include <boost/test/unit_test.hpp>
+
 #include "Message.h"
 #include "MessageBuffer.h"
 #include "Connector.h"

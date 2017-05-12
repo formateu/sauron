@@ -13,7 +13,6 @@ set(SOURCE_FILES_CLIENT
         ClientState.cpp
         )
 
-
 add_library(sauron_lib
         ${SOURCE_FILES_SAURON}
         ${SOURCE_FILES_CLIENT})

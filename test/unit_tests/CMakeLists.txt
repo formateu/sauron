@@ -18,4 +18,5 @@ target_link_libraries(sauron_unit_test
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
         yaml-cpp
         )
+
 add_test(sauron_unit_test sauron_unit_test)
