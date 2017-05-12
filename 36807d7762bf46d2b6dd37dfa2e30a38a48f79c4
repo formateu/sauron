@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c716ff9_679793c4",
+        "filename": "src/Config.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:45:15Z",
+      "side": 1,
+      "message": "trailing char",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "36807d7762bf46d2b6dd37dfa2e30a38a48f79c4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
