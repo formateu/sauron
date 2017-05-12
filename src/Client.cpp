@@ -8,9 +8,9 @@ Client::Client(MessageBuffer &msgBuffer,
     : mAddress(address) , msgBuffer(msgBuffer)
     , state(state) {
       if (inputConnector == nullptr)
-        connector.reset(new InternetConnector(msgBuffer, port));
+          connector.reset(new InternetConnector(msgBuffer, port));
       else
-        connector.reset(inputConnector);
+          connector.reset(inputConnector);
     }
 
 void Client::run() {
@@ -21,7 +21,8 @@ void Client::run() {
 
         if (messagePair.second.m_type == MessageType::Finish) {
             handleFinishing(messagePair);
-        }
+        } else if (messagePair.second.m_type == MessageType::Terminate)
+          break;
 
         auto handler = stateRouter.find(state);
 
