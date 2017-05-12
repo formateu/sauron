@@ -8,20 +8,23 @@
 #include <string>
 
 enum MessageType {
-  Init,
-  Measurement,
-  Finish,
-  Ack,
-  Error,
-  Terminate // mainly for testing purposes
+    Init,
+    Measurement,
+    Finish,
+    Ack,
+    Error,
+    Terminate // mainly for testing purposes
 };
 
 struct Message {
     Message() {}
+
     Message(MessageType m_type) : m_type(m_type) {}
 
     MessageType m_type;
+
     unsigned char m_pipeAddress[16]; // ip, can be either ip4 or ip6
+
     int m_measureValue; // value of measurement
 };
 

@@ -9,7 +9,8 @@
 
 InternetConnector::InternetConnector(MessageBuffer &msgBuffer, size_t listenPort)
         : msgBuffer(msgBuffer)
-        , m_port(listenPort) {
+        , m_port(listenPort)
+{
     struct sockaddr_in6 name;
 
     m_listenSocket = socket(AF_INET6, SOCK_DGRAM, 0);
@@ -47,7 +48,7 @@ void InternetConnector::send(const std::string &address, const Message &msg) {
             throw std::runtime_error("Unrecognized IP address");
         }
 
-        if (sendto(m_listenSocket, (void*)&msg, sizeof msg, 0,(struct sockaddr *) &sa6, sizeof sa6) == -1) {
+        if (sendto(m_listenSocket, (void *) &msg, sizeof msg, 0, (struct sockaddr *) &sa6, sizeof sa6) == -1) {
             throw std::runtime_error("Sending message failed");
         }
 
@@ -64,7 +65,7 @@ void InternetConnector::send(const std::string &address, const Message &msg) {
         throw std::runtime_error("Unrecognized IP address");
     }
 
-    if (sendto(m_listenSocket, (void*)&msg, sizeof msg, 0,(struct sockaddr *) &sa6, sizeof sa6) == -1) {
+    if (sendto(m_listenSocket, (void *) &msg, sizeof msg, 0, (struct sockaddr *) &sa6, sizeof sa6) == -1) {
         throw std::runtime_error("Sending message failed");
     }
 }
@@ -88,21 +89,22 @@ void InternetConnector::listen() {
             throw std::runtime_error("Receiving message failed");
         }
 
-        std::unique_ptr<char> senderAddr(const_cast<char*>(inet_ntop(AF_INET6, (void*) &sa6.sin6_addr, senderAddr.get(), senderAddrLen)));
-        if (senderAddr.get() == nullptr)
+        std::unique_ptr<char> senderAddr(const_cast<char *>(inet_ntop(AF_INET6, (void *) &sa6.sin6_addr, senderAddr.get(), senderAddrLen)));
+        if (senderAddr.get() == nullptr) {
             throw std::runtime_error("Getting sender address failed");
+        }
 
         msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
     }
 }
 
 MockConnector::MockConnector(MessageBuffer &msgBuffer)
-  : msgBuffer(msgBuffer) {}
+    : msgBuffer(msgBuffer) {}
 
 void MockConnector::send(const std::string &address, const Message &msg) {
-  sentMessagesStack.push_back({address, msg});
+    sentMessagesStack.push_back({address, msg});
 }
 
 void MockConnector::listen() {
-  // modify if needed, currently messages can be pushed to be listened via MessageBuffer
+    // modify if needed, currently messages can be pushed to be listened via MessageBuffer
 }
