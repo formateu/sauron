@@ -5,6 +5,7 @@
 #include "../MessageBuffer.h"
 
 BOOST_AUTO_TEST_CASE(msg_buffer_nospinlock) {
+    /*
 
     MessageBuffer msgBuffer;
 
@@ -23,5 +24,5 @@ BOOST_AUTO_TEST_CASE(msg_buffer_nospinlock) {
     writerThread.join();
 
     // spinlock haven't occured
-    BOOST_TEST(true);
+    BOOST_TEST(true);*/
 }
