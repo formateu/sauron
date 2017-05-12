@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "99c741ae_961533ed",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-12T10:21:33Z",
+      "side": 1,
+      "message": "missing tests goal\n(unit_test.cpp generates main())",
+      "revId": "533954d5ed9c692e8a1ee66172389d3200f786ce",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d2ec4f4_8867d337",
         "filename": "CMakeLists.txt",
         "patchSetId": 5
