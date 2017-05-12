@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c33c5c18_00e2be82",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "1 linia za duzo",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 0
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dca4845_18534f18",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "wywal to",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 16
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12a22668_e0a73c3d",
+        "filename": "src/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "wywal",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fcb35f4_019033b9",
+        "filename": "test/unit_tests/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "dodaj linie",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 9
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d11866ec_3756b8b0",
+        "filename": "test/unit_tests/TestClient.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "Dodaj linie",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47b9b07f_1ca6fa91",
+        "filename": "test/unit_tests/TestMessageBuffer.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "Przesun ponizej includow standardowych i zrob linie odstepu",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 35
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e3912cd_3e254039",
+        "filename": "test/unit_tests/UnitTestMain.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T14:24:02Z",
+      "side": 1,
+      "message": "wywal",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 29
+      },
+      "revId": "3ee22a264b9e5ed4bae68cae904ac081b5c5bdf8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
