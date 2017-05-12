@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d2ec4f4_8867d337",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-12T09:53:34Z",
+      "side": 1,
+      "message": "zbędny biały znak na końcu linii",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "533954d5ed9c692e8a1ee66172389d3200f786ce",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "beb70bf9_5aa9a07b",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-12T09:53:34Z",
+      "side": 1,
+      "message": "zbędny biały znak na końcu linii",
+      "range": {
+        "startLine": 29,
+        "startChar": 23,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "533954d5ed9c692e8a1ee66172389d3200f786ce",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85002e4d_56111ee1",
+        "filename": "Config.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-12T09:53:34Z",
+      "side": 1,
+      "message": "zbędny biały znak na końcu linii",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "533954d5ed9c692e8a1ee66172389d3200f786ce",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
