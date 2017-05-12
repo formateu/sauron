@@ -12,15 +12,14 @@
 
 extern char *optarg;
 
-void showUsage(const char* prog) {
+void showUsage(const char *prog) {
     std::cout << "Usage: "
               << prog
               << " [-r configfile] | [-t unit|int] | -h"
               << std::endl;
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
     int opt;
     std::string stringParam;
     std::string configFilePath;

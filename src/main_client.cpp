@@ -6,8 +6,7 @@
 #include "MessageBuffer.h"
 #include "Client.h"
 
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
     MessageBuffer msgBuffer;
     Client client(msgBuffer, "127.0.0.1", 3000);
     client.run();

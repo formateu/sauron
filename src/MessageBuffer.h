@@ -1,7 +1,6 @@
 //
 // Created by Przemyslaw Kopanski
 //
-
 #ifndef SAURON_MESSAGEBUFFER_H
 #define SAURON_MESSAGEBUFFER_H
 
@@ -15,27 +14,35 @@
 class Semaphore {
 public:
     void notify();
+
     void wait();
 
 private:
     std::mutex mutex_;
+
     std::condition_variable condition_;
+
     unsigned long count_ = 0;
 };
 
 class MessageBuffer {
 public:
     MessageBuffer();
+
     ~MessageBuffer() {}
 
     void push(MsgSenderPair msg);
+
     MsgSenderPair pop();
+
     using QueueType = std::priority_queue<MsgSenderPair, std::vector<MsgSenderPair>,
-                      std::function<bool(MsgSenderPair, MsgSenderPair)> >;
+            std::function<bool(MsgSenderPair, MsgSenderPair)> >;
 
 protected:
     QueueType m_queue;
+
     std::mutex m_mutex;
+
     Semaphore full;
 };
 

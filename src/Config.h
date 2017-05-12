@@ -12,7 +12,7 @@
 
 struct Config {
 
-    Config(const std::string& filePath);
+    Config(const std::string &filePath);
 
     static const long CLIENT_SLEEP_SECONDS_DEFAULT = 10;
 

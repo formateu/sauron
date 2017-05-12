@@ -21,6 +21,7 @@ public:
            ClientState state = ClientState::INIT_PHASE_FIRST);
 
     void run();
+
     ClientState getClientState();
 
     /**
@@ -35,6 +36,7 @@ private:
     const std::string &mAddress;
 
     MessageBuffer &msgBuffer;
+
     ClientState state;
 
     std::string predecessor;

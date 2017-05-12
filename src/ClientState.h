@@ -17,14 +17,14 @@ enum class ClientState {
 };
 
 const std::unordered_map<ClientState, std::string> stateStringMap = {
-    {ClientState::INIT_PHASE_FIRST, "Init phase first"},
-    {ClientState::INIT_PHASE_SECOND, "Init phase second"},
-    {ClientState::INIT_PHASE_THIRD, "Init phase third"},
-    {ClientState::CONNECTION_ESTABLISHED, "Connection established"},
-    {ClientState::FINISHING, "Finishing"},
-    {ClientState::FINISHED, "Finished"}
+    { ClientState::INIT_PHASE_FIRST,       "Init phase first" },
+    { ClientState::INIT_PHASE_SECOND,      "Init phase second" },
+    { ClientState::INIT_PHASE_THIRD,       "Init phase third" },
+    { ClientState::CONNECTION_ESTABLISHED, "Connection established" },
+    { ClientState::FINISHING,              "Finishing" },
+    { ClientState::FINISHED,               "Finished" }
 };
 
-std::ostream& operator<<(std::ostream& stream, const ClientState& state);
+std::ostream &operator<<(std::ostream &stream, const ClientState &state);
 
 #endif //SAURON_STATE_H

@@ -1,3 +1,6 @@
+//
+// Created by Przemyslaw Kopanski and Grzegorz Staniszewski on 04.05.17.
+//
 #include "Client.h"
 
 Client::Client(MessageBuffer &msgBuffer,
@@ -5,13 +8,14 @@ Client::Client(MessageBuffer &msgBuffer,
                size_t port,
                Connector *inputConnector,
                ClientState state)
-    : mAddress(address) , msgBuffer(msgBuffer)
-    , state(state) {
-      if (inputConnector == nullptr)
-          connector.reset(new InternetConnector(msgBuffer, port));
-      else
-          connector.reset(inputConnector);
+    : mAddress(address), msgBuffer(msgBuffer), state(state)
+{
+    if (inputConnector == nullptr) {
+        connector.reset(new InternetConnector(msgBuffer, port));
+    } else {
+        connector.reset(inputConnector);
     }
+}
 
 void Client::run() {
     std::thread listenThread(&Connector::listen, connector.get());
@@ -21,8 +25,9 @@ void Client::run() {
 
         if (messagePair.second.m_type == MessageType::Finish) {
             handleFinishing(messagePair);
-        } else if (messagePair.second.m_type == MessageType::Terminate)
-          break;
+        } else if (messagePair.second.m_type == MessageType::Terminate){
+            break;
+        }
 
         auto handler = stateRouter.find(state);
 
@@ -36,9 +41,13 @@ void Client::run() {
     listenThread.join();
 }
 
+ClientState Client::getClientState() {
+    return state;
+}
+
 void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     if (messagePair.second.m_type != MessageType::Init) {
-        //BLAD
+        //ERROR
         return;
     }
 
@@ -47,10 +56,9 @@ void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     connector->send(predecessor, Message(MessageType::Ack));
 }
 
-
 void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
     if (messagePair.second.m_type != MessageType::Init) {
-        //BLAD
+        //ERROR
         return;
     }
 
@@ -59,10 +67,9 @@ void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
     connector->send(successor, Message(MessageType::Init));
 }
 
-
 void Client::handleStateInitPhaseThird(const MessagePair &messagePair) {
     if (messagePair.second.m_type != MessageType::Ack) {
-        //BLAD
+        //ERROR
         return;
     }
 
@@ -77,10 +84,6 @@ void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
 void Client::handleFinishing(const MessagePair &messagePair) {
     connector->send(successor, messagePair.second);
     state = ClientState::FINISHED;
-}
-
-ClientState Client::getClientState() {
-    return state;
 }
 
 void Client::stop() {
