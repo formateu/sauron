@@ -1,8 +1,8 @@
 #include <thread>
 #include <chrono>
 
-#include "../Message.h"
-#include "../MessageBuffer.h"
+#include "../../src/Message.h"
+#include "../../src/MessageBuffer.h"
 
 BOOST_AUTO_TEST_CASE(msg_buffer_nospinlock) {
 

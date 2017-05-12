@@ -1,8 +1,8 @@
-#include "../Message.h"
-#include "../MessageBuffer.h"
-#include "../Connector.h"
-#include "../ClientState.h"
-#include "../Client.h"
+#include "../../src/Message.h"
+#include "../../src/MessageBuffer.h"
+#include "../../src/Connector.h"
+#include "../../src/ClientState.h"
+#include "../../src/Client.h"
 
 BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
     // setup
