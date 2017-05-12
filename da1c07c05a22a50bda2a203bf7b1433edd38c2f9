@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ccc4e74_94191ffc",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-12T09:40:37Z",
+      "side": 1,
+      "message": "dlaczego main.cpp nie jest w nowej linii?",
+      "revId": "da1c07c05a22a50bda2a203bf7b1433edd38c2f9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80a8974b_79551c6a",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-12T09:40:37Z",
+      "side": 1,
+      "message": "to samo co wyżej",
+      "revId": "da1c07c05a22a50bda2a203bf7b1433edd38c2f9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a49e67b3_ba8a634e",
+        "filename": "Config.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-12T09:40:37Z",
+      "side": 1,
+      "message": "klamra po liście inicjalizacyjnej powinna być w nowej linii",
+      "range": {
+        "startLine": 10,
+        "startChar": 53,
+        "endLine": 10,
+        "endChar": 54
+      },
+      "revId": "da1c07c05a22a50bda2a203bf7b1433edd38c2f9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
