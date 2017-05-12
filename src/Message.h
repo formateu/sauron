@@ -5,7 +5,7 @@
 #define SAURON_MESSAGE_H
 
 #include <utility>
-
+#include <string>
 
 enum MessageType {
   Init,
