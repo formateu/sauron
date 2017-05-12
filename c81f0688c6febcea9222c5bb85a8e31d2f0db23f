@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be9cfa8a_fd5319ab",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "Pomysl na sobote : Trzeba bedzie zaorac wszystkie stopki i ujednolicic jakis format.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 2
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b091ca25_26182f9c",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "Tutaj bardzo dobrze, dyskutowalismy kiedys o tym ze przez listy inicjalizujace codestyle moze byc niespojny, dlatego ze funkcje rozpoczynaja sie czasami na koncu linii w momencie z dupy, ale moim zdaniem taki wyjatek od reguly powinien zostac przyjety dla czytelnosci - Props.",
+      "range": {
+        "startLine": 11,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 1
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c8dd27b_09e3ce4a",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "byc moze to niekoniecznie codestyle ale jak juz oramy to moznaby i to - polski komentarz",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66f00d1d_f057ce13",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "polski komentarz w kodzie",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f741f3b8_99abd1bc",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "polski komentarz w kodzie",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 14
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38fba0df_7704cc7f",
+        "filename": "src/Connector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "moze jakos zlamac ?",
+      "range": {
+        "startLine": 51,
+        "startChar": 12,
+        "endLine": 51,
+        "endChar": 111
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11626c4b_49b331c5",
+        "filename": "src/Connector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "to samo, codestyle : linelength \u003e 100",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 107
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ef4ba63_90501859",
+        "filename": "src/Connector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "sproboj zlamac",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 114
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff9f640e_f4377fc9",
+        "filename": "src/Connector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-12T16:37:20Z",
+      "side": 1,
+      "message": "to samo co wyzej",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 140
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
