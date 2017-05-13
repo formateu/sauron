@@ -7,10 +7,11 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include <yaml-cpp/yaml.h>
 
-struct Config {
+class Config {
 
     Config(const std::string &filePath);
 
@@ -25,6 +26,8 @@ struct Config {
 
     //time that client should work in seconds
     long clientWorkSeconds;
+
+    std::vector<std::string> m_ipVec;
 
 private:
     const std::string &filePath;
