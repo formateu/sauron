@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "8473eb9a_b1adec14",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T09:31:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c8dd27b_09e3ce4a",
+      "range": {
+        "startLine": 50,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66f00d1d_f057ce13",
         "filename": "src/Client.cpp",
         "patchSetId": 1
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "ea2b6f51_0f21dd7b",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T09:31:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66f00d1d_f057ce13",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f741f3b8_99abd1bc",
         "filename": "src/Client.cpp",
         "patchSetId": 1
@@ -105,6 +153,30 @@
       "writtenOn": "2017-05-12T16:37:20Z",
       "side": 1,
       "message": "polski komentarz w kodzie",
+      "range": {
+        "startLine": 72,
+        "startChar": 9,
+        "endLine": 72,
+        "endChar": 14
+      },
+      "revId": "c81f0688c6febcea9222c5bb85a8e31d2f0db23f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1af1593c_5294d15d",
+        "filename": "src/Client.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T09:31:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f741f3b8_99abd1bc",
       "range": {
         "startLine": 72,
         "startChar": 9,
