@@ -7,7 +7,7 @@
 
 #include "MessageBuffer.h"
 #include "Connector.h"
-#include "Client.h"
+#include "Server.h"
 #include "Config.h"
 
 extern char *optarg;
@@ -44,6 +44,10 @@ int main(int argc, char **argv) {
         std::cout << "ERROR: Cannot find config file: " << configFilePath << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    MessageBuffer msgBuffer;
+    Server server(msgBuffer, "127.0.0.1", 3000, config);
+    server.run();
 
     std::cout << config.clientSleepSeconds << std::endl;
     std::cout << config.clientWorkSeconds << std::endl;
