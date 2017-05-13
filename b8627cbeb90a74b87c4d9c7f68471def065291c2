@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ec15ba5_4ae69469",
+        "filename": "test/common/ClientTestObj.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T14:30:41Z",
+      "side": 1,
+      "message": "indent2",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 7
+      },
+      "revId": "b8627cbeb90a74b87c4d9c7f68471def065291c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc41c762_6a29a92d",
+        "filename": "test/common/ClientTestObj.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T14:30:41Z",
+      "side": 1,
+      "message": "move to next line",
+      "range": {
+        "startLine": 19,
+        "startChar": 58,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "b8627cbeb90a74b87c4d9c7f68471def065291c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7188591_a0b82bc1",
+        "filename": "test/common/ClientTestObj.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T14:30:41Z",
+      "side": 1,
+      "message": "add new lines",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 64
+      },
+      "revId": "b8627cbeb90a74b87c4d9c7f68471def065291c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
