@@ -30,7 +30,7 @@ public:
      */
     void stop();
 
-private:
+protected:
     std::unique_ptr<Connector> connector;
 
     const std::string &mAddress;
