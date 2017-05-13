@@ -5,7 +5,6 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 #SAURON UNIT TESTS EXECUTABLE
 set(SOURCE_FILES_SAURON_UNIT_TEST
         UnitTestMain.cpp
-        TestClient.cpp
         TestMessageBuffer.cpp
         )
 
