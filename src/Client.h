@@ -7,10 +7,12 @@
 #include <thread>
 #include <unordered_map>
 #include <memory>
+#include <random>
 
 #include "Connector.h"
 #include "MessageBuffer.h"
 #include "ClientState.h"
+#include "Timer.h"
 
 class Client {
 public:
@@ -42,6 +44,8 @@ protected:
     std::string predecessor;
 
     std::string successor;
+
+    std::unique_ptr<Timer> measurementTimer;
 
     const std::unordered_map<ClientState, std::function<void(const MessagePair &)>> stateRouter = {
         {
@@ -94,6 +98,21 @@ protected:
      * Handle error message in the first place.
      */
     void handleFinishing(const MessagePair &messagePair);
+
+    /**
+     * Starts measurement thread
+     */
+    void startMeasurement();
+
+    /**
+     * Stops measurement thread
+     */
+    void stopMeasurement();
+
+    /**
+     * Sends measurement result
+     */
+    void sendMeasurementInfo(int measureval);
 };
 
 

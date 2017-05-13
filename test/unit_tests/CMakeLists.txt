@@ -9,6 +9,7 @@ set(SOURCE_FILES_SAURON_UNIT_TEST
         TestMessageBuffer.cpp
         TestClient.cpp
         TestInternetConnector.cpp
+        TestTimer.cpp
         )
 
 add_executable(sauron_unit_test

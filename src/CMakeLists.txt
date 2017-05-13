@@ -7,6 +7,7 @@ set(SOURCE_FILES_SAURON
 
 set(SOURCE_FILES_CLIENT
         main_client.cpp
+        Timer.cpp
         Client.cpp
         Connector.cpp
         MessageBuffer.cpp
