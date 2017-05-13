@@ -4,6 +4,7 @@
 #ifndef SAURON_CONNECTOR_H
 #define SAURON_CONNECTOR_H
 
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -35,6 +36,8 @@ class InternetConnector : public Connector {
 public:
     InternetConnector(MessageBuffer &buffer, size_t listenPort);
 
+    ~InternetConnector();
+
     void send(const std::string &address, const Message &msg);
 
     void listen();
@@ -47,6 +50,8 @@ private:
     int m_listenSocket;
 
     MessageBuffer &msgBuffer;
+
+    void closeSocket();
 };
 
 
