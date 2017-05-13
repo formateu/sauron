@@ -135,5 +135,4 @@ protected:
     void sendMessage(std::string address, const Message& msg);
 };
 
-
 #endif //SAURON_CLIENT_H

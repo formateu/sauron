@@ -3,14 +3,19 @@
 //
 
 #include <iostream>
+#include <csignal>
 #include <unistd.h>
 
 #include "MessageBuffer.h"
 #include "Connector.h"
-#include "Client.h"
+#include "Server.h"
 #include "Config.h"
 
 extern char *optarg;
+
+void sigabrtHandler(int flet) {
+    exit(0);
+}
 
 void showUsage(const char *prog) {
     std::cout << "Usage: "
@@ -44,6 +49,11 @@ int main(int argc, char **argv) {
         std::cout << "ERROR: Cannot find config file: " << configFilePath << std::endl;
         exit(EXIT_FAILURE);
     }
+
+    MessageBuffer msgBuffer;
+    Server server(msgBuffer, "127.0.0.1", 3000, config);
+    signal(SIGABRT, sigabrtHandler);
+    server.run();
 
     std::cout << config.clientSleepSeconds << std::endl;
     std::cout << config.clientWorkSeconds << std::endl;
