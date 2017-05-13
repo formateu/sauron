@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39946611_9b7700fd",
+        "filename": "src/Server.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T20:38:10Z",
+      "side": 1,
+      "message": "idea:\nhow about one MessageBuffer for 2 (half)rings?\nusing the ip addresses halfrings can be deduced",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 42
+      },
+      "revId": "66b754ee64dc02943c99a140e6a9e855f25a67a8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce05f1b6_725a14e5",
+        "filename": "src/Server.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T20:38:10Z",
+      "side": 1,
+      "message": "bind variables explicitly",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "66b754ee64dc02943c99a140e6a9e855f25a67a8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97af15d3_d8f339f3",
+        "filename": "src/Server.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T20:38:10Z",
+      "side": 1,
+      "message": "@up",
+      "range": {
+        "startLine": 40,
+        "startChar": 26,
+        "endLine": 40,
+        "endChar": 28
+      },
+      "revId": "66b754ee64dc02943c99a140e6a9e855f25a67a8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e226b4b_c30aaba4",
+        "filename": "src/Server.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T20:38:10Z",
+      "side": 1,
+      "message": "will listenThread stop after .join()?\nConnector::listen has while(true) loop",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 24
+      },
+      "revId": "66b754ee64dc02943c99a140e6a9e855f25a67a8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
