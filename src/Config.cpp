@@ -7,7 +7,7 @@
 Config::Config(const std::string& filePath)
     : filePath(filePath)
     , clientSleepSeconds(CLIENT_SLEEP_SECONDS_DEFAULT)
-    , clientWorkSeconds(CLIENT_WORK_SECONDS_DEFAULT) 
+    , clientWorkSeconds(CLIENT_WORK_SECONDS_DEFAULT)
 {}
 
 void Config::read() {
