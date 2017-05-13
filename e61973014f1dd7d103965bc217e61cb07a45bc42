@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c15ba93_86f24edc",
+        "filename": "test/integration_tests/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-13T14:00:19Z",
+      "side": 1,
+      "message": "zmienić na wielkie litery",
+      "range": {
+        "startLine": 6,
+        "startChar": 24,
+        "endLine": 6,
+        "endChar": 35
+      },
+      "revId": "e61973014f1dd7d103965bc217e61cb07a45bc42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "183f944b_d697c658",
+        "filename": "test/integration_tests/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-13T14:00:19Z",
+      "side": 1,
+      "message": "to samo",
+      "range": {
+        "startLine": 12,
+        "startChar": 30,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "e61973014f1dd7d103965bc217e61cb07a45bc42",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
