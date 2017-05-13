@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10451bc9_1fecaf61",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:07:31Z",
+      "side": 1,
+      "message": "why not just literal, without std::string()?",
+      "range": {
+        "startLine": 20,
+        "startChar": 42,
+        "endLine": 20,
+        "endChar": 78
+      },
+      "revId": "e5537c843fe101999df282af69bfa6fcf0423f1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfb09cb9_5aa63a66",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:07:31Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 46,
+        "startChar": 38,
+        "endLine": 46,
+        "endChar": 74
+      },
+      "revId": "e5537c843fe101999df282af69bfa6fcf0423f1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
