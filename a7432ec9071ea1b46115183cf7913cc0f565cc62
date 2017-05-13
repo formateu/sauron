@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e3b40b3_6356c476",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-13T14:32:23Z",
+      "side": 1,
+      "message": "wiecej komentarzy bedzie dodanych w kolejnych commitach.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 1
+      },
+      "revId": "a7432ec9071ea1b46115183cf7913cc0f565cc62",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
