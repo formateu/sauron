@@ -78,7 +78,14 @@ void Client::handleStateInitPhaseThird(const MessagePair &messagePair) {
 }
 
 void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
+    // Start measurement
+    auto measureTask = [this]() {
+        std::default_random_engine generator;
+        std::uniform_int_distribution<int> distribution(1,20);
+        this->sendMeasurementInfo(distribution(generator));
+    };
 
+    measurementTimer(10, measureTask);
 }
 
 void Client::handleFinishing(const MessagePair &messagePair) {
@@ -91,4 +98,12 @@ void Client::stop() {
     msg.m_type = MessageType::Terminate;
     // push any message to unlock the loop
     msgBuffer.push({"127.0.0.1", msg});
+}
+
+
+void Client::sendMeasurementInfo(int measureval) {
+    // TODO: send to successor or predecessor?
+    Message msg(Measurement);
+    msg.val = measureval;
+    connector->send(predecessor, measureval);
 }
