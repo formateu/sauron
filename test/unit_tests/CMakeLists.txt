@@ -1,11 +1,13 @@
 add_definitions(-DBOOST_TEST_DYN_LINK)
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/test/common)
 
 #SAURON UNIT TESTS EXECUTABLE
 set(SOURCE_FILES_SAURON_UNIT_TEST
         UnitTestMain.cpp
         TestMessageBuffer.cpp
+        TestClient.cpp
         )
 
 add_executable(sauron_unit_test
@@ -14,6 +16,7 @@ add_executable(sauron_unit_test
 target_link_libraries(sauron_unit_test
         ${CMAKE_THREAD_LIBS_INIT}
         sauron_lib
+        sauron_tests_common
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
         yaml-cpp
         )
