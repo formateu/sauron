@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db31ae6c_4d44d210",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:15:03Z",
+      "side": 1,
+      "message": "given message with init type\nwhen sending message to unexisting/wrong address\nthen connector should throw exception",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "443f0ca6245e118ac7a8856e3bfe88c2d06e2871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fc8f8cf_f3a1c2ff",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:15:03Z",
+      "side": 1,
+      "message": "given\nmessage with Init type",
+      "range": {
+        "startLine": 86,
+        "startChar": 7,
+        "endLine": 86,
+        "endChar": 12
+      },
+      "revId": "443f0ca6245e118ac7a8856e3bfe88c2d06e2871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a3ca845_f9d83eac",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:15:03Z",
+      "side": 1,
+      "message": "when sending a message to localhost\nthen connector should not throw exception",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 10
+      },
+      "revId": "443f0ca6245e118ac7a8856e3bfe88c2d06e2871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3490f677_cc1bae34",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:15:03Z",
+      "side": 1,
+      "message": "given message with Init type",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 22
+      },
+      "revId": "443f0ca6245e118ac7a8856e3bfe88c2d06e2871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "159162f8_e1dcd09a",
+        "filename": "test/unit_tests/TestInternetConnector.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-13T14:15:03Z",
+      "side": 1,
+      "message": "when sending message to ::1\nthen connector should not throw exception",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 57
+      },
+      "revId": "443f0ca6245e118ac7a8856e3bfe88c2d06e2871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
