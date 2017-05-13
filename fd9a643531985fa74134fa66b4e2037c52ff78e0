@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0ff06a0a_cb9503b6",
+        "filename": "test/common/ClientTestObj.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-13T14:11:13Z",
+      "side": 1,
+      "message": "nowa linia przed includem",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 19
+      },
+      "revId": "fd9a643531985fa74134fa66b4e2037c52ff78e0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "152a3abd_f6e005a2",
+        "filename": "test/common/ClientTestObj.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-13T14:11:13Z",
+      "side": 1,
+      "message": "ujednolicić stosowanie nowych linii",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 47
+      },
+      "revId": "fd9a643531985fa74134fa66b4e2037c52ff78e0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25f6abc3_06dc0a6c",
         "filename": "test/unit_tests/TestClient.cpp",
         "patchSetId": 1
