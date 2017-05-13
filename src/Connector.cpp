@@ -34,6 +34,14 @@ InternetConnector::InternetConnector(MessageBuffer &msgBuffer, size_t listenPort
     }
 }
 
+InternetConnector::~InternetConnector() {
+    try {
+        closeSocket();
+    } catch(const std::runtime_error &e) {
+        std::cout << e.what() << std::endl;
+    }
+}
+
 void InternetConnector::send(const std::string &address, const Message &msg) {
     struct sockaddr_in6 sa6;
     struct sockaddr_in sa;
@@ -96,6 +104,24 @@ void InternetConnector::listen() {
 
         msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
     }
+}
+
+void InternetConnector::closeSocket() {
+    // first clear any errors, which can cause close to fail
+    int err = 1;
+    socklen_t len = sizeof err;
+
+    if (-1 == getsockopt(m_listenSocket, SOL_SOCKET, SO_ERROR, (char *)&err, &len))
+        throw std::runtime_error("Unable to clear error queue");
+    if (err)
+        // set errno to the socket SO_ERROR
+        errno = err;
+    // secondly, terminate the 'reliable' delivery
+    if (shutdown(m_listenSocket, SHUT_RDWR) < 0)
+        if (errno != ENOTCONN && errno != EINVAL) // SGI causes EINVAL
+            throw std::runtime_error("Error while shutting down socket");
+    if (close(m_listenSocket) < 0)
+        throw std::runtime_error("Error while closing socket");
 }
 
 MockConnector::MockConnector(MessageBuffer &msgBuffer)
