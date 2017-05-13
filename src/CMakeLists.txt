@@ -1,4 +1,5 @@
 set(SOURCE_FILES_SAURON
+        Server.cpp
         main.cpp
         Connector.cpp
         MessageBuffer.cpp
@@ -13,9 +14,19 @@ set(SOURCE_FILES_CLIENT
         ClientState.cpp
         )
 
+set(SOURCE_FILES_SERVER
+    #main_client.cpp
+        Server.cpp
+        Connector.cpp
+        MessageBuffer.cpp
+        ClientState.cpp
+        )
+
 add_library(sauron_lib
         ${SOURCE_FILES_SAURON}
-        ${SOURCE_FILES_CLIENT})
+        ${SOURCE_FILES_CLIENT}
+        ${SOURCE_FILES_SERVER}
+        )
 
 #SAURON EXECUTABLE
 add_executable(sauron
