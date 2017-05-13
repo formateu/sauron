@@ -6,6 +6,7 @@
 
 #include <utility>
 #include <string>
+#include <cstring>
 
 enum MessageType {
     Init,
@@ -16,12 +17,18 @@ enum MessageType {
     Finish,
     Ack,
     Terminate // mainly for testing purposes
+    OneHalfInitFinish,
 };
 
 struct Message {
+
     Message() {}
 
     Message(MessageType m_type) : m_type(m_type) {}
+
+    Message(MessageType m_type, const char* pipeAddress) : m_type(m_type) {
+        memcpy(m_pipeAddress, pipeAddress, 16);
+    }
 
     MessageType m_type;
 
@@ -29,7 +36,6 @@ struct Message {
 
     int m_measureValue; // value of measurement
 };
-
 
 using MsgSenderPair = std::pair<std::string, Message>;
 
