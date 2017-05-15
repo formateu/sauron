@@ -140,6 +140,30 @@
     },
     {
       "key": {
+        "uuid": "48486f7b_8002f05f",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T21:00:37Z",
+      "side": 1,
+      "message": "EDIT2 : If you remove standard cmake flag and add compiler flag : std\u003dc++1z (experimental partial std 17) then it seems to work on gnu and clang compilers",
+      "parentUuid": "45a71312_f005c109",
+      "range": {
+        "startLine": 21,
+        "startChar": 17,
+        "endLine": 21,
+        "endChar": 87
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "192b49cd_debd453c",
         "filename": "src/Timer.h",
         "patchSetId": 2
