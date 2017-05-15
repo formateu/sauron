@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a96572b1_5fad3909",
+        "filename": "src/Client.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "magic number",
+      "range": {
+        "startLine": 99,
+        "startChar": 56,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "00c3a606_08ce8c65",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "line break",
+      "range": {
+        "startLine": 5,
+        "startChar": 24,
+        "endLine": 6,
+        "endChar": 16
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c898b17_0f45f32d",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "4 space",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df66a16c_b8d34622",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "please add this to next line",
+      "range": {
+        "startLine": 19,
+        "startChar": 21,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c299a11f_498cc98f",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "I dont like that line, but if nothing else seems to be working I guess we have no choice. Please try to find something different.",
+      "range": {
+        "startLine": 20,
+        "startChar": 22,
+        "endLine": 20,
+        "endChar": 77
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45a71312_f005c109",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "EDIT: constructing std function from variadic lambda doesnt seem to work with clang 4.0, we keep std bind\nPlease prefer variadic lambda over std bind : \ntask([func \u003d std::move(f), args...](){ func(std::forward(args)...); });",
+      "range": {
+        "startLine": 21,
+        "startChar": 17,
+        "endLine": 21,
+        "endChar": 87
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "192b49cd_debd453c",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "line break",
+      "range": {
+        "startLine": 23,
+        "startChar": 56,
+        "endLine": 23,
+        "endChar": 58
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8842575_123d9be4",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "line break",
+      "range": {
+        "startLine": 25,
+        "startChar": 78,
+        "endLine": 25,
+        "endChar": 79
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0fa4c062_07efe34a",
+        "filename": "src/Timer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-15T20:32:39Z",
+      "side": 1,
+      "message": "Please add brackets",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "1cae1b13b72d902f1b88a9f223239303def01c46",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
