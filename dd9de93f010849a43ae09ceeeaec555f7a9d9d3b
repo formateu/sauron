@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42fdb9b3_376f3bf7",
+        "filename": "src/Timer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-16T09:42:07Z",
+      "side": 1,
+      "message": "line break",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "dd9de93f010849a43ae09ceeeaec555f7a9d9d3b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "627eaa41_28659703",
+        "filename": "src/Timer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-16T09:42:07Z",
+      "side": 1,
+      "message": "please add brackets",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "dd9de93f010849a43ae09ceeeaec555f7a9d9d3b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78a3cc91_7759cf4e",
+        "filename": "test/unit_tests/TestTimer.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-16T09:42:07Z",
+      "side": 1,
+      "message": "newline",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 6
+      },
+      "revId": "dd9de93f010849a43ae09ceeeaec555f7a9d9d3b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
