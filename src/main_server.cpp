@@ -48,6 +48,8 @@ int main(int argc, char **argv) {
     } catch (YAML::BadFile e) {
         std::cout << "ERROR: Cannot find config file: " << configFilePath << std::endl;
         exit(EXIT_FAILURE);
+    } catch (std::invalid_argument e) {
+        std::cout << "ERROR: Config file contains errors: " << e.what() << std::endl;
     }
 
     MessageBuffer msgBuffer;
@@ -58,5 +60,5 @@ int main(int argc, char **argv) {
     std::cout << config.clientSleepSeconds << std::endl;
     std::cout << config.clientWorkSeconds << std::endl;
 
-    exit(EXIT_SUCCESS);
+    return 0;
 }
