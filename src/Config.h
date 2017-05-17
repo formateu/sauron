@@ -6,8 +6,10 @@
 #define SAURON_CONFIG_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 
+#include <arpa/inet.h>
 #include <yaml-cpp/yaml.h>
 
 struct Config {
@@ -26,8 +28,18 @@ struct Config {
     //time that client should work in seconds
     long clientWorkSeconds;
 
+    std::set<std::string> addresses;
+
 private:
+    bool isValidAddress(const std::string &addr);
+
+    bool is_ipv6_address(const std::string& str);
+
+    bool is_ipv4_address(const std::string& str);
+
     const std::string &filePath;
+
+    YAML::Node config;
 };
 
 #endif //SAURON_CONFIG_H
