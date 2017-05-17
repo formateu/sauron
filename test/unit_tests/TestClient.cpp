@@ -25,9 +25,14 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first) {
 
     // when
     // message is handled by handleStateInitPhaseFirst method
-    client.runHandleStateInitPhaseFirst(mpair);
+    std::thread mthread([&client, mpair]() {
+        client.runHandleStateInitPhaseFirst(mpair);
+    });
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    msgBuffer.push({"192.168.1.1", Message(MessageType::Ack)});
 
     // then
+    mthread.join();
     // client must change its own state
     BOOST_TEST(client.getState() == ClientState::INIT_PHASE_SECOND);
 }
@@ -48,9 +53,14 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first_unexpected_message) {
 
     // when
     // message is handled by handleStateInitPhaseFirst method
-    client.runHandleStateInitPhaseFirst(mpair);
+    std::thread mthread([&client, mpair]() {
+        client.runHandleStateInitPhaseFirst(mpair);
+    });
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    msgBuffer.push({"192.168.1.1", Message(MessageType::Ack)});
 
     // then
+    mthread.join();
     // client must not change its state
     BOOST_TEST(client.getState() == ClientState::INIT_PHASE_FIRST);
 }

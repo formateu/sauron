@@ -8,9 +8,9 @@
 
 BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
     // setup
-    MessageBuffer msgBuffer;
+    MessageBuffer msgBuffer, unusedMsgBuffer;
     // client is responsible for freeing Connector
-    Connector *connector = new MockConnector(msgBuffer);
+    Connector *connector = new MockConnector(unusedMsgBuffer);
     Client client(msgBuffer, "127.0.0.1", 7777, connector, ClientState::INIT_PHASE_FIRST);
 
     // prepare messeges in queue for client to receive
@@ -28,6 +28,7 @@ BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
 
     // wait to ensure messeges were processed
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    msgBuffer.push({"192.168.1.2", Message(MessageType::Ack)});
 
     // terminate the client's loop and the client itself
     client.stop();

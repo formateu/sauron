@@ -23,7 +23,7 @@ void Semaphore::wait() {
 
 MessageBuffer::MessageBuffer() {
     auto cmp = [](const MsgSenderPair &left, const MsgSenderPair &right) {
-        return left.second.m_type == MessageType::Error;
+        return right.second.m_type == MessageType::Ack;
     };
 
     m_queue = QueueType(cmp);

@@ -5,6 +5,7 @@
 #define SAURON_CLIENT_H
 
 #include <thread>
+#include <chrono>
 #include <unordered_map>
 #include <memory>
 #include <random>
@@ -47,6 +48,16 @@ protected:
 
     std::unique_ptr<Timer> measurementTimer;
 
+    /**
+     * Am I the last node in halfring
+     */
+    bool amILast;
+
+    /**
+     * Main loop running bool
+     */
+    bool isActive;
+
     const std::unordered_map<ClientState, std::function<void(const MessagePair &)>> stateRouter = {
         {
             ClientState::INIT_PHASE_FIRST,
@@ -57,15 +68,15 @@ protected:
             [this](const auto& messagePair) { handleStateInitPhaseSecond(messagePair); }
         },
         {
-            ClientState::INIT_PHASE_THIRD,
-            [this](const auto &messagePair) { handleStateInitPhaseThird(messagePair); }
-        },
-        {
             ClientState::CONNECTION_ESTABLISHED,
             [this](const auto &messagePair) { handleStateConnectionEstablished(messagePair); }
         },
         {
-            ClientState::FINISHING,
+            ClientState::MEASURE_TIME,
+            [this](const auto &messagePair) { handleMeasureTime(messagePair); }
+        },
+        {
+            ClientState::FINISH,
             [this](const auto& messagePair) { handleFinishing(messagePair); }
         }
     };
@@ -83,16 +94,15 @@ protected:
     void handleStateInitPhaseSecond(const MessagePair &messagePair);
 
     /**
-     * Awating for ack after successor's initialization.
-     * @param messagePair
-     */
-    void handleStateInitPhaseThird(const MessagePair &messagePair);
-
-    /**
      * Connection has been established properly.
      * @param messagePair
      */
     void handleStateConnectionEstablished(const MessagePair &messagePair);
+
+    /**
+     * Handle messages while running
+     */
+    void handleMeasureTime(const MessagePair &messagePair);
 
     /**
      * Handle error message in the first place.
@@ -102,7 +112,7 @@ protected:
     /**
      * Starts measurement thread
      */
-    void startMeasurement();
+    void startMeasurement(int activePeriod, int inactivePeriod);
 
     /**
      * Stops measurement thread
@@ -113,6 +123,16 @@ protected:
      * Sends measurement result
      */
     void sendMeasurementInfo(int measureval);
+
+    /**
+     * Sends ACK
+     */
+    void sendAck(std::string address);
+
+    /**
+     * Send any message
+     */
+    void sendMessage(std::string address, const Message& msg);
 };
 
 
