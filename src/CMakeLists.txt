@@ -16,7 +16,8 @@ set(SOURCE_FILES_CLIENT
 
 add_library(sauron_lib
         ${SOURCE_FILES_SAURON}
-        ${SOURCE_FILES_CLIENT})
+        ${SOURCE_FILES_CLIENT}
+        )
 
 #SAURON EXECUTABLE
 add_executable(sauron
