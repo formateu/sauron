@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "119bb184_92caf2aa",
+        "filename": "src/Config.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:32:33Z",
+      "side": 1,
+      "message": "remove trailing space",
+      "revId": "48a014e9ecfa12a22f50dc71f4e045e03fb5c1b6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6f750e7_95439a84",
+        "filename": "test/unit_tests/TestConfig.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:32:33Z",
+      "side": 1,
+      "message": "how about adding one/two tests with ipv6 addresses?",
+      "revId": "48a014e9ecfa12a22f50dc71f4e045e03fb5c1b6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
