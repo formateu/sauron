@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c7289a6_a26b133b",
+        "filename": "src/Message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "please compare the enum with the one on the client\u0027s side protocol implementation and make sure we both use similar types, so both commits could be merged easily later",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c290664_888bab1d",
+        "filename": "src/Message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "to be deleted",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8fb9f330_1ff02395",
+        "filename": "src/Message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "was this type specified in protocol?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3d4d15_1e5a76db",
+        "filename": "src/Message.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "InitLast",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 9
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57b7b539_bd827f65",
+        "filename": "src/Server.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "in client we\u0027ve changed convention a bit, here it would look like:\nif (messagePair.second.m_type \u003d\u003d MessageType::OneHalfInitFinish) {\n    m_state \u003d ServerState ::WAITING_FOR_SECOND_HALF;\n}\n\nwhat do you think of it?\nand in other states which await for more than one type of message, prefer switch",
+      "range": {
+        "startLine": 75,
+        "startChar": 3,
+        "endLine": 75,
+        "endChar": 70
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80696fb9_ba7371d5",
+        "filename": "src/Server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "move definition to Server.cpp, it should be possible",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "001771db_0c9a8173",
+        "filename": "src/Server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 25
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796c879c_1ff9fdd2",
+        "filename": "src/Server.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 46
+      },
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cfe53853_ac6ced47",
+        "filename": "src/main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-18T07:26:16Z",
+      "side": 1,
+      "message": "maybe rename file to main_server.cpp?\nit would look like client which has main_client.cpp",
+      "revId": "00e27d98b1af9f982523e536bf1da6df4e697205",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
