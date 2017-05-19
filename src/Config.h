@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <regex>
 
 #include <arpa/inet.h>
 #include <yaml-cpp/yaml.h>
@@ -32,14 +33,14 @@ struct Config {
 
     std::vector<std::string> m_ipVec;
 
-    std::set<std::string> addresses;
+    bool is_ipv6_correct_format(const std::string &addr);
 
 private:
-    bool isValidAddress(const std::string &addr);
-
-    bool is_ipv6_address(const std::string &str);
+    void split_addresses_by_ip_version(std::set<std::string> &v4_set, std::set<std::string> &v6_set);
 
     bool is_ipv4_address(const std::string &str);
+
+    bool is_ipv6_address(const std::string &str);
 
     const std::string &filePath;
 

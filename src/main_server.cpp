@@ -50,15 +50,14 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     } catch (std::invalid_argument e) {
         std::cout << "ERROR: Config file contains errors: " << e.what() << std::endl;
+        exit(EXIT_FAILURE);
     }
+    std::cout << "Config file is ok." << std::endl;
 
     MessageBuffer msgBuffer;
     Server server(msgBuffer, "127.0.0.1", 3000, config);
     signal(SIGABRT, sigabrtHandler);
     server.run();
-
-    std::cout << config.clientSleepSeconds << std::endl;
-    std::cout << config.clientWorkSeconds << std::endl;
 
     return 0;
 }
