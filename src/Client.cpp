@@ -8,23 +8,25 @@ Client::Client(MessageBuffer &msgBuffer,
                size_t port,
                Connector *inputConnector,
                ClientState state)
-    : mAddress(address), msgBuffer(msgBuffer), state(state), amILast(0), isActive(1)
+    : m_address(address), m_msgBuffer(msgBuffer),
+      m_state(state), m_amILast(0), m_isActive(1),
+      m_predecessor(""), m_successor("")
 {
     if (inputConnector == nullptr) {
-        connector.reset(new InternetConnector(msgBuffer, port));
+        m_connector.reset(new InternetConnector(m_msgBuffer, port));
     } else {
-        connector.reset(inputConnector);
+        m_connector.reset(inputConnector);
     }
 }
 
 void Client::run() {
-    std::thread listenThread(&Connector::listen, connector.get());
+    std::thread listenThread(&Connector::listen, m_connector.get());
 
-    while (state != ClientState::FINISH) {
-        MessagePair messagePair = msgBuffer.pop();
+    while (m_state != ClientState::FINISH) {
+        MessagePair messagePair = m_msgBuffer.pop();
 
         // awaiting for being active again
-        if (!isActive) {
+        if (!m_isActive) {
             // ignoring packets that sent when client is inactive
             continue;
         }
@@ -32,21 +34,17 @@ void Client::run() {
         // send ack, as we received message
         if (messagePair.second.m_type != MessageType::Ack) {
             sendAck(messagePair.first);
-        } else {
-            msgBuffer.push(messagePair); // push it again, it wasnt meant to be processed here
-            return;
         }
 
-
         if (messagePair.second.m_type == MessageType::Finish) {
-            handleFinishing(messagePair);
+            handleFinish(messagePair);
         } else if (messagePair.second.m_type == MessageType::Terminate) {
             break;
         }
 
-        auto handler = stateRouter.find(state);
+        auto handler = m_stateRouter.find(m_state);
 
-        if (handler != stateRouter.end()) {
+        if (handler != m_stateRouter.end()) {
             handler->second(messagePair);
         } else {
             throw std::runtime_error("[ERROR]: Unkown state. ");
@@ -57,26 +55,32 @@ void Client::run() {
 }
 
 ClientState Client::getClientState() {
-    return state;
+    return m_state;
 }
 
 void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::Init) {
-        predecessor = messagePair.first;
-        state = ClientState::INIT_PHASE_SECOND;
-        sendMessage(predecessor, Message(MessageType::InitOk));
+        m_predecessor = messagePair.first;
+        m_state = ClientState::INIT_PHASE_SECOND;
+        sendMessage(m_predecessor, Message(MessageType::InitOk));
     }
 }
 
 void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
     switch (messagePair.second.m_type) {
         case MessageType::Init: case MessageType::InitLast:
-            successor = messagePair.first;
-            //successor = messagePair.second.m_pipeAddress;
+            m_successor = messagePair.first;
+            //m_successor = messagePair.second.m_pipeAddress;
             if (messagePair.second.m_type == MessageType::InitLast) {
-                amILast = 1;
+                m_amILast = 1;
             }
-            state = ClientState::CONNECTION_ESTABLISHED;
+            m_state = ClientState::CONNECTION_ESTABLISHED;
+            break;
+        case MessageType::Run:
+            m_amILast = 1; // but successor undefined
+            handleIncomingRun(messagePair.second);
+            break;
+        default:
             break;
     }
 }
@@ -85,71 +89,79 @@ void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
     switch (messagePair.second.m_type) {
         case MessageType::Init:
         case MessageType::InitLast:
-            sendMessage(successor, messagePair.second);
+            sendMessage(m_successor, messagePair.second);
             break;
         case MessageType::InitOk:
-            sendMessage(predecessor, messagePair.second);
+            sendMessage(m_predecessor, messagePair.second);
             break;
         case MessageType::Run:
-            if (!amILast) {
-                sendMessage(successor, messagePair.second);
-            }
-            state = ClientState::MEASURE_TIME;
-            // TODO: replace with values from message
-            startMeasurement(30, 5);
+            handleIncomingRun(messagePair.second);
+            break;
+        default:
             break;
     }
+}
+
+void Client::handleIncomingRun(const Message& msg) {
+     if (!m_amILast) {
+         sendMessage(m_successor, msg);
+     }
+     m_state = ClientState::MEASURE_TIME;
+     // TODO: extract values from message
+     startMeasurement(2, 1);
 }
 
 void Client::handleMeasureTime(const MessagePair& messagePair) {
     switch (messagePair.second.m_type) {
         case MessageType::Measurement:
             // resend messege in opposing direction
-            if (messagePair.first == successor) {
-                sendMessage(predecessor, messagePair.second);
+            if (messagePair.first == m_successor) {
+                sendMessage(m_predecessor, messagePair.second);
             } else {
-                sendMessage(successor, messagePair.second);
+                sendMessage(m_successor, messagePair.second);
             }
             break;
         case MessageType::Finish:
-            if (!amILast) {
-                sendMessage(successor, messagePair.second);
+            if (!m_amILast) {
+                sendMessage(m_successor, messagePair.second);
             }
-            state = ClientState::FINISH;
+            m_state = ClientState::FINISH;
+            break;
+        defaut:
             break;
     }
 }
 
-void Client::handleFinishing(const MessagePair &messagePair) {
-    if (!amILast) {
-        sendMessage(successor, messagePair.second);
+void Client::handleFinish(const MessagePair &messagePair) {
+    if (!m_amILast) {
+        sendMessage(m_successor, messagePair.second);
     }
-    state = ClientState::FINISH;
+    m_state = ClientState::FINISH;
 }
 
 void Client::stop() {
     Message msg;
     msg.m_type = MessageType::Terminate;
     // push any message to unlock the loop
-    msgBuffer.push({"127.0.0.1", msg});
+    m_msgBuffer.push({"127.0.0.1", msg});
 }
 
 void Client::startMeasurement(int activePeriod, int inactivePeriod) {
     auto measureTask = [this, activePeriod]() {
-        isActive = true;
+        m_isActive = true;
         std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(1,20);
         this->sendMeasurementInfo(distribution(generator));
         std::this_thread::sleep_for(std::chrono::seconds(activePeriod));
-        isActive = false;
+        m_isActive = false;
     };
 
-    measurementTimer = std::make_unique<Timer>(inactivePeriod*1000, measureTask);
+    m_measurementTimer = std::make_unique<Timer>(inactivePeriod*1000, measureTask);
 }
 
 void Client::stopMeasurement() {
     // doesn't block
-    measurementTimer.reset(nullptr);
+    m_measurementTimer.reset(nullptr);
 }
 
 void Client::sendMeasurementInfo(int measureval) {
@@ -157,20 +169,25 @@ void Client::sendMeasurementInfo(int measureval) {
     // (either predecessor or successor)
     Message msg(Measurement);
     msg.m_measureValue = measureval;
-    sendMessage(predecessor, msg);
+    sendMessage(m_predecessor, msg);
 }
 
 void Client::sendAck(std::string address) {
     Message msg(Ack);
-    connector->send(address, msg);
+    m_connector->send(address, msg);
 }
 
 void Client::sendMessage(std::string address, const Message& msg) {
-    connector->send(address, msg);
+    m_connector->send(address, msg);
     // await for ACK
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    MessagePair rmsg = msgBuffer.pop();
-    if (rmsg.second.m_type != MessageType::Ack) {
-        throw std::runtime_error("Ack timeout");
+    MessagePair rmsg;
+    if (!m_msgBuffer.tryPop(rmsg)) {
+        // ack didn't come in time, stop the client
+        stop();
+    } else if (rmsg.second.m_type != MessageType::Ack) {
+        // popped message is not ack, then ack didnt come neither, repush it
+        m_msgBuffer.push(rmsg);
+        stop();
     }
 }

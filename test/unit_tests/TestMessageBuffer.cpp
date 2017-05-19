@@ -39,3 +39,29 @@ BOOST_AUTO_TEST_CASE(msg_buffer_priority_works) {
     // then ack should be popped
     BOOST_TEST(msg.m_type == MessageType::Ack);
 }
+
+BOOST_AUTO_TEST_CASE(msg_buffer_try_pop_success) {
+    // given queue with 1 message
+    MessageBuffer msgBuffer;
+    msgBuffer.push({"127.0.0.1", Message(MessageType::Ack)});
+
+    // when trying to pop an element
+    MsgSenderPair msg;
+    bool result = msgBuffer.tryPop(msg);
+
+    // then message should be popped instantly
+    BOOST_TEST(result == true);
+    BOOST_TEST(msg.second.m_type == MessageType::Ack);
+}
+
+BOOST_AUTO_TEST_CASE(msg_buffer_empty_try_pop) {
+    // given queue without any message
+    MessageBuffer msgBuffer;
+
+    // when trying to pop an element
+    MsgSenderPair msg;
+    bool result = msgBuffer.tryPop(msg);
+
+    // then buffer shouldn't lock and return pop failure
+    BOOST_TEST(result == false);
+}

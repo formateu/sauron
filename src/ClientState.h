@@ -14,6 +14,7 @@ enum class ClientState {
     CONNECTION_ESTABLISHED,
     MEASURE_TIME,
     FINISH,
+    TERMINATED
 };
 
 const std::unordered_map<ClientState, std::string> stateStringMap = {
@@ -22,7 +23,8 @@ const std::unordered_map<ClientState, std::string> stateStringMap = {
     { ClientState::INIT_PHASE_THIRD,       "Init phase third" },
     { ClientState::CONNECTION_ESTABLISHED, "Connection established" },
     { ClientState::MEASURE_TIME,           "Connection established" },
-    { ClientState::FINISH,                 "Finish" }
+    { ClientState::FINISH,                 "Finish" },
+    { ClientState::TERMINATED,             "Terminated" }
 };
 
 std::ostream &operator<<(std::ostream &stream, const ClientState &state);

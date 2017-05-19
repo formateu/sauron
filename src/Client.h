@@ -34,31 +34,31 @@ public:
     void stop();
 
 protected:
-    std::unique_ptr<Connector> connector;
+    std::unique_ptr<Connector> m_connector;
 
-    const std::string &mAddress;
+    const std::string &m_address;
 
-    MessageBuffer &msgBuffer;
+    MessageBuffer &m_msgBuffer;
 
-    ClientState state;
+    ClientState m_state;
 
-    std::string predecessor;
+    std::string m_predecessor;
 
-    std::string successor;
+    std::string m_successor;
 
-    std::unique_ptr<Timer> measurementTimer;
+    std::unique_ptr<Timer> m_measurementTimer;
 
     /**
      * Am I the last node in halfring
      */
-    bool amILast;
+    bool m_amILast;
 
     /**
      * Main loop running bool
      */
-    bool isActive;
+    bool m_isActive;
 
-    const std::unordered_map<ClientState, std::function<void(const MessagePair &)>> stateRouter = {
+    const std::unordered_map<ClientState, std::function<void(const MessagePair &)>> m_stateRouter = {
         {
             ClientState::INIT_PHASE_FIRST,
             [this](const auto& messagePair) { handleStateInitPhaseFirst(messagePair); }
@@ -77,7 +77,7 @@ protected:
         },
         {
             ClientState::FINISH,
-            [this](const auto& messagePair) { handleFinishing(messagePair); }
+            [this](const auto& messagePair) { handleFinish(messagePair); }
         }
     };
 
@@ -107,7 +107,13 @@ protected:
     /**
      * Handle error message in the first place.
      */
-    void handleFinishing(const MessagePair &messagePair);
+    void handleFinish(const MessagePair &messagePair);
+
+    /**
+     * Runs measurement with message handling
+     * (sends run message further into network)
+     */
+    void handleIncomingRun(const Message& msg);
 
     /**
      * Starts measurement thread

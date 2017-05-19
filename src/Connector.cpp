@@ -136,6 +136,7 @@ MockConnector::MockConnector(MessageBuffer &msgBuffer)
     : msgBuffer(msgBuffer) {}
 
 void MockConnector::send(const std::string &address, const Message &msg) {
+    msgBuffer.push({address, msg});
     sentMessagesStack.push_back({address, msg});
 }
 
