@@ -21,8 +21,8 @@ public:
     Server(MessageBuffer &mainBuffer,
            const std::string &address,
            size_t port,
-           const Config &conf,
-           Connector *m_connector = nullptr,
+           ConfigBase *conf,
+           Connector *connector = nullptr,
            ServerState state = ServerState::CREATED);
 
     ~Server();
@@ -73,6 +73,12 @@ protected:
             [this](const auto &messagePair) { handleStateWaitingForResults(messagePair); }
         }
     };
+
+    void mainLoop();
+
+    void runOneHalfRing();
+
+    void runTwoHalfRings();
 
     /**
      *
