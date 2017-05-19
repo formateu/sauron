@@ -32,7 +32,6 @@ void Config::read() {
 
     if (config["ip"]) {
         addrConfig = config["ip"].as<std::vector<std::string>>();
-        m_ipVec = std::move(addrConfig);
 
         std::for_each(addrConfig.begin(), addrConfig.end(),
             [this](auto &it){
@@ -49,6 +48,8 @@ void Config::read() {
     } else if (addresses.size() != addrConfig.size()) {
         throw std::invalid_argument("IP list contains duplicates.");
     }
+
+    m_ipVec = std::move(addrConfig);
 }
 
 bool Config::isValidAddress(const std::string &addr) {
