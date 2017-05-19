@@ -4,7 +4,7 @@
 #include "HalfRing.h"
 
 HalfRing::HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
-        MessageBuffer &msgBuf, AddressVector& addressVector)
+        MessageBuffer &msgBuf, AddressVector &addressVector)
     : m_connector(cntrPtr)
     , m_mainBuf(mainBuffer)
     , m_halfRingBuf(msgBuf)

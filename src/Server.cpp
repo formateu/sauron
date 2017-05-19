@@ -6,31 +6,42 @@
 Server::Server(MessageBuffer &mainBuffer,
                const std::string &address,
                size_t port,
-               const Config &conf,
+               ConfigBase *conf,
                Connector *inputConnector,
                ServerState state)
     : m_address(address)
     , m_mainBuffer(m_mainBuffer)
-    , m_pos(conf.m_ipVec.size() / 2)
-    , m_clientWorkSeconds(conf.clientWorkSeconds)
-    , m_clientSleepSeconds(conf.clientSleepSeconds)
     , m_state(state)
 {
-    if (inputConnector == nullptr) {
-        m_connector.reset(new InternetConnector(m_mainBuffer, port));
+    if (conf == nullptr) {
+        throw std::runtime_error("Invalid pointer to config file");
     } else {
-        m_connector.reset(inputConnector);
+        std::unique_ptr<ConfigBase> confPtr(conf);
+
+        if (confPtr->m_ipVec.empty()) {
+            throw std::runtime_error("List of IP addresses must contain at least 1 address");
+        }
+
+        m_pos = conf->m_ipVec.size() / 2;
+        m_clientWorkSeconds = conf->clientWorkSeconds;
+        m_clientSleepSeconds = conf->clientSleepSeconds;
+
+        if (inputConnector == nullptr) {
+            m_connector.reset(new InternetConnector(m_mainBuffer, port));
+        } else {
+            m_connector.reset(inputConnector);
+        }
+
+        m_addrHalfRing1.insert(m_addrHalfRing1.begin(),
+                               conf->m_ipVec.begin(),
+                               conf->m_ipVec.begin() + m_pos);
+
+        if (conf->m_ipVec.size() > 1) {
+            m_addrHalfRing2.insert(m_addrHalfRing2.begin(),
+                                   conf->m_ipVec.rbegin(),
+                                   conf->m_ipVec.rbegin() + conf->m_ipVec.size() - m_pos);
+        }
     }
-
-    //TODO: throw an exception when ip vector is empty
-
-    m_addrHalfRing1.insert(m_addrHalfRing1.begin(),
-                           conf.m_ipVec.begin(),
-                           conf.m_ipVec.begin() + m_pos + 1);
-
-    m_addrHalfRing2.insert(m_addrHalfRing2.begin(),
-                           conf.m_ipVec.rbegin(),
-                           conf.m_ipVec.rbegin() + conf.m_ipVec.size() - m_pos);
 }
 
 Server::~Server() {
@@ -40,12 +51,39 @@ Server::~Server() {
 void Server::run() {
     std::thread listenThread(&Connector::listen, m_connector.get());
 
+    if(!m_addrHalfRing2.empty()) {
+        runTwoHalfRings();
+    } else {
+        runOneHalfRing();
+    }
+
+    listenThread.join();
+}
+
+void Server::runOneHalfRing() {
+    HalfRing firstHalf(m_connector, m_mainBuffer, m_halfRing1Buffer, m_addrHalfRing1);
+
+    std::thread half1Thread(firstHalf);
+
+    mainLoop();
+
+    half1Thread.join();
+}
+
+void Server::runTwoHalfRings() {
     HalfRing firstHalf(m_connector, m_mainBuffer, m_halfRing1Buffer, m_addrHalfRing1);
     HalfRing secondHalf(m_connector, m_mainBuffer, m_halfRing2Buffer, m_addrHalfRing2);
 
     std::thread half1Thread(firstHalf);
     std::thread half2Thread(secondHalf);
 
+    mainLoop();
+
+    half1Thread.join();
+    half2Thread.join();
+}
+
+void Server::mainLoop() {
     m_state = ServerState::WAITING_FOR_FIRST_HALF;
 
     while (true) {
@@ -64,18 +102,18 @@ void Server::run() {
         if (handler != m_stateRouter.end()) {
             handler->second(messagePair);
         } else {
-            throw std::runtime_error("[ERROR]: Unkown state. ");
+            throw std::runtime_error("[ERROR]: Unkown state.");
         }
     }
-
-    listenThread.join();
-    half1Thread.join();
-    half2Thread.join();
 }
 
 void Server::handleStateWaitingForFirstHalf(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::OneHalfInitFinish) {
-        m_state = ServerState ::WAITING_FOR_SECOND_HALF;
+        if(!m_addrHalfRing2.empty()) {
+            m_state = ServerState ::WAITING_FOR_SECOND_HALF;
+        } else {
+            handleStateWaitingForSecondHalf(messagePair);
+        }
     }
 }
 

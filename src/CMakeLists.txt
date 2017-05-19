@@ -24,6 +24,8 @@ set(SOURCE_FILES_SERVER
         ServerState.cpp
         )
 
+INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+
 add_library(sauron_lib
         ${SOURCE_FILES_SAURON}
         ${SOURCE_FILES_CLIENT}
@@ -36,7 +38,7 @@ add_executable(sauron
 
 target_link_libraries(sauron
         ${CMAKE_THREAD_LIBS_INIT}
-        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	${Boost_LIBRARIES}
         yaml-cpp
         )
 
@@ -45,6 +47,8 @@ add_executable(sauron_client
         ${SOURCE_FILES_CLIENT})
 
 target_link_libraries(sauron_client
+	LINK_PUBLIC
         ${CMAKE_THREAD_LIBS_INIT}
-        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+	${Boost_SYSTEM_LIBRARY}
+	${Boost_LIBRARIES}
         )

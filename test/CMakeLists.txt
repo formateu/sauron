@@ -1,4 +1,4 @@
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+find_package(Boost COMPONENTS REQUIRED unit_test_framework thread system)
 
 add_subdirectory(common)
 add_subdirectory(unit_tests)

@@ -6,6 +6,9 @@
 
 #include <queue>
 #include <mutex>
+#include <boost/asio.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/thread.hpp>
 #include <condition_variable>
 
 #include "Message.h"
@@ -20,9 +23,9 @@ public:
     bool tryWait();
 
 private:
-    std::mutex mutex_;
+    boost::mutex mutex_;
 
-    std::condition_variable condition_;
+    boost::condition_variable condition_;
 
     unsigned long count_ = 0;
 };

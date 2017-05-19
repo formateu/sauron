@@ -4,15 +4,14 @@
 
 #include "MessageBuffer.h"
 
-
 void Semaphore::notify() {
-    std::unique_lock<decltype(mutex_)> lock(mutex_);
+    boost::mutex::scoped_lock lock(mutex_);
     ++count_;
     condition_.notify_one();
 }
 
 void Semaphore::wait() {
-    std::unique_lock<decltype(mutex_)> lock(mutex_);
+    boost::mutex::scoped_lock lock(mutex_);
 
     while (!count_) // Handle spurious wake-ups.
         condition_.wait(lock);
@@ -21,7 +20,7 @@ void Semaphore::wait() {
 }
 
 bool Semaphore::tryWait() {
-    std::unique_lock<decltype(mutex_)> lock(mutex_);
+    boost::mutex::scoped_lock lock(mutex_);
     if (count_) {
       --count_;
       return true;
