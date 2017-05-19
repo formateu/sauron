@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94903a44_1bc776df",
+        "filename": "src/Client.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010918
+      },
+      "writtenOn": "2017-05-19T09:45:09Z",
+      "side": 1,
+      "message": "zmienić na finish",
+      "range": {
+        "startLine": 80,
+        "startChar": 52,
+        "endLine": 80,
+        "endChar": 61
+      },
+      "revId": "5acd59ddcd6cf6dcbb02399d9ac13291b236688b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
