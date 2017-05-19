@@ -110,6 +110,12 @@ protected:
     void handleFinishing(const MessagePair &messagePair);
 
     /**
+     * Runs measurement with message handling
+     * (sends run message further into network)
+     */
+    void handleIncomingRun(const Message& msg);
+
+    /**
      * Starts measurement thread
      */
     void startMeasurement(int activePeriod, int inactivePeriod);

@@ -17,6 +17,8 @@ public:
 
     void wait();
 
+    bool tryWait();
+
 private:
     std::mutex mutex_;
 
@@ -34,6 +36,12 @@ public:
     void push(MsgSenderPair msg);
 
     MsgSenderPair pop();
+
+    /**
+     * Non-blocking pop, returns false if there's no element in queue
+     * If there's element, then it will be provided to &result
+     */
+    bool tryPop(MsgSenderPair& result);
 
     using QueueType = std::priority_queue<MsgSenderPair, std::vector<MsgSenderPair>,
             std::function<bool(MsgSenderPair, MsgSenderPair)> >;

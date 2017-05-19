@@ -20,6 +20,14 @@ void Semaphore::wait() {
     --count_;
 }
 
+bool Semaphore::tryWait() {
+    std::unique_lock<decltype(mutex_)> lock(mutex_);
+    if (count_) {
+      --count_;
+      return true;
+    }
+    return false;
+}
 
 MessageBuffer::MessageBuffer() {
     auto cmp = [](const MsgSenderPair &left, const MsgSenderPair &right) {
@@ -29,7 +37,6 @@ MessageBuffer::MessageBuffer() {
     m_queue = QueueType(cmp);
 }
 
-
 void MessageBuffer::push(MsgSenderPair msg) {
     m_mutex.lock();
         m_queue.push(msg);
@@ -38,6 +45,17 @@ void MessageBuffer::push(MsgSenderPair msg) {
     full.notify(); // element ready to consume
 }
 
+bool MessageBuffer::tryPop(MsgSenderPair& result) {
+    if (!full.tryWait())
+      return false;
+
+    m_mutex.lock();
+        result = m_queue.top();
+        m_queue.pop();
+    m_mutex.unlock();
+
+    return true;
+}
 
 MsgSenderPair MessageBuffer::pop() {
     MsgSenderPair result;

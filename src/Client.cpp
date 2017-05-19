@@ -8,7 +8,9 @@ Client::Client(MessageBuffer &msgBuffer,
                size_t port,
                Connector *inputConnector,
                ClientState state)
-    : mAddress(address), msgBuffer(msgBuffer), state(state), amILast(0), isActive(1)
+    : mAddress(address), msgBuffer(msgBuffer),
+      state(state), amILast(0), isActive(1),
+      predecessor(""), successor("")
 {
     if (inputConnector == nullptr) {
         connector.reset(new InternetConnector(msgBuffer, port));
@@ -32,11 +34,7 @@ void Client::run() {
         // send ack, as we received message
         if (messagePair.second.m_type != MessageType::Ack) {
             sendAck(messagePair.first);
-        } else {
-            msgBuffer.push(messagePair); // push it again, it wasnt meant to be processed here
-            return;
         }
-
 
         if (messagePair.second.m_type == MessageType::Finish) {
             handleFinishing(messagePair);
@@ -78,6 +76,12 @@ void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
             }
             state = ClientState::CONNECTION_ESTABLISHED;
             break;
+        case MessageType::Run:
+            amILast = 1; // but successor undefined
+            handleIncomingRun(messagePair.second);
+            break;
+        default:
+            break;
     }
 }
 
@@ -91,14 +95,20 @@ void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
             sendMessage(predecessor, messagePair.second);
             break;
         case MessageType::Run:
-            if (!amILast) {
-                sendMessage(successor, messagePair.second);
-            }
-            state = ClientState::MEASURE_TIME;
-            // TODO: replace with values from message
-            startMeasurement(30, 5);
+            handleIncomingRun(messagePair.second);
+            break;
+        default:
             break;
     }
+}
+
+void Client::handleIncomingRun(const Message& msg) {
+     if (!amILast) {
+         sendMessage(successor, msg);
+     }
+     state = ClientState::MEASURE_TIME;
+     // TODO: extract values from message
+     startMeasurement(2, 1);
 }
 
 void Client::handleMeasureTime(const MessagePair& messagePair) {
@@ -116,6 +126,8 @@ void Client::handleMeasureTime(const MessagePair& messagePair) {
                 sendMessage(successor, messagePair.second);
             }
             state = ClientState::FINISH;
+            break;
+        defaut:
             break;
     }
 }
@@ -169,8 +181,13 @@ void Client::sendMessage(std::string address, const Message& msg) {
     connector->send(address, msg);
     // await for ACK
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    MessagePair rmsg = msgBuffer.pop();
-    if (rmsg.second.m_type != MessageType::Ack) {
-        throw std::runtime_error("Ack timeout");
+    MessagePair rmsg;
+    if (!msgBuffer.tryPop(rmsg)) {
+        // ack didn't come in time, stop the client
+        stop();
+    } else if (rmsg.second.m_type != MessageType::Ack) {
+        // popped message is not ack, then ack didnt come neither, repush it
+        msgBuffer.push(rmsg);
+        stop();
     }
 }
