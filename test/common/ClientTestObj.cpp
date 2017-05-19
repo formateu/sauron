@@ -4,11 +4,11 @@
 #include "ClientTestObj.h"
 
 ClientState ClientTestObj::getState() {
-    return state;
+    return m_state;
 }
 
 void ClientTestObj::setState(const ClientState& newState) {
-    state = newState;
+    m_state = newState;
 }
 
 void ClientTestObj::runHandleStateInitPhaseFirst(const MessagePair& mpair) {
