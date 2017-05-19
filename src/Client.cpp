@@ -64,16 +64,16 @@ void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::Init) {
         predecessor = messagePair.first;
         state = ClientState::INIT_PHASE_SECOND;
-        sendMessage(predecessor, Message(MessageType::Init_Ok));
+        sendMessage(predecessor, Message(MessageType::InitOk));
     }
 }
 
 void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
     switch (messagePair.second.m_type) {
-        case MessageType::Init: case MessageType::Init_Last:
+        case MessageType::Init: case MessageType::InitLast:
             successor = messagePair.first;
             //successor = messagePair.second.m_pipeAddress;
-            if (messagePair.second.m_type == MessageType::Init_Last) {
+            if (messagePair.second.m_type == MessageType::InitLast) {
                 amILast = 1;
             }
             state = ClientState::CONNECTION_ESTABLISHED;
@@ -84,10 +84,10 @@ void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
 void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
     switch (messagePair.second.m_type) {
         case MessageType::Init:
-        case MessageType::Init_Last:
+        case MessageType::InitLast:
             sendMessage(successor, messagePair.second);
             break;
-        case MessageType::Init_Ok:
+        case MessageType::InitOk:
             sendMessage(predecessor, messagePair.second);
             break;
         case MessageType::Run:

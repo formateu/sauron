@@ -9,12 +9,12 @@
 
 enum MessageType {
     Init,
-    Init_Ok,
-    Init_Last,
+    InitOk,
+    InitLast,
+    Run,
     Measurement,
     Finish,
     Ack,
-    Run,
     Terminate // mainly for testing purposes
 };
 
