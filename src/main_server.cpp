@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
     std::cout << "Config file is ok." << std::endl;
 
     MessageBuffer msgBuffer;
-    Server server(msgBuffer, "127.0.0.1", 3000, config);
+    Server server(msgBuffer, "127.0.0.1", 3000, &config);
     signal(SIGABRT, sigabrtHandler);
     server.run();
 

@@ -64,9 +64,6 @@ public:
     void listen();
 
 private:
-    /* All messages sent by MockConnector::send method */
-    std::vector<MessagePair> sentMessagesStack;
-
     MessageBuffer &msgBuffer;
 };
 

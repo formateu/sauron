@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(read_config_ipV4_ip_contain_duplicates) {
 
 BOOST_AUTO_TEST_CASE(test_ipv6_check_format) {
     // when
-    Config config(fileName);
+    MockConfig config;
 
     //then
     BOOST_CHECK_EQUAL(true, config.is_ipv6_correct_format("1111:2222:3333:4444:5555:6666:7777:8888"));

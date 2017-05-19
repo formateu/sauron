@@ -8,6 +8,7 @@ set(SOURCE_FILES_SAURON_UNIT_TEST
         UnitTestMain.cpp
         TestMessageBuffer.cpp
         TestClient.cpp
+        TestServer.cpp
         TestInternetConnector.cpp
         TestTimer.cpp
         TestConfig.cpp

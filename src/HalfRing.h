@@ -27,6 +27,8 @@ class HalfRing {
         HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
                 MessageBuffer &msgBuf, AddressVector& addressVector);
 
+        ~HalfRing();
+
         void operator()();
 
     protected:
