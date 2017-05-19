@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae28f4e7_372b5db1",
+        "filename": "src/CMakeLists.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-19T13:22:09Z",
+      "side": 1,
+      "message": "rename to main_server.cpp?",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "5411fb3c7535e6636935796e5d17a76e85b9cb30",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
