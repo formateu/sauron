@@ -14,15 +14,15 @@
 #include <arpa/inet.h>
 #include <yaml-cpp/yaml.h>
 
-struct Config {
 
-    Config(const std::string &filePath);
+struct ConfigBase {
+    ConfigBase() {}
+
+    ConfigBase(long, long);
 
     static const long CLIENT_SLEEP_SECONDS_DEFAULT = 10;
 
     static const long CLIENT_WORK_SECONDS_DEFAULT = 60;
-
-    void read();
 
     //time that client should sleep in seconds
     long clientSleepSeconds;
@@ -31,9 +31,14 @@ struct Config {
     long clientWorkSeconds;
 
     std::vector<std::string> m_ipVec;
+};
+
+struct Config : public ConfigBase {
+    Config(const std::string &filePath);
+
+    void read();
 
     std::set<std::string> addresses;
-
 private:
     bool isValidAddress(const std::string &addr);
 
@@ -45,5 +50,7 @@ private:
 
     YAML::Node config;
 };
+
+struct MockConfig : public ConfigBase {};
 
 #endif //SAURON_CONFIG_H

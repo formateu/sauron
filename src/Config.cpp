@@ -3,10 +3,14 @@
 //
 #include "Config.h"
 
+ConfigBase::ConfigBase(long sleepTime, long workTime)
+    : clientSleepSeconds(sleepTime)
+    , clientWorkSeconds(workTime)
+{}
+
 Config::Config(const std::string& filePath)
-    : filePath(filePath)
-    , clientSleepSeconds(CLIENT_SLEEP_SECONDS_DEFAULT)
-    , clientWorkSeconds(CLIENT_WORK_SECONDS_DEFAULT)
+    : ConfigBase(CLIENT_SLEEP_SECONDS_DEFAULT, CLIENT_WORK_SECONDS_DEFAULT)
+    , filePath(filePath)
 {}
 
 void Config::read() {
