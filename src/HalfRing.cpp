@@ -4,13 +4,17 @@
 #include "HalfRing.h"
 
 HalfRing::HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
-        MessageBuffer &msgBuf, AddressVector& addressVector)
+        MessageBuffer &msgBuf, AddressVector &addressVector)
     : m_connector(cntrPtr)
     , m_mainBuf(mainBuffer)
     , m_halfRingBuf(msgBuf)
     , m_addrVec(addressVector)
     , m_state(HalfRingState::WAITING_FOR_ACK)
 {}
+
+HalfRing::~HalfRing() {
+
+}
 
 void HalfRing::operator()() {
     Message msg(MessageType::Init, m_addrVec[0].c_str());
