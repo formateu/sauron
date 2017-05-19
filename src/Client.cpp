@@ -135,7 +135,7 @@ void Client::stop() {
 }
 
 void Client::startMeasurement(int activePeriod, int inactivePeriod) {
-    auto measureTask = [this]() {
+    auto measureTask = [this, activePeriod]() {
         isActive = true;
         std::default_random_engine generator;
         std::uniform_int_distribution<int> distribution(1,20);
