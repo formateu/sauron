@@ -19,6 +19,75 @@
     },
     {
       "key": {
+        "uuid": "8555dafd_bf340140",
+        "filename": "src/Config.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-19T09:41:18Z",
+      "side": 1,
+      "message": "please add linebreak",
+      "range": {
+        "startLine": 31,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "48a014e9ecfa12a22f50dc71f4e045e03fb5c1b6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6f9d74a_2fb1d573",
+        "filename": "src/Config.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-19T09:41:18Z",
+      "side": 1,
+      "message": "please add linebreak",
+      "range": {
+        "startLine": 33,
+        "startChar": 64,
+        "endLine": 33,
+        "endChar": 65
+      },
+      "revId": "48a014e9ecfa12a22f50dc71f4e045e03fb5c1b6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "661fbfd0_dcebd87e",
+        "filename": "src/Config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-19T09:41:18Z",
+      "side": 1,
+      "message": "referencje do prawej, niespojny codestyle",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "48a014e9ecfa12a22f50dc71f4e045e03fb5c1b6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6f750e7_95439a84",
         "filename": "test/unit_tests/TestConfig.cpp",
         "patchSetId": 2
