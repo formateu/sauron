@@ -4,10 +4,14 @@
 #include <netinet/in.h>
 #include "Config.h"
 
+ConfigBase::ConfigBase(long sleepTime, long workTime)
+    : clientSleepSeconds(sleepTime)
+    , clientWorkSeconds(workTime)
+{}
+
 Config::Config(const std::string& filePath)
-    : filePath(filePath)
-    , clientSleepSeconds(CLIENT_SLEEP_SECONDS_DEFAULT)
-    , clientWorkSeconds(CLIENT_WORK_SECONDS_DEFAULT)
+    : ConfigBase(CLIENT_SLEEP_SECONDS_DEFAULT, CLIENT_WORK_SECONDS_DEFAULT)
+    , filePath(filePath)
 {}
 
 void Config::read() {
@@ -79,7 +83,7 @@ bool Config::is_ipv6_address(const std::string &addr) {
     return inet_pton(AF_INET6, addr.c_str(), &(sa.sin6_addr)) == 1;
 }
 
-bool Config::is_ipv6_correct_format(const std::string &addr) {
+bool ConfigBase::is_ipv6_correct_format(const std::string &addr) {
     std::regex format("((.{4}):){7}(.{4})");
     return std::regex_search(addr, format);
 }
