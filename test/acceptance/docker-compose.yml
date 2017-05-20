@@ -1,0 +1,56 @@
+version: '2'
+
+services:
+  sauronserver:
+    container_name: server
+    image: sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.5
+
+  client1:
+    container_name: client1
+    image: sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.6
+
+  client2:
+    container_name: client2
+    image: sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.7
+
+  client3:
+    container_name: client3
+    image: sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.8
+
+  client4:
+    container_name: client4
+    image: sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.9
+
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
