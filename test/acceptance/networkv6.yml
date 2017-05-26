@@ -1,0 +1,61 @@
+#
+# Created by Przemyslaw Kopanski on 26.05.17
+#
+version: '2.1'
+
+services:
+  sauronserver:
+    container_name: server
+    image: tin:sauron
+    command: ["./sauron_server", "-r", "config.yaml"]
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv6_address: 2001:3984:3989::5
+
+  client1:
+    container_name: client1
+    image: tin:sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv6_address: 2001:3984:3989::6
+
+  client2:
+    container_name: client2
+    image: tin:sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv6_address: 2001:3984:3989::7
+
+  client3:
+    container_name: client3
+    image: tin:sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv6_address: 2001:3984:3989::8
+
+  client4:
+    container_name: client4
+    image: tin:sauron
+    expose:
+     - "3000/udp"
+    networks:
+      vpcbr:
+        ipv6_address: 2001:3984:3989::9
+
+
+networks:
+  vpcbr:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+     config:
+       - subnet: 2001:3984:3989::/64
+         gateway: 2001:3984:3989::1
