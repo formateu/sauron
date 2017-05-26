@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19bc4382_7333edb7",
+        "filename": "src/Server.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-26T15:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7f72f01_6afcaf71",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "ff166bc99d8528cda2fb6c8b35b717d59ccfb2f1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8802ed7e_aa20f562",
         "filename": "src/Server.cpp",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2017-05-26T14:56:56Z",
       "side": 1,
       "message": "No need to check this. Config throws exception when ip list is empty.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "ff166bc99d8528cda2fb6c8b35b717d59ccfb2f1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c74797b_f33f3732",
+        "filename": "src/Server.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1010916
+      },
+      "writtenOn": "2017-05-26T15:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8802ed7e_aa20f562",
       "range": {
         "startLine": 20,
         "startChar": 0,
