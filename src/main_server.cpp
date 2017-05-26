@@ -3,19 +3,11 @@
 //
 
 #include <iostream>
-#include <csignal>
-#include <unistd.h>
 
+#include "Config.h"
 #include "MessageBuffer.h"
 #include "Connector.h"
 #include "Server.h"
-#include "Config.h"
-
-extern char *optarg;
-
-void sigabrtHandler(int flet) {
-    exit(0);
-}
 
 void showUsage(const char *prog) {
     std::cout << "Usage: " << prog << " [configfile] [port]" << std::endl;
@@ -38,9 +30,9 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    Config config(configFilePath);
+    Config *config = new Config(configFilePath);
     try {
-        config.read();
+        config->read();
     } catch (YAML::BadFile e) {
         std::cout << "ERROR: Cannot find config file: " << configFilePath << std::endl;
         exit(EXIT_FAILURE);
@@ -52,8 +44,7 @@ int main(int argc, char **argv) {
 
     try {
         MessageBuffer msgBuffer;
-        Server server(msgBuffer, port, &config);
-        signal(SIGABRT, sigabrtHandler);
+        Server server(msgBuffer, port, config);
         server.run();
     } catch (std::runtime_error e) {
         std::cout << "ERROR: " << e.what() << std::endl;
