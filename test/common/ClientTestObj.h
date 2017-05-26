@@ -12,11 +12,10 @@
 class ClientTestObj : Client {
 public:
     ClientTestObj(MessageBuffer &msgBuffer,
-                  const std::string &address,
                   size_t port,
                   Connector *connector = nullptr,
                   ClientState state = ClientState::INIT_PHASE_FIRST)
-        : Client(msgBuffer, address, port, connector, state)
+        : Client(msgBuffer, port, connector, state)
     {}
 
     ClientState getState();

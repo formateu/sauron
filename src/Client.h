@@ -18,7 +18,6 @@
 class Client {
 public:
     Client(MessageBuffer &msgBuffer,
-           const std::string &address,
            size_t port,
            Connector *connector = nullptr,
            ClientState state = ClientState::INIT_PHASE_FIRST);
@@ -35,8 +34,6 @@ public:
 
 protected:
     std::unique_ptr<Connector> m_connector;
-
-    const std::string &m_address;
 
     MessageBuffer &m_msgBuffer;
 
