@@ -18,4 +18,4 @@ COPY sauron_server /root/sauron_server
 COPY config.yaml /root/config.yaml
 
 # Launch client by default
-CMD ["./sauron_client"]
+CMD ["./sauron_client", "3000"]

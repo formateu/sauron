@@ -7,9 +7,15 @@ services:
   sauronserver:
     container_name: server
     image: tin:sauron
-    command: ["./sauron_server", "-r", "config.yaml"]
+    command: ["./sauron_server", "config.yaml", "3000"]
+    depends_on:
+      # awaits for all clients to start
+      - client1
+      - client2
+      - client3
+      - client4
     expose:
-     - "3000/udp"
+      - "3000/udp"
     networks:
       vpcbr:
         ipv6_address: 2001:3984:3989::5
@@ -18,7 +24,7 @@ services:
     container_name: client1
     image: tin:sauron
     expose:
-     - "3000/udp"
+      - "3000/udp"
     networks:
       vpcbr:
         ipv6_address: 2001:3984:3989::6
@@ -27,7 +33,7 @@ services:
     container_name: client2
     image: tin:sauron
     expose:
-     - "3000/udp"
+      - "3000/udp"
     networks:
       vpcbr:
         ipv6_address: 2001:3984:3989::7
@@ -36,7 +42,7 @@ services:
     container_name: client3
     image: tin:sauron
     expose:
-     - "3000/udp"
+      - "3000/udp"
     networks:
       vpcbr:
         ipv6_address: 2001:3984:3989::8
@@ -45,7 +51,7 @@ services:
     container_name: client4
     image: tin:sauron
     expose:
-     - "3000/udp"
+      - "3000/udp"
     networks:
       vpcbr:
         ipv6_address: 2001:3984:3989::9
