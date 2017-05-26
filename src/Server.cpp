@@ -4,13 +4,11 @@
 #include "Server.h"
 
 Server::Server(MessageBuffer &mainBuffer,
-               const std::string &address,
                size_t port,
                const Config &conf,
                Connector *inputConnector,
                ServerState state)
-    : m_address(address)
-    , m_mainBuffer(m_mainBuffer)
+    : m_mainBuffer(m_mainBuffer)
     , m_pos(conf.m_ipVec.size() / 2)
     , m_clientWorkSeconds(conf.clientWorkSeconds)
     , m_clientSleepSeconds(conf.clientSleepSeconds)
@@ -21,8 +19,6 @@ Server::Server(MessageBuffer &mainBuffer,
     } else {
         m_connector.reset(inputConnector);
     }
-
-    //TODO: throw an exception when ip vector is empty
 
     m_addrHalfRing1.insert(m_addrHalfRing1.begin(),
                            conf.m_ipVec.begin(),

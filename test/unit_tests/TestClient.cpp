@@ -13,7 +13,7 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first) {
     // set up environment
     MessageBuffer msgBuffer;
     Connector *connector = new MockConnector(msgBuffer);
-    ClientTestObj client(msgBuffer, "127.0.0.1", 7777, connector);
+    ClientTestObj client(msgBuffer, 7777, connector);
 
     // given
     // client with its first state
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first_unexpected_message) {
     // set up environment
     MessageBuffer msgBuffer;
     Connector *connector = new MockConnector(msgBuffer);
-    ClientTestObj client(msgBuffer, "127.0.0.1", 7777, connector);
+    ClientTestObj client(msgBuffer, 7777, connector);
 
     // given
     // client with its first state

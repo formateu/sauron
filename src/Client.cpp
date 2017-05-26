@@ -4,11 +4,10 @@
 #include "Client.h"
 
 Client::Client(MessageBuffer &msgBuffer,
-               const std::string &address,
                size_t port,
                Connector *inputConnector,
                ClientState state)
-    : m_address(address), m_msgBuffer(msgBuffer),
+    : m_msgBuffer(msgBuffer),
       m_state(state), m_amILast(0), m_isActive(1),
       m_predecessor(""), m_successor("")
 {
