@@ -19,7 +19,7 @@ void Config::read() {
 
     if (config["client-sleep"]) {
         try {
-            clientSleepSeconds = config["client-sleep"].as<long>();
+            clientSleepSeconds = config["client-sleep"].as<unsigned>();
         } catch (YAML::BadConversion e) {
             throw std::invalid_argument("Invalid parameter client-sleep.");
         }
@@ -27,7 +27,7 @@ void Config::read() {
 
     if (config["client-work"]) {
         try {
-            clientWorkSeconds = config["client-work"].as<long>();
+            clientWorkSeconds = config["client-work"].as<unsigned>();
         } catch (YAML::BadConversion e) {
             throw std::invalid_argument("Invalid parameter client-work.");
         }

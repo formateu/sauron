@@ -72,13 +72,23 @@ BOOST_AUTO_TEST_CASE(client_sends_measurements) {
     Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
 
     Message clientMessage;
+    Message msg;
+    int i;
+    std::array<unsigned char, 16> ipAddress =
+        {255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3};
     // run client
     std::thread clientThread([&client]() {
         client.run();
     });
 
     // provide messages in order to move client to measurement state
-    msgBuffer.push({"192.168.1.3", Message(MessageType::Init)});
+    msg.m_type = MessageType::Init;
+    i = 0;
+    for (const auto& e : ipAddress) {
+        msg.m_pipeAddress[i] = e;
+        ++i;
+    }
+    msgBuffer.push({"192.168.1.3", msg});
     clientMessage = sendBuffer.pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::Ack);
 
@@ -88,9 +98,10 @@ BOOST_AUTO_TEST_CASE(client_sends_measurements) {
     msgBuffer.push({"192.168.1.3", Message(MessageType::Ack)});
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    // TODO: after Run MessageType specification, send message with details
-    // 1 second active, 2 seconds inactive
-    msgBuffer.push({"192.168.1.3", Message(MessageType::Run)});
+    msg.m_type = MessageType::Run;
+    msg.m_activePeriod = 1;
+    msg.m_inactivePeriod = 2;
+    msgBuffer.push({"192.168.1.3", msg});
     clientMessage = sendBuffer.pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::Ack);
 
@@ -98,6 +109,9 @@ BOOST_AUTO_TEST_CASE(client_sends_measurements) {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     clientMessage = sendBuffer.pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::Measurement);
+    for (i = 0; i < 16; ++i) {
+        BOOST_TEST(clientMessage.m_pipeAddress[i] == ipAddress[i]);
+    }
     msgBuffer.push({"192.168.1.3", Message(MessageType::Ack)});
 
     // terminate client

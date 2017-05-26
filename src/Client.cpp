@@ -60,6 +60,12 @@ ClientState Client::getClientState() {
 void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::Init) {
         m_predecessor = messagePair.first;
+
+        // client was recipient of this message, so we can extract
+        // our own ip address
+        std::copy(std::begin(messagePair.second.m_pipeAddress),
+            std::end(messagePair.second.m_pipeAddress),
+            std::begin(m_address));
         m_state = ClientState::INIT_PHASE_SECOND;
         sendMessage(m_predecessor, Message(MessageType::InitOk));
     }
@@ -106,8 +112,7 @@ void Client::handleIncomingRun(const Message& msg) {
          sendMessage(m_successor, msg);
      }
      m_state = ClientState::MEASURE_TIME;
-     // TODO: extract values from message
-     startMeasurement(2, 1);
+     startMeasurement(msg.m_activePeriod, msg.m_inactivePeriod);
 }
 
 void Client::handleMeasureTime(const MessagePair& messagePair) {
@@ -145,7 +150,7 @@ void Client::stop() {
     m_msgBuffer.push({"127.0.0.1", msg});
 }
 
-void Client::startMeasurement(int activePeriod, int inactivePeriod) {
+void Client::startMeasurement(unsigned activePeriod, unsigned inactivePeriod) {
     auto measureTask = [this, activePeriod]() {
         m_isActive = true;
         std::default_random_engine generator;
@@ -164,9 +169,8 @@ void Client::stopMeasurement() {
 }
 
 void Client::sendMeasurementInfo(int measureval) {
-    // TODO: provide criteria to whom should message be sent
-    // (either predecessor or successor)
     Message msg(Measurement);
+    std::copy(std::begin(m_address), std::end(m_address), std::begin(msg.m_pipeAddress));
     msg.m_measureValue = measureval;
     sendMessage(m_predecessor, msg);
 }

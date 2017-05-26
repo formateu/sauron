@@ -8,7 +8,7 @@
 #include <string>
 #include <cstring>
 
-enum MessageType {
+enum MessageType : char {
     Init,
     InitOk,
     InitLast,
@@ -35,6 +35,10 @@ struct Message {
     unsigned char m_pipeAddress[16]; // ip, can be either ip4 or ip6
 
     int m_measureValue; // value of measurement
+
+    unsigned m_activePeriod;
+
+    unsigned m_inactivePeriod;
 };
 
 using MsgSenderPair = std::pair<std::string, Message>;
