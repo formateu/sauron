@@ -25,7 +25,8 @@ class HalfRing {
         };
 
         HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
-                MessageBuffer &msgBuf, AddressVector& addressVector);
+                MessageBuffer &msgBuf, AddressVector& addressVector,
+                int clientWorkSeconds, int clientSleepSeconds);
 
         ~HalfRing();
 
@@ -38,6 +39,8 @@ class HalfRing {
         MessageBuffer &m_halfRingBuf;
         AddressVector &m_addrVec;
         size_t m_currAddr;
+        unsigned m_clientWorkSeconds;
+        unsigned m_clientSleepSeconds;
 
         const std::unordered_map<HalfRingState , std::function<void(const MessagePair &)>> m_stateRouter = {
             {

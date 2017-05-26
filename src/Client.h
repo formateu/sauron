@@ -45,6 +45,8 @@ protected:
 
     std::unique_ptr<Timer> m_measurementTimer;
 
+    unsigned char m_address[16]; // own address
+
     /**
      * Am I the last node in halfring
      */
@@ -115,7 +117,7 @@ protected:
     /**
      * Starts measurement thread
      */
-    void startMeasurement(int activePeriod, int inactivePeriod);
+    void startMeasurement(unsigned activePeriod, unsigned inactivePeriod);
 
     /**
      * Stops measurement thread

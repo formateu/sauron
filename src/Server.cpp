@@ -60,7 +60,8 @@ void Server::run() {
 }
 
 void Server::runOneHalfRing() {
-    HalfRing firstHalf(m_connector, m_mainBuffer, m_halfRing1Buffer, m_addrHalfRing1);
+    HalfRing firstHalf(m_connector, m_mainBuffer, m_halfRing1Buffer, m_addrHalfRing1,
+                       m_clientWorkSeconds, m_clientSleepSeconds);
 
     std::thread half1Thread(firstHalf);
 
@@ -70,8 +71,10 @@ void Server::runOneHalfRing() {
 }
 
 void Server::runTwoHalfRings() {
-    HalfRing firstHalf(m_connector, m_mainBuffer, m_halfRing1Buffer, m_addrHalfRing1);
-    HalfRing secondHalf(m_connector, m_mainBuffer, m_halfRing2Buffer, m_addrHalfRing2);
+    HalfRing firstHalf(m_connector, m_mainBuffer, m_halfRing1Buffer, m_addrHalfRing1,
+                       m_clientWorkSeconds, m_clientSleepSeconds);
+    HalfRing secondHalf(m_connector, m_mainBuffer, m_halfRing2Buffer, m_addrHalfRing2,
+                        m_clientWorkSeconds, m_clientSleepSeconds);
 
     std::thread half1Thread(firstHalf);
     std::thread half2Thread(secondHalf);

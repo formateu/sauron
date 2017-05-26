@@ -52,9 +52,9 @@ protected:
 
     ServerState m_state;
 
-    long m_clientSleepSeconds;
+    unsigned m_clientSleepSeconds;
 
-    long m_clientWorkSeconds;
+    unsigned m_clientWorkSeconds;
 
     const std::unordered_map<ServerState , std::function<void(const MessagePair &)>> m_stateRouter = {
         {

@@ -4,12 +4,15 @@
 #include "HalfRing.h"
 
 HalfRing::HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
-        MessageBuffer &msgBuf, AddressVector &addressVector)
+        MessageBuffer &msgBuf, AddressVector &addressVector,
+        int clientWorkSeconds, int clientSleepSeconds)
     : m_connector(cntrPtr)
     , m_mainBuf(mainBuffer)
     , m_halfRingBuf(msgBuf)
     , m_addrVec(addressVector)
     , m_state(HalfRingState::WAITING_FOR_ACK)
+    , m_clientWorkSeconds(clientWorkSeconds)
+    , m_clientSleepSeconds(clientSleepSeconds)
 {}
 
 HalfRing::~HalfRing() {
@@ -74,7 +77,10 @@ void HalfRing::handleStateWaitingForInitOK(const MessagePair &messagePair) {
 
 void HalfRing::handleStateInitializationFinished(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::Run) {
-        m_connector->send(m_addrVec[0], Message(MessageType::Run));
+        Message msg(MessageType::Run);
+        msg.m_activePeriod = m_clientWorkSeconds;
+        msg.m_inactivePeriod = m_clientSleepSeconds;
+        m_connector->send(m_addrVec[0], msg);
         m_state = HalfRingState::WAITING_FOR_ACK;
     }
 }
