@@ -4,13 +4,11 @@
 #include "Server.h"
 
 Server::Server(MessageBuffer &mainBuffer,
-               const std::string &address,
                size_t port,
                ConfigBase *conf,
                Connector *inputConnector,
                ServerState state)
-    : m_address(address)
-    , m_mainBuffer(mainBuffer)
+    : m_mainBuffer(mainBuffer)
     , m_state(state)
 {
     if (conf == nullptr) {

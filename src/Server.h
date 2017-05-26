@@ -19,7 +19,6 @@
 class Server {
 public:
     Server(MessageBuffer &mainBuffer,
-           const std::string &address,
            size_t port,
            ConfigBase *conf,
            Connector *connector = nullptr,
@@ -38,8 +37,6 @@ public:
 
 protected:
     std::unique_ptr<Connector> m_connector;
-
-    const std::string &m_address;
 
     MessageBuffer &m_mainBuffer;
 

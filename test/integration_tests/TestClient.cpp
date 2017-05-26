@@ -11,7 +11,7 @@ BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
     MessageBuffer msgBuffer, unusedMsgBuffer;
     // client is responsible for freeing Connector
     Connector *connector = new MockConnector(unusedMsgBuffer);
-    Client client(msgBuffer, "127.0.0.1", 7777, connector, ClientState::INIT_PHASE_FIRST);
+    Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
 
     // prepare messeges in queue for client to receive
     // (this test is quite simple, there could be another thread
@@ -43,7 +43,7 @@ BOOST_AUTO_TEST_CASE(client_ack_timeout_throws_exception) {
     MessageBuffer msgBuffer, unusedMsgBuffer;
     // client is responsible for freeing Connector
     Connector *connector = new MockConnector(unusedMsgBuffer);
-    Client client(msgBuffer, "127.0.0.1", 7777, connector, ClientState::INIT_PHASE_FIRST);
+    Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
 
     Message initMessage;
     initMessage.m_type = MessageType::Init;
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(client_sends_measurements) {
     // sendBuffer is buffer which client sends to
     MessageBuffer msgBuffer, sendBuffer;
     Connector *connector = new MockConnector(sendBuffer);
-    Client client(msgBuffer, "192.168.1.1", 7777, connector, ClientState::INIT_PHASE_FIRST);
+    Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
 
     Message clientMessage;
     // run client

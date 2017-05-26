@@ -17,7 +17,7 @@ public:
                   ConfigBase *conf,
                   Connector *connector = nullptr,
                   ServerState state = ServerState::CREATED)
-            : Server(msgBuffer, address, port, conf, connector, state)
+            : Server(msgBuffer, port, conf, connector, state)
     {}
 
     ServerState getState();
