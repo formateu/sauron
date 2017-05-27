@@ -11,6 +11,11 @@
 #include "Message.h"
 
 
+class MessageBufferBase {
+public:
+    virtual void push(const MsgSenderPair&) = 0;
+};
+
 class Semaphore {
 public:
     void notify();
@@ -27,13 +32,13 @@ private:
     unsigned long count_ = 0;
 };
 
-class MessageBuffer {
+class MessageBuffer : public MessageBufferBase {
 public:
     MessageBuffer();
 
     ~MessageBuffer() {}
 
-    void push(MsgSenderPair msg);
+    void push(const MsgSenderPair& msg);
 
     MsgSenderPair pop();
 
@@ -52,6 +57,30 @@ protected:
     std::mutex m_mutex;
 
     Semaphore full;
+};
+
+class SplitMessageBuffer : public MessageBufferBase {
+public:
+    SplitMessageBuffer();
+
+    ~SplitMessageBuffer() {}
+
+    void push(const MsgSenderPair& msg);
+
+    MsgSenderPair popAck();
+
+    MsgSenderPair popNonAck();
+
+protected:
+    std::queue<MsgSenderPair> m_ack_queue;
+
+    std::queue<MsgSenderPair> m_non_ack_queue;
+
+    std::mutex m_mutex;
+
+    Semaphore full_ack;
+
+    Semaphore full_non_ack;
 };
 
 #endif //SAURON_MESSAGEBUFFER_H

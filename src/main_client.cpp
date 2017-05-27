@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    MessageBuffer msgBuffer;
+    std::shared_ptr<SplitMessageBuffer> msgBuffer = std::make_shared<SplitMessageBuffer>();
     Client client(msgBuffer, port);
     signal(SIGINT, signalHandler);
         shutdownServer = [&client](){

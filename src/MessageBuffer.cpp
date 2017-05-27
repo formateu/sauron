@@ -37,7 +37,7 @@ MessageBuffer::MessageBuffer() {
     m_queue = QueueType(cmp);
 }
 
-void MessageBuffer::push(MsgSenderPair msg) {
+void MessageBuffer::push(const MsgSenderPair& msg) {
     m_mutex.lock();
         m_queue.push(msg);
     m_mutex.unlock();
@@ -65,6 +65,48 @@ MsgSenderPair MessageBuffer::pop() {
     m_mutex.lock();
         result = m_queue.top();
         m_queue.pop();
+    m_mutex.unlock();
+
+    return result;
+}
+
+SplitMessageBuffer::SplitMessageBuffer() {}
+
+void SplitMessageBuffer::push(const MsgSenderPair& msg) {
+    m_mutex.lock();
+        if (msg.second.m_type == MessageType::Ack)
+            m_ack_queue.push(msg);
+        else
+            m_non_ack_queue.push(msg);
+    m_mutex.unlock();
+
+    if (msg.second.m_type == MessageType::Ack)
+        full_ack.notify();
+    else
+        full_non_ack.notify();
+}
+
+MsgSenderPair SplitMessageBuffer::popAck() {
+    MsgSenderPair result;
+
+    full_ack.wait();
+
+    std::unique_lock<std::mutex> lock(m_mutex);
+        result = m_ack_queue.front();
+        m_ack_queue.pop();
+
+    return result;
+}
+
+
+MsgSenderPair SplitMessageBuffer::popNonAck() {
+    MsgSenderPair result;
+
+    full_non_ack.wait();
+
+    m_mutex.lock();
+        result = m_non_ack_queue.front();
+        m_non_ack_queue.pop();
     m_mutex.unlock();
 
     return result;

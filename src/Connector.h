@@ -36,7 +36,8 @@ public:
 
 class InternetConnector : public Connector {
 public:
-    InternetConnector(MessageBuffer &buffer, size_t listenPort);
+    using MsgBufSharedPtr = std::shared_ptr<MessageBufferBase>;
+    InternetConnector(MsgBufSharedPtr buffer, size_t listenPort);
 
     ~InternetConnector();
 
@@ -53,7 +54,7 @@ private:
 
     int m_listenSocket;
 
-    MessageBuffer &m_msgBuffer;
+    MsgBufSharedPtr m_msgBuffer;
 
     bool m_shutdownPerformed = false;
 
@@ -63,7 +64,9 @@ private:
 
 class MockConnector : public Connector {
 public:
-    MockConnector(MessageBuffer &buffer);
+    using MsgBufSharedPtr = std::shared_ptr<MessageBufferBase>;
+
+    MockConnector(MsgBufSharedPtr buffer);
 
     void send(const std::string &address, const Message &msg);
 
@@ -72,7 +75,7 @@ public:
     void shutdownListenThread() {}
 
 private:
-    MessageBuffer &m_msgBuffer;
+    std::shared_ptr<MessageBufferBase> &m_msgBuffer;
 };
 
 

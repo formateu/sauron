@@ -12,8 +12,8 @@
 class HalfRingTestObj : public HalfRing {
 public:
     HalfRingTestObj(ConnectorPtr &cntrPtr,
-            MessageBuffer &mainBuffer,
-            MessageBuffer &msgBuf,
+            std::shared_ptr<MessageBuffer> mainBuffer,
+            std::shared_ptr<MessageBuffer> msgBuf,
             AddressVector& addressVector,
             int clientWorkSeconds,
             int clientSleepSeconds)

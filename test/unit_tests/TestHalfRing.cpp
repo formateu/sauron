@@ -7,7 +7,7 @@
 
 BOOST_AUTO_TEST_CASE(test_halfring_ipv4_address_conversion) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     std::vector<std::string> addressVector;
     addressVector.emplace_back("192.168.1.1");
     auto connPtr = std::unique_ptr<Connector>(new MockConnector(msgBuffer));
@@ -19,9 +19,9 @@ BOOST_AUTO_TEST_CASE(test_halfring_ipv4_address_conversion) {
 
     //convert given ipv4 address to binary format without halfring conversion
     std::vector<int> addrTmp = {
-        255,255,255,255,
-        255,255,255,255,
-        255,255,255,255,
+        0,0,0,0,
+        0,0,0,0,
+        0,0,255,255,
         192,168,1,1
     };
 
@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(test_halfring_ipv4_address_conversion) {
 
 BOOST_AUTO_TEST_CASE(test_halfring_ipv6_address_conversion) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     std::vector<std::string> addressVector;
     addressVector.emplace_back("0000:0000:0000:0000:0000:ffff:c0a8:0101");
     auto connPtr = std::unique_ptr<Connector>(new MockConnector(msgBuffer));

@@ -10,7 +10,7 @@
 
 BOOST_AUTO_TEST_CASE(create_connector_with_restricted_port_number) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
 
     // given
     size_t port = 22;
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(create_connector_with_restricted_port_number) {
 
 BOOST_AUTO_TEST_CASE(create_connector_with_allowed_port_number) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
 
     // given
     size_t port = 5555;
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(create_connector_with_allowed_port_number) {
 
 BOOST_AUTO_TEST_CASE(create_connector_port_already_in_use) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
 
     // given
     // Connector on port 5555
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE(create_connector_port_already_in_use) {
 
 BOOST_AUTO_TEST_CASE(send_with_invalid_ip_address) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     size_t port = 5555;
     InternetConnector connector(msgBuffer, port);
 
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(send_with_invalid_ip_address) {
 
 BOOST_AUTO_TEST_CASE(send_with_valid_ip4_address) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     size_t port = 5555;
     InternetConnector connector(msgBuffer, port);
 
@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(send_with_valid_ip4_address) {
 
 BOOST_AUTO_TEST_CASE(send_with_valid_ip6_address) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     size_t port = 5555;
     InternetConnector connector(msgBuffer, port);
 

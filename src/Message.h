@@ -30,15 +30,15 @@ struct Message {
         memcpy(m_pipeAddress, pipeAddress, 16);
     }
 
-    MessageType m_type;
+    MessageType m_type = MessageType::Init;
 
-    unsigned char m_pipeAddress[16]; // ip, can be either ip4 or ip6
+    unsigned char m_pipeAddress[16] = {}; // ip, can be either ip4 or ip6
 
-    int m_measureValue; // value of measurement
+    int m_measureValue = 0; // value of measurement
 
-    unsigned m_activePeriod;
+    unsigned m_activePeriod = 0;
 
-    unsigned m_inactivePeriod;
+    unsigned m_inactivePeriod = 0;
 };
 
 using MsgSenderPair = std::pair<std::string, Message>;

@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
     std::cout << "Config file is ok." << std::endl;
 
     try {
-        MessageBuffer msgBuffer;
+        std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
         Server server(msgBuffer, port, config);
 
         signal(SIGINT, signalHandler);

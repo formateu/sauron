@@ -6,6 +6,7 @@
 
 #include <chrono>
 #include <thread>
+#include <iostream>
 
 /**
  * Timer object, running one function repeatedly
@@ -16,7 +17,7 @@ public:
      * Runs action periodicly with given period (in miliseconds)
      */
     template<class Callable, class... Arguments>
-    Timer(int period, Callable&& f, Arguments&&... args)
+    Timer(unsigned period, Callable&& f, Arguments&&... args)
         : running(true)
     {
         auto task = [func = std::move(f), args...]() { func(std::forward(args)...); };
@@ -24,6 +25,7 @@ public:
         timerThread = std::thread([this, period, task]() {
 
             while (running) {
+                std::cout << "TIMER: sleeping time" << std::endl;
                 std::this_thread::sleep_for(std::chrono::milliseconds(period));
 
                 if (running) { // prevents from executing after stop() was called
