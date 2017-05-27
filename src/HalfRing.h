@@ -10,39 +10,44 @@
 #include "Message.h"
 #include "Connector.h"
 #include "MessageBuffer.h"
+#include "Utils.h"
+
+enum HalfRingState {
+  WAITING_FOR_ACK,
+  WAITING_FOR_INIT_OK,
+  INITIALIZATION_FINISHED,
+  FINISHED,
+  IDLE
+};
+
 
 class HalfRing {
     public:
         using ConnectorPtr = std::unique_ptr<Connector>;
         using AddressVector = std::vector<std::string>;
 
-        enum HalfRingState {
-            WAITING_FOR_ACK,
-            WAITING_FOR_INIT_OK,
-            INITIALIZATION_FINISHED,
-            FINISHED,
-            IDLE
-        };
-
-        HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
-                MessageBuffer &msgBuf, AddressVector& addressVector,
+        HalfRing(ConnectorPtr &cntrPtr, std::shared_ptr<MessageBuffer> mainBuffer,
+                std::shared_ptr<MessageBuffer> msgBuf, AddressVector& addressVector,
                 int clientWorkSeconds, int clientSleepSeconds);
 
         ~HalfRing();
+
+        HalfRing(const HalfRing&) = delete;
+        void operator=(const HalfRing&) = delete;
 
         void operator()();
 
     protected:
         HalfRingState m_state;
         ConnectorPtr &m_connector;
-        MessageBuffer &m_mainBuf;
-        MessageBuffer &m_halfRingBuf;
+        std::shared_ptr<MessageBuffer> m_mainBuf;
+        std::shared_ptr<MessageBuffer> m_halfRingBuf;
         AddressVector &m_addrVec;
         size_t m_currAddr;
         unsigned m_clientWorkSeconds;
         unsigned m_clientSleepSeconds;
 
-        const std::unordered_map<HalfRingState , std::function<void(const MessagePair &)>> m_stateRouter = {
+        const std::unordered_map<HalfRingState, std::function<void(const MessagePair &)>> m_stateRouter = {
             {
                 HalfRingState::WAITING_FOR_ACK,
                 [this](const auto& messagePair) { handleStateWaitingForAck(messagePair); }
@@ -58,6 +63,10 @@ class HalfRing {
             {
                 HalfRingState::FINISHED,
                 [this](const auto& messagePair) { handleFinished(messagePair); }
+            },
+            {
+                HalfRingState::IDLE,
+                [this](const auto& messagePair) { handleIdle(messagePair); }
             }
         };
 
@@ -68,12 +77,10 @@ class HalfRing {
         void handleStateInitializationFinished(const MessagePair &messagePair);
 
         void handleFinished(const MessagePair &messagePair);
+ 
+        void handleIdle(const MessagePair &messagePair);
 
-        void convertStringIPv6ToBSD(const std::string &address, std::string &output);
-
-        void convertStringIPv4ToBSD(std::string address, std::string &output);
-
-        void convertAddress(const std::string &address, std::string &output);
+        Message generateMessageTo(MessageType type, const std::string& target);
 };
 
 #endif //SAURON_HALFRING_H

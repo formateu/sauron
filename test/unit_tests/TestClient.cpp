@@ -11,7 +11,7 @@
 
 BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<SplitMessageBuffer> msgBuffer = std::make_shared<SplitMessageBuffer>();
     Connector *connector = new MockConnector(msgBuffer);
     ClientTestObj client(msgBuffer, 7777, connector);
 
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first) {
         client.runHandleStateInitPhaseFirst(mpair);
     });
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    msgBuffer.push({"192.168.1.1", Message(MessageType::Ack)});
+    msgBuffer->push({"192.168.1.1", Message(MessageType::Ack)});
 
     // then
     mthread.join();
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first) {
 
 BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first_unexpected_message) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<SplitMessageBuffer> msgBuffer = std::make_shared<SplitMessageBuffer>();
     Connector *connector = new MockConnector(msgBuffer);
     ClientTestObj client(msgBuffer, 7777, connector);
 
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(client_handle_state_init_phase_first_unexpected_message) {
         client.runHandleStateInitPhaseFirst(mpair);
     });
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    msgBuffer.push({"192.168.1.1", Message(MessageType::Ack)});
+    msgBuffer->push({"192.168.1.1", Message(MessageType::Ack)});
 
     // then
     mthread.join();

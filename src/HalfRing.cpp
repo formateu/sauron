@@ -2,9 +2,10 @@
 // Created by Mateusz Forc and Wiktor Franus on 18.05.17.
 //
 #include "HalfRing.h"
+#define DEBUG (std::cout << "half ring: ")
 
-HalfRing::HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
-        MessageBuffer &msgBuf, AddressVector &addressVector,
+HalfRing::HalfRing(ConnectorPtr &cntrPtr, std::shared_ptr<MessageBuffer> mainBuffer,
+        std::shared_ptr<MessageBuffer> msgBuf, AddressVector &addressVector,
         int clientWorkSeconds, int clientSleepSeconds)
     : m_connector(cntrPtr)
     , m_mainBuf(mainBuffer)
@@ -13,7 +14,11 @@ HalfRing::HalfRing(ConnectorPtr &cntrPtr, MessageBuffer &mainBuffer,
     , m_state(HalfRingState::WAITING_FOR_ACK)
     , m_clientWorkSeconds(clientWorkSeconds)
     , m_clientSleepSeconds(clientSleepSeconds)
-{}
+{
+    for (auto& e : addressVector)
+      DEBUG << e << " ";
+    DEBUG << "\n";
+}
 
 HalfRing::~HalfRing() {
 
@@ -27,12 +32,12 @@ void HalfRing::operator()() {
     m_currAddr = 0;
 
     while (m_state != HalfRingState::FINISHED) {
-        MessagePair messagePair = m_halfRingBuf.pop();
+        MessagePair messagePair = m_halfRingBuf->pop();
 
         if (messagePair.second.m_type == MessageType::Finish) {
             handleFinished(messagePair);
             continue;
-        } else if (messagePair.second.m_type == MessageType::Terminate){
+        } else if (messagePair.second.m_type == MessageType::Terminate) {
             break;
         }
 
@@ -48,7 +53,9 @@ void HalfRing::operator()() {
 
 void HalfRing::handleStateWaitingForAck(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::Ack) {
-        if (m_currAddr == m_addrVec.size() - 1) {
+        DEBUG << "ack received..\n";
+        if (m_currAddr == m_addrVec.size()) {
+            DEBUG << "becoming idle..\n";
             m_state = HalfRingState::IDLE;
         } else {
             m_state = HalfRingState::WAITING_FOR_INIT_OK;
@@ -56,23 +63,39 @@ void HalfRing::handleStateWaitingForAck(const MessagePair &messagePair) {
     }
 }
 
+Message HalfRing::generateMessageTo(MessageType type, const std::string& target) {
+    std::string fromAddr;
+    convertAddress(target, fromAddr);
+    Message msg(type, fromAddr.c_str());
+
+    return msg;
+}
+
 void HalfRing::handleStateWaitingForInitOK(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::InitOk) {
+        DEBUG << "handling InitOk from " << messagePair.first << std::endl;
         if (m_currAddr == m_addrVec.size() - 3) {
-            std::string fromAddr;
-            convertAddress(m_addrVec[m_addrVec.size() - 1], fromAddr);
-            m_connector->send(m_addrVec[m_addrVec.size() - 2],
-                    Message(MessageType::InitLast,
-                        fromAddr.c_str()));
+            DEBUG << "sending InitLast to " << m_addrVec[m_addrVec.size()-2] << std::endl;
+            m_connector->send(m_addrVec[0],
+                generateMessageTo(MessageType::InitLast, m_addrVec[m_addrVec.size()-2]));
+
             m_state = HalfRingState::WAITING_FOR_ACK;
-        } else if (m_currAddr == m_addrVec.size() - 2){
+        } else if (m_currAddr == m_addrVec.size() - 2) {
+            DEBUG << "sending InitLast to " << m_addrVec[m_addrVec.size()-2] << std::endl;
+            m_connector->send(m_addrVec[0],
+                generateMessageTo(MessageType::InitLast, m_addrVec[m_addrVec.size()-1]));
+            m_state = HalfRingState::WAITING_FOR_ACK;
+        } else if (m_currAddr == m_addrVec.size() - 1) {
+            DEBUG << "onehalf init finish.." << std::endl;
             auto msgSenderPair = std::make_pair("127.0.0.1",
                     Message(MessageType::OneHalfInitFinish));
-            m_mainBuf.push(msgSenderPair);
+            m_mainBuf->push(msgSenderPair);
             m_state = HalfRingState::INITIALIZATION_FINISHED;
         } else {
-            m_connector->send(messagePair.first, Message(MessageType::Ack));
-            m_state = HalfRingState::WAITING_FOR_INIT_OK;
+            DEBUG << "sending Init to " << m_addrVec[m_currAddr+1] << std::endl;
+            m_connector->send(m_addrVec[0],
+                generateMessageTo(MessageType::Init, m_addrVec[m_currAddr+1]));
+            m_state = HalfRingState::WAITING_FOR_ACK;
         }
 
         ++m_currAddr;
@@ -84,6 +107,7 @@ void HalfRing::handleStateInitializationFinished(const MessagePair &messagePair)
         Message msg(MessageType::Run);
         msg.m_activePeriod = m_clientWorkSeconds;
         msg.m_inactivePeriod = m_clientSleepSeconds;
+        memset(&msg.m_pipeAddress, 255, 16);
         m_connector->send(m_addrVec[0], msg);
         m_state = HalfRingState::WAITING_FOR_ACK;
     }
@@ -94,55 +118,15 @@ void HalfRing::handleFinished(const MessagePair &messagePair) {
     m_state = HalfRingState::FINISHED;
 }
 
-void HalfRing::convertStringIPv6ToBSD(const std::string &address, std::string &output) {
-    int i = 0;
-    int bCnt = 0;
 
-    for (int i = 0; i < address.length(); i += 2) {
-        if (address[i] == ':') {
-            ++i;
-            ++bCnt;
-        }
-
-        output += std::stoul(address.substr(i, 2), nullptr, 16);
+void HalfRing::handleIdle(const MessagePair &messagePair) {
+  /*
+    switch (messagePair.second.m_type) {
+        case MessageType::Run:
+            DEBUG << "sending run..." << std::endl;
+            m_connector->send(m_addrVec[0], messagePair.second);
+            m_state = HalfRingState::WAITING_FOR_ACK;
+            break;
     }
-}
-
-void HalfRing::convertStringIPv4ToBSD(std::string address, std::string &output) {
-    address += '.';
-    const int ffendPos = 12;
-    const int ipNumSize = 4;
-
-    /**
-    * Conversion ipv4 -> ipv4 mapped ipv6
     */
-
-    for (int i = 0; i < ffendPos; ++i) {
-        output += static_cast<unsigned char>(255);
-    }
-
-    std::vector<unsigned char> res;
-    std::string s;
-
-    for (int i = 0; i < address.length(); ++i) {
-        if (address[i] == '.') {
-            res.emplace_back(static_cast<unsigned char>(std::stoi(s)));
-            s.clear();
-        }
-        else {
-            s += address[i];
-        }
-    }
-
-    for (int i = 0; i < ipNumSize; ++i) {
-        output += res[i];
-    }
-}
-
-void HalfRing::convertAddress(const std::string &address, std::string &output) {
-    if (address.find(':') != std::string::npos) {
-        convertStringIPv6ToBSD(address, output);
-    } else {
-        convertStringIPv4ToBSD(address, output);
-    }
 }

@@ -11,7 +11,7 @@
  */
 class ClientTestObj : Client {
 public:
-    ClientTestObj(MessageBuffer &msgBuffer,
+    ClientTestObj(std::shared_ptr<SplitMessageBuffer> msgBuffer,
                   size_t port,
                   Connector *connector = nullptr,
                   ClientState state = ClientState::INIT_PHASE_FIRST)

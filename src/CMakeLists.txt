@@ -5,6 +5,7 @@ set(SOURCE_FILES_SAURON
         Connector.cpp
         MessageBuffer.cpp
         Config.cpp
+        Utils.cpp
         )
 
 set(SOURCE_FILES_CLIENT

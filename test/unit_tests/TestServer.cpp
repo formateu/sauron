@@ -9,7 +9,7 @@
 
 BOOST_AUTO_TEST_CASE(create_server_with_nullptr_config) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     Connector *connector = new MockConnector(msgBuffer);
     ConfigBase *conf = nullptr;
 
@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(create_server_with_nullptr_config) {
 
 BOOST_AUTO_TEST_CASE(server_handle_unexpected_message_main_loop) {
     // set up environment
-    MessageBuffer msgBuffer;
+    std::shared_ptr<MessageBuffer> msgBuffer = std::make_shared<MessageBuffer>();
     Connector *connector = new MockConnector(msgBuffer);
     ConfigBase *conf = new MockConfig();
     conf->m_ipVec.emplace_back("192.168.1.1");
@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_CASE(server_handle_unexpected_message_main_loop) {
     Message msg;
     msg.m_type = MessageType::Finish;
     MessagePair mpair = {"192.168.1.1", msg};
-    msgBuffer.push(mpair);
+    msgBuffer->push(mpair);
 
     // when
     // Unexpected message is received

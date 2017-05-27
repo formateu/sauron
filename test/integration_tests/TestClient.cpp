@@ -8,7 +8,8 @@
 
 BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
     // setup
-    MessageBuffer msgBuffer, unusedMsgBuffer;
+    std::shared_ptr<MessageBuffer> unusedMsgBuffer = std::make_shared<MessageBuffer>();
+    std::shared_ptr<SplitMessageBuffer> msgBuffer = std::make_shared<SplitMessageBuffer>();
     // client is responsible for freeing Connector
     Connector *connector = new MockConnector(unusedMsgBuffer);
     Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
@@ -19,7 +20,7 @@ BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
     Message initMessage;
     initMessage.m_type = MessageType::Init;
 
-    msgBuffer.push({"192.168.1.2", initMessage});
+    msgBuffer->push({"192.168.1.2", initMessage});
 
     // run client
     std::thread clientThread([&client]() {
@@ -28,7 +29,7 @@ BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
 
     // wait to ensure messeges were processed
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    msgBuffer.push({"192.168.1.2", Message(MessageType::Ack)});
+    msgBuffer->push({"192.168.1.2", Message(MessageType::Ack)});
 
     // terminate the client's loop and the client itself
     client.stop();
@@ -40,14 +41,15 @@ BOOST_AUTO_TEST_CASE(client_changes_state_to_desired_from_init) {
 
 BOOST_AUTO_TEST_CASE(client_ack_timeout_throws_exception) {
     // setup
-    MessageBuffer msgBuffer, unusedMsgBuffer;
+    std::shared_ptr<MessageBuffer> unusedMsgBuffer = std::make_shared<MessageBuffer>();
+    std::shared_ptr<SplitMessageBuffer> msgBuffer = std::make_shared<SplitMessageBuffer>();
     // client is responsible for freeing Connector
     Connector *connector = new MockConnector(unusedMsgBuffer);
     Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
 
     Message initMessage;
     initMessage.m_type = MessageType::Init;
-    msgBuffer.push({"192.168.1.2", initMessage});
+    msgBuffer->push({"192.168.1.2", initMessage});
 
     // run client
     std::thread clientThread([&client]() {
@@ -67,7 +69,8 @@ BOOST_AUTO_TEST_CASE(client_sends_measurements) {
     // setup
     // msgBuffer is buffer which client reads from
     // sendBuffer is buffer which client sends to
-    MessageBuffer msgBuffer, sendBuffer;
+    std::shared_ptr<MessageBuffer> sendBuffer = std::make_shared<MessageBuffer>();
+    std::shared_ptr<SplitMessageBuffer> msgBuffer = std::make_shared<SplitMessageBuffer>();
     Connector *connector = new MockConnector(sendBuffer);
     Client client(msgBuffer, 7777, connector, ClientState::INIT_PHASE_FIRST);
 
@@ -88,31 +91,31 @@ BOOST_AUTO_TEST_CASE(client_sends_measurements) {
         msg.m_pipeAddress[i] = e;
         ++i;
     }
-    msgBuffer.push({"192.168.1.3", msg});
-    clientMessage = sendBuffer.pop().second;
+    msgBuffer->push({"192.168.1.3", msg});
+    clientMessage = sendBuffer->pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::Ack);
 
-    clientMessage = sendBuffer.pop().second;
+    clientMessage = sendBuffer->pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::InitOk);
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
-    msgBuffer.push({"192.168.1.3", Message(MessageType::Ack)});
+    msgBuffer->push({"192.168.1.3", Message(MessageType::Ack)});
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
     msg.m_type = MessageType::Run;
     msg.m_activePeriod = 1;
     msg.m_inactivePeriod = 2;
-    msgBuffer.push({"192.168.1.3", msg});
-    clientMessage = sendBuffer.pop().second;
+    msgBuffer->push({"192.168.1.3", msg});
+    clientMessage = sendBuffer->pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::Ack);
 
     // wait for 1st measurement
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    clientMessage = sendBuffer.pop().second;
+    clientMessage = sendBuffer->pop().second;
     BOOST_TEST(clientMessage.m_type == MessageType::Measurement);
     for (i = 0; i < 16; ++i) {
         BOOST_TEST(clientMessage.m_pipeAddress[i] == ipAddress[i]);
     }
-    msgBuffer.push({"192.168.1.3", Message(MessageType::Ack)});
+    msgBuffer->push({"192.168.1.3", Message(MessageType::Ack)});
 
     // terminate client
     client.stop();

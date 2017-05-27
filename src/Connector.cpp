@@ -7,9 +7,8 @@
 
 #include "Connector.h"
 
-InternetConnector::InternetConnector(MessageBuffer &msgBuffer, size_t listenPort)
-        : m_msgBuffer(msgBuffer)
-        , m_port(listenPort)
+InternetConnector::InternetConnector(std::shared_ptr<MessageBufferBase> msgBuffer, size_t listenPort)
+    : m_msgBuffer(msgBuffer), m_port(listenPort)
 {
     struct sockaddr_in6 name;
 
@@ -60,21 +59,20 @@ void InternetConnector::send(const std::string &address, const Message &msg) {
             throw std::runtime_error("Sending message failed");
         }
 
-        return;
-    }
+    } else {
+        /*
+         * Decimal ipv4 address is combined with hexadecimal prefix
+         * to achieve ipv4 mapped ipv6 address
+         */
+        std::string ipv4mappedipv6addr = "::ffff:" + address;
 
-    /*
-     * Decimal ipv4 address is combined with hexadecimal prefix
-     * to achieve ipv4 mapped ipv6 address
-     */
-    std::string ipv4mappedipv6addr = "::ffff:" + address;
+        if (inet_pton(AF_INET6, ipv4mappedipv6addr.data(), &(sa6.sin6_addr)) != 1) {
+            throw std::runtime_error("Unrecognized IP address");
+        }
 
-    if (inet_pton(AF_INET6, ipv4mappedipv6addr.data(), &(sa6.sin6_addr)) != 1) {
-        throw std::runtime_error("Unrecognized IP address");
-    }
-
-    if (sendto(m_listenSocket, (void *) &msg, sizeof msg, 0, (struct sockaddr *) &sa6, sizeof sa6) == -1) {
-        throw std::runtime_error("Sending message failed");
+        if (sendto(m_listenSocket, (void *) &msg, sizeof msg, 0, (struct sockaddr *) &sa6, sizeof sa6) == -1) {
+            throw std::runtime_error("Sending message failed");
+        }
     }
 }
 
@@ -83,7 +81,6 @@ void InternetConnector::listen() {
     std::unique_ptr<Message> msg(new Message());
     struct sockaddr_in6 sa6;
     const size_t senderAddrLen = 16;
-    std::unique_ptr<char> senderAddr(new char[senderAddrLen]);
 
     sa6.sin6_family = AF_INET6;
     sa6.sin6_addr = in6addr_any;
@@ -104,7 +101,7 @@ void InternetConnector::listen() {
         std::unique_ptr<char> addr(new char[16]);
         inet_ntop(AF_INET6, (void *) &sa6.sin6_addr, addr.get(), senderAddrLen);
 
-        m_msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
+        m_msgBuffer->push(std::make_pair(std::string(addr.get()), *msg.get()));
     }
 }
 
@@ -134,11 +131,12 @@ void InternetConnector::closeSocket() {
     }
 }
 
-MockConnector::MockConnector(MessageBuffer &msgBuffer)
-    : m_msgBuffer(msgBuffer) {}
+MockConnector::MockConnector(MsgBufSharedPtr msgBuffer)
+    : m_msgBuffer(msgBuffer)
+{}
 
 void MockConnector::send(const std::string &address, const Message &msg) {
-    m_msgBuffer.push({address, msg});
+    m_msgBuffer->push({address, msg});
 }
 
 void MockConnector::listen() {

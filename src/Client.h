@@ -9,6 +9,8 @@
 #include <unordered_map>
 #include <memory>
 #include <random>
+#include <future>
+#include <arpa/inet.h>
 
 #include "Connector.h"
 #include "MessageBuffer.h"
@@ -17,7 +19,9 @@
 
 class Client {
 public:
-    Client(MessageBuffer &msgBuffer,
+    using SharedBufPtr = std::shared_ptr<SplitMessageBuffer>;
+
+    Client(SharedBufPtr msgBuffer,
            size_t port,
            Connector *connector = nullptr,
            ClientState state = ClientState::INIT_PHASE_FIRST);
@@ -35,7 +39,7 @@ public:
 protected:
     std::unique_ptr<Connector> m_connector;
 
-    MessageBuffer &m_msgBuffer;
+    SharedBufPtr m_msgBuffer;
 
     ClientState m_state;
 
@@ -67,6 +71,10 @@ protected:
             [this](const auto& messagePair) { handleStateInitPhaseSecond(messagePair); }
         },
         {
+            ClientState::INIT_PHASE_LAST_SECOND,
+            [this](const auto& messagePair) { handleStateInitPhaseLastSecond(messagePair); }
+        },
+        {
             ClientState::CONNECTION_ESTABLISHED,
             [this](const auto &messagePair) { handleStateConnectionEstablished(messagePair); }
         },
@@ -91,6 +99,12 @@ protected:
      * @param messagePair
      */
     void handleStateInitPhaseSecond(const MessagePair &messagePair);
+
+    /**
+     * Awating for successor's initialization in last node.
+     * @param messagePair
+     */
+    void handleStateInitPhaseLastSecond(const MessagePair &messagePair);
 
     /**
      * Connection has been established properly.
@@ -138,6 +152,11 @@ protected:
      * Send any message
      */
     void sendMessage(std::string address, const Message& msg);
+
+    /**
+     * Convert address from message to string
+     */
+    std::string convertAddrToString(const unsigned char* addr);
 };
 
 #endif //SAURON_CLIENT_H

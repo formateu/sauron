@@ -8,17 +8,21 @@
 #include <thread>
 #include <unordered_map>
 #include <memory>
+#include <netdb.h>
 
 #include "HalfRing.h"
 #include "Connector.h"
 #include "MessageBuffer.h"
 #include "ServerState.h"
+#include "Utils.h"
 
 #include "Config.h"
 
 class Server {
 public:
-    Server(MessageBuffer &mainBuffer,
+    using SharedMsgBufPtr = std::shared_ptr<MessageBuffer>;
+
+    Server(SharedMsgBufPtr mainBuffer,
            size_t port,
            ConfigBase *conf,
            Connector *connector = nullptr,
@@ -38,11 +42,11 @@ public:
 protected:
     std::unique_ptr<Connector> m_connector;
 
-    MessageBuffer &m_mainBuffer;
+    SharedMsgBufPtr m_mainBuffer;
 
-    MessageBuffer m_halfRing1Buffer;
+    SharedMsgBufPtr m_halfRing1Buffer;
 
-    MessageBuffer m_halfRing2Buffer;
+    SharedMsgBufPtr m_halfRing2Buffer;
 
     std::vector<std::string> m_addrHalfRing1;
 
@@ -103,7 +107,12 @@ protected:
     /**
      * Push Terminate Message to given buffer
      */
-    void stop(MessageBuffer &);
+    void stop(std::shared_ptr<MessageBufferBase>);
+
+    /**
+     * Normalizes IPv6 address
+     */
+    std::string normalizeAddress(std::string address);
 };
 
 #endif //SAURON_SERVER_H

@@ -11,7 +11,7 @@
  */
 class ServerTestObj : public Server {
 public:
-    ServerTestObj(MessageBuffer &msgBuffer,
+    ServerTestObj(std::shared_ptr<MessageBuffer> msgBuffer,
                   const std::string &address,
                   size_t port,
                   ConfigBase *conf,
