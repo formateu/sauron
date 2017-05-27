@@ -33,14 +33,13 @@ int main(int argc, char **argv) {
     }
 
     MessageBuffer msgBuffer;
-    try {
-        Client client(msgBuffer, port);
-
-        signal(SIGINT, signalHandler);
+    Client client(msgBuffer, port);
+    signal(SIGINT, signalHandler);
         shutdownServer = [&client](){
-            client.stop();
-        };
+        client.stop();
+    };
 
+    try {
         client.run();
     } catch (std::runtime_error e) {
         std::cout << "ERROR: " << e.what() << std::endl;

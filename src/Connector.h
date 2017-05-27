@@ -53,7 +53,7 @@ private:
 
     int m_listenSocket;
 
-    MessageBuffer &msgBuffer;
+    MessageBuffer &m_msgBuffer;
 
     bool m_shutdownPerformed = false;
 
@@ -72,7 +72,7 @@ public:
     void shutdownListenThread() {}
 
 private:
-    MessageBuffer &msgBuffer;
+    MessageBuffer &m_msgBuffer;
 };
 
 

@@ -8,7 +8,7 @@
 #include "Connector.h"
 
 InternetConnector::InternetConnector(MessageBuffer &msgBuffer, size_t listenPort)
-        : msgBuffer(msgBuffer)
+        : m_msgBuffer(msgBuffer)
         , m_port(listenPort)
 {
     struct sockaddr_in6 name;
@@ -101,12 +101,10 @@ void InternetConnector::listen() {
             throw std::runtime_error("Receiving message failed");
         }
 
-        std::unique_ptr<char> senderAddr(const_cast<char *>(inet_ntop(AF_INET6, (void *) &sa6.sin6_addr, senderAddr.get(), senderAddrLen)));
-        if (senderAddr.get() == nullptr) {
-            throw std::runtime_error("Getting sender address failed");
-        }
+        std::unique_ptr<char> addr(new char[16]);
+        inet_ntop(AF_INET6, (void *) &sa6.sin6_addr, addr.get(), senderAddrLen);
 
-        msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
+        m_msgBuffer.push(std::make_pair(std::string(senderAddr.get()), *msg.get()));
     }
 }
 
@@ -137,10 +135,10 @@ void InternetConnector::closeSocket() {
 }
 
 MockConnector::MockConnector(MessageBuffer &msgBuffer)
-    : msgBuffer(msgBuffer) {}
+    : m_msgBuffer(msgBuffer) {}
 
 void MockConnector::send(const std::string &address, const Message &msg) {
-    msgBuffer.push({address, msg});
+    m_msgBuffer.push({address, msg});
 }
 
 void MockConnector::listen() {

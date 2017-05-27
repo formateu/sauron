@@ -12,7 +12,7 @@ Client::Client(MessageBuffer &msgBuffer,
       m_predecessor(""), m_successor("")
 {
     if (inputConnector == nullptr) {
-        m_connector.reset(new InternetConnector(m_msgBuffer, port));
+        m_connector.reset(new InternetConnector(msgBuffer, port));
     } else {
         m_connector.reset(inputConnector);
     }
