@@ -56,23 +56,30 @@ void HalfRing::handleStateWaitingForAck(const MessagePair &messagePair) {
     }
 }
 
+Message HalfRing::generateMessageTo(MessageType type, const std::string& target) {
+    std::string fromAddr;
+    convertAddress(target, fromAddr);
+    Message msg(type, fromAddr.c_str());
+
+    return msg;
+}
+
 void HalfRing::handleStateWaitingForInitOK(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::InitOk) {
         if (m_currAddr == m_addrVec.size() - 3) {
-            std::string fromAddr;
-            convertAddress(m_addrVec[m_addrVec.size() - 1], fromAddr);
-            m_connector->send(m_addrVec[m_addrVec.size() - 2],
-                    Message(MessageType::InitLast,
-                        fromAddr.c_str()));
+            m_connector->send(m_addrVec[0],
+                generateMessageTo(MessageType::InitLast, m_addrVec[m_addrVec.size()-1]));
+
             m_state = HalfRingState::WAITING_FOR_ACK;
-        } else if (m_currAddr == m_addrVec.size() - 2){
+        } else if (m_currAddr == m_addrVec.size() - 2) {
             auto msgSenderPair = std::make_pair("127.0.0.1",
                     Message(MessageType::OneHalfInitFinish));
             m_mainBuf.push(msgSenderPair);
             m_state = HalfRingState::INITIALIZATION_FINISHED;
         } else {
-            m_connector->send(messagePair.first, Message(MessageType::Ack));
-            m_state = HalfRingState::WAITING_FOR_INIT_OK;
+            m_connector->send(m_addrVec[0],
+                generateMessageTo(MessageType::Init, m_addrVec[m_currAddr+1]));
+            m_state = HalfRingState::WAITING_FOR_ACK;
         }
 
         ++m_currAddr;

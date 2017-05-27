@@ -74,6 +74,8 @@ class HalfRing {
         void convertStringIPv4ToBSD(std::string address, std::string &output);
 
         void convertAddress(const std::string &address, std::string &output);
+
+        Message generateMessageTo(MessageType type, const std::string& target);
 };
 
 #endif //SAURON_HALFRING_H

@@ -2,6 +2,7 @@
 // Created by Przemyslaw Kopanski and Grzegorz Staniszewski on 04.05.17.
 //
 #include "Client.h"
+#define DEBUG (std::cout << "client: ")
 
 Client::Client(MessageBuffer &msgBuffer,
                size_t port,
@@ -23,6 +24,7 @@ void Client::run() {
 
     while (m_state != ClientState::FINISH) {
         MessagePair messagePair = m_msgBuffer.pop();
+        DEBUG << "popping message: " << messagePair.first << " " << messagePair.second.m_type << std::endl;
 
         // awaiting for being active again
         if (!m_isActive) {
@@ -61,6 +63,7 @@ ClientState Client::getClientState() {
 void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::Init) {
         m_predecessor = messagePair.first;
+        DEBUG << "handling 1st state..\n";
 
         // client was recipient of this message, so we can extract
         // our own ip address
@@ -68,6 +71,7 @@ void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
             std::end(messagePair.second.m_pipeAddress),
             std::begin(m_address));
         m_state = ClientState::INIT_PHASE_SECOND;
+        DEBUG << "sending initok..\n";
         sendMessage(m_predecessor, Message(MessageType::InitOk));
     }
 }
@@ -189,10 +193,13 @@ void Client::sendMessage(std::string address, const Message& msg) {
     MessagePair rmsg;
     if (!m_msgBuffer.tryPop(rmsg)) {
         // ack didn't come in time, stop the client
+        DEBUG << "lol where iz ack..\n";
         stop();
     } else if (rmsg.second.m_type != MessageType::Ack) {
         // popped message is not ack, then ack didnt come neither, repush it
+        DEBUG << "lol where iz ack1..\n";
         m_msgBuffer.push(rmsg);
         stop();
     }
+    DEBUG << "ack received..\n";
 }

@@ -99,6 +99,7 @@ void Server::mainLoop() {
 
     while (true) {
         MessagePair messagePair = m_mainBuffer.pop();
+        m_connector->send(messagePair.first, Message(MessageType::Ack));
 
         if (messagePair.second.m_type == MessageType::Finish) {
             throw std::runtime_error("Server should not get that type of message from anyone.");
