@@ -22,7 +22,6 @@ void Client::run() {
     std::thread listenThread(&Connector::listen, m_connector.get());
 
     while (m_state != ClientState::FINISH) {
-        if (m_state == ClientState::CONNECTION_ESTABLISHED)
         MessagePair messagePair = m_msgBuffer->popNonAck();
 
         // awaiting for being active again

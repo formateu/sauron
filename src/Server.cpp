@@ -99,7 +99,6 @@ void Server::runTwoHalfRings() {
 void Server::mainLoop() {
     m_state = ServerState::WAITING_FOR_FIRST_HALF;
     std::string normalized1stRingAddr = normalizeAddress(m_addrHalfRing1[0]);
-          << " " << normalized1stRingAddr << std::endl;
 
     while (true) {
         MessagePair messagePair = m_mainBuffer->pop();
