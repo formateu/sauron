@@ -104,7 +104,7 @@ void HalfRing::convertStringIPv6ToBSD(const std::string &address, std::string &o
             ++bCnt;
         }
 
-        output[(i - bCnt) / 2] = std::stoul(address.substr(i, 2), nullptr, 16);
+        output += std::stoul(address.substr(i, 2), nullptr, 16);
     }
 }
 
@@ -118,7 +118,7 @@ void HalfRing::convertStringIPv4ToBSD(std::string address, std::string &output) 
     */
 
     for (int i = 0; i < ffendPos; ++i) {
-        output[i] = static_cast<unsigned char>(255);
+        output += static_cast<unsigned char>(255);
     }
 
     std::vector<unsigned char> res;
@@ -135,12 +135,12 @@ void HalfRing::convertStringIPv4ToBSD(std::string address, std::string &output) 
     }
 
     for (int i = 0; i < ipNumSize; ++i) {
-        output[i + ffendPos] = res[i];
+        output += res[i];
     }
 }
 
 void HalfRing::convertAddress(const std::string &address, std::string &output) {
-    if (address.find(':')) {
+    if (address.find(':') != std::string::npos) {
         convertStringIPv6ToBSD(address, output);
     } else {
         convertStringIPv4ToBSD(address, output);

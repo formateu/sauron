@@ -12,6 +12,7 @@ set(SOURCE_FILES_SAURON_UNIT_TEST
         TestInternetConnector.cpp
         TestTimer.cpp
         TestConfig.cpp
+        TestHalfRing.cpp
         )
 
 add_executable(sauron_unit_test
