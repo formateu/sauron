@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e29bd4a_b28d1474",
+        "filename": "src/Connector.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-27T16:12:50Z",
+      "side": 1,
+      "message": "merge ifs\nremove comment?",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 72
+      },
+      "revId": "4437cb126e9503adcff595d98a221a98b668c96d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
