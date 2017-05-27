@@ -28,6 +28,8 @@ public:
 
     virtual void listen() = 0;
 
+    virtual void shutdownListenThread() = 0;
+
     virtual ~Connector() {}
 };
 
@@ -44,12 +46,16 @@ public:
 
     void terminate() {}
 
+    void shutdownListenThread();
+
 private:
     size_t m_port;
 
     int m_listenSocket;
 
     MessageBuffer &msgBuffer;
+
+    bool m_shutdownPerformed = false;
 
     void closeSocket();
 };
@@ -62,6 +68,8 @@ public:
     void send(const std::string &address, const Message &msg);
 
     void listen();
+
+    void shutdownListenThread() {}
 
 private:
     MessageBuffer &msgBuffer;

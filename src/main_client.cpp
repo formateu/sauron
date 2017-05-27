@@ -2,12 +2,19 @@
 // Created by Grzegorz Staniszewski on 11.05.17.
 //
 #include <iostream>
+#include <csignal>
 
 #include "MessageBuffer.h"
 #include "Client.h"
 
 void showUsage(const char *prog) {
     std::cout << "Usage: " << prog << " [port]" << std::endl;
+}
+
+std::function<void()> shutdownServer;
+
+void signalHandler(int signum) {
+    shutdownServer();
 }
 
 int main(int argc, char **argv) {
@@ -28,6 +35,12 @@ int main(int argc, char **argv) {
     MessageBuffer msgBuffer;
     try {
         Client client(msgBuffer, port);
+
+        signal(SIGINT, signalHandler);
+        shutdownServer = [&client](){
+            client.stop();
+        };
+
         client.run();
     } catch (std::runtime_error e) {
         std::cout << "ERROR: " << e.what() << std::endl;

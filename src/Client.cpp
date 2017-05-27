@@ -50,6 +50,7 @@ void Client::run() {
         }
     }
 
+    m_connector->shutdownListenThread();
     listenThread.join();
 }
 
@@ -139,6 +140,7 @@ void Client::handleFinish(const MessagePair &messagePair) {
 }
 
 void Client::stop() {
+    std::cout << "Stopping client..." << std::endl;
     Message msg;
     msg.m_type = MessageType::Terminate;
     // push any message to unlock the loop

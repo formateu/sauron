@@ -93,6 +93,10 @@ void InternetConnector::listen() {
     while (true) {
         recvMsgSize = recvfrom(m_listenSocket, msg.get(), sizeof(*msg.get()), 0, (struct sockaddr *) &sa6, &size);
 
+        if (m_shutdownPerformed) {
+            break;
+        }
+
         if (recvMsgSize == -1) {
             throw std::runtime_error("Receiving message failed");
         }
@@ -121,7 +125,7 @@ void InternetConnector::closeSocket() {
     }
 
     // secondly, terminate the 'reliable' delivery
-    if (shutdown(m_listenSocket, SHUT_RDWR) < 0) {
+    if (!m_shutdownPerformed && shutdown(m_listenSocket, SHUT_RDWR) < 0) {
         if (errno != ENOTCONN && errno != EINVAL) { // SGI causes EINVAL
             throw std::runtime_error("Error while shutting down socket");
         }
@@ -141,4 +145,13 @@ void MockConnector::send(const std::string &address, const Message &msg) {
 
 void MockConnector::listen() {
     // modify if needed, currently messages can be pushed to be listened via MessageBuffer
+}
+
+void InternetConnector::shutdownListenThread() {
+    m_shutdownPerformed = true;
+    if (shutdown(m_listenSocket, SHUT_RDWR) < 0) {
+        if (errno != ENOTCONN && errno != EINVAL) { // SGI causes EINVAL
+            throw std::runtime_error("Error while shutting down socket on demand");
+        }
+    }
 }

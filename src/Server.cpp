@@ -52,10 +52,12 @@ void Server::run() {
             runOneHalfRing();
         }
     } catch (std::runtime_error &e) {
-        listenThread.detach();
+        m_connector->shutdownListenThread();
+        listenThread.join();
         throw e;
     }
 
+    m_connector->shutdownListenThread();
     listenThread.join();
 }
 
@@ -152,6 +154,7 @@ void Server::handleFinishing() {
 
 void Server::stop() {
     //push terminate message to main buffer
+    std::cout << "Stopping..." << std::endl;
     stop(m_mainBuffer);
 }
 

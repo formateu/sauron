@@ -13,6 +13,12 @@ void showUsage(const char *prog) {
     std::cout << "Usage: " << prog << " [configfile] [port]" << std::endl;
 }
 
+std::function<void()> shutdownServer;
+
+void signalHandler(int signum) {
+    shutdownServer();
+}
+
 int main(int argc, char **argv) {
 
     if (argc != 3) {
@@ -45,6 +51,12 @@ int main(int argc, char **argv) {
     try {
         MessageBuffer msgBuffer;
         Server server(msgBuffer, port, config);
+
+        signal(SIGINT, signalHandler);
+        shutdownServer = [&server](){
+            server.stop();
+        };
+
         server.run();
     } catch (std::runtime_error e) {
         std::cout << "ERROR: " << e.what() << std::endl;
