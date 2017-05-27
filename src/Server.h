@@ -8,11 +8,13 @@
 #include <thread>
 #include <unordered_map>
 #include <memory>
+#include <netdb.h>
 
 #include "HalfRing.h"
 #include "Connector.h"
 #include "MessageBuffer.h"
 #include "ServerState.h"
+#include "Utils.h"
 
 #include "Config.h"
 
@@ -104,6 +106,11 @@ protected:
      * Push Terminate Message to given buffer
      */
     void stop(MessageBuffer &);
+
+    /**
+     * Normalizes IPv6 address
+     */
+    std::string normalizeAddress(std::string address);
 };
 
 #endif //SAURON_SERVER_H

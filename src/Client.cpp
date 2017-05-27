@@ -2,6 +2,7 @@
 // Created by Przemyslaw Kopanski and Grzegorz Staniszewski on 04.05.17.
 //
 #include "Client.h"
+#define DEBUG (std::cout << "client: ")
 
 Client::Client(MessageBuffer &msgBuffer,
                size_t port,
@@ -22,7 +23,10 @@ void Client::run() {
     std::thread listenThread(&Connector::listen, m_connector.get());
 
     while (m_state != ClientState::FINISH) {
+        if (m_state == ClientState::CONNECTION_ESTABLISHED)
+          DEBUG << "connection established..\n";
         MessagePair messagePair = m_msgBuffer.pop();
+        //DEBUG << "popping message: " << messagePair.first << " " << messagePair.second.m_type << std::endl;
 
         // awaiting for being active again
         if (!m_isActive) {
@@ -31,12 +35,15 @@ void Client::run() {
         }
 
         // send ack, as we received message
-        if (messagePair.second.m_type != MessageType::Ack) {
+        if (messagePair.first != "127.0.0.1" && messagePair.second.m_type != MessageType::Ack) {
             sendAck(messagePair.first);
         }
+        if (messagePair.second.m_type == MessageType::Ack)
+            m_msgBuffer.push(messagePair);
 
         if (messagePair.second.m_type == MessageType::Finish) {
             handleFinish(messagePair);
+            break;
         } else if (messagePair.second.m_type == MessageType::Terminate) {
             break;
         }
@@ -59,35 +66,59 @@ ClientState Client::getClientState() {
 }
 
 void Client::handleStateInitPhaseFirst(const MessagePair &messagePair) {
-    if (messagePair.second.m_type == MessageType::Init) {
-        m_predecessor = messagePair.first;
+    switch (messagePair.second.m_type) {
+        case MessageType::Init:
+            m_predecessor = messagePair.first;
+            //DEBUG << "handling 1st state..\n";
 
-        // client was recipient of this message, so we can extract
-        // our own ip address
-        std::copy(std::begin(messagePair.second.m_pipeAddress),
-            std::end(messagePair.second.m_pipeAddress),
-            std::begin(m_address));
-        m_state = ClientState::INIT_PHASE_SECOND;
-        sendMessage(m_predecessor, Message(MessageType::InitOk));
+            // client was recipient of this message, so we can extract
+            // our own ip address
+            std::copy(std::begin(messagePair.second.m_pipeAddress),
+                std::end(messagePair.second.m_pipeAddress),
+                std::begin(m_address));
+            m_state = ClientState::INIT_PHASE_SECOND;
+            //DEBUG << "sending initok..\n";
+            sendMessage(m_predecessor, Message(MessageType::InitOk));
+            break;
+
+        case MessageType::InitLast:
+            m_predecessor = messagePair.first;
+            //DEBUG << "handling 1st state, initlast..\n";
+            m_amILast = 1;
+
+            // client was recipient of this message, so we can extract
+            // our own ip address
+            std::copy(std::begin(messagePair.second.m_pipeAddress),
+                std::end(messagePair.second.m_pipeAddress),
+                std::begin(m_address));
+            m_state = ClientState::INIT_PHASE_LAST_SECOND;
+            sendMessage(m_predecessor, Message(MessageType::InitOk));
+            break;
     }
 }
 
 void Client::handleStateInitPhaseSecond(const MessagePair &messagePair) {
     switch (messagePair.second.m_type) {
         case MessageType::Init: case MessageType::InitLast:
-            m_successor = messagePair.first;
-            //m_successor = messagePair.second.m_pipeAddress;
-            if (messagePair.second.m_type == MessageType::InitLast) {
-                m_amILast = 1;
-            }
+            m_successor = convertAddrToString(messagePair.second.m_pipeAddress);
+            //DEBUG << "assigning successor addr - " << m_successor << std::endl;
             m_state = ClientState::CONNECTION_ESTABLISHED;
+            sendMessage(m_successor, messagePair.second);
             break;
         case MessageType::Run:
-            m_amILast = 1; // but successor undefined
+            m_amILast = 1;
             handleIncomingRun(messagePair.second);
             break;
-        default:
-            break;
+    }
+}
+
+void Client::handleStateInitPhaseLastSecond(const MessagePair &messagePair) {
+    if (messagePair.second.m_type == MessageType::InitLast) {
+        // extracting node's address after bar
+        m_successor = convertAddrToString(messagePair.second.m_pipeAddress);
+        //DEBUG << "assigning successor addr (initlast)- " << m_successor << std::endl;
+        m_state = ClientState::CONNECTION_ESTABLISHED;
+        sendMessage(m_predecessor, Message(MessageType::InitOk));
     }
 }
 
@@ -109,11 +140,13 @@ void Client::handleStateConnectionEstablished(const MessagePair &messagePair) {
 }
 
 void Client::handleIncomingRun(const Message& msg) {
-     if (!m_amILast) {
-         sendMessage(m_successor, msg);
-     }
-     m_state = ClientState::MEASURE_TIME;
-     startMeasurement(msg.m_activePeriod, msg.m_inactivePeriod);
+  DEBUG << "starting measurement..\n";
+    startMeasurement(msg.m_activePeriod, msg.m_inactivePeriod);
+    if (!m_amILast) {
+        DEBUG << "piping run to " << m_successor << std::endl;
+        sendMessage(m_successor, msg);
+    }
+    m_state = ClientState::MEASURE_TIME;
 }
 
 void Client::handleMeasureTime(const MessagePair& messagePair) {
@@ -153,11 +186,14 @@ void Client::stop() {
 }
 
 void Client::startMeasurement(unsigned activePeriod, unsigned inactivePeriod) {
+    DEBUG << activePeriod << "--" << inactivePeriod << std::endl;
     auto measureTask = [this, activePeriod]() {
         m_isActive = true;
-        std::default_random_engine generator;
+        std::random_device rd;
+        std::default_random_engine generator(rd());
         std::uniform_int_distribution<int> distribution(1,20);
         this->sendMeasurementInfo(distribution(generator));
+        DEBUG << "sleeping..\n";
         std::this_thread::sleep_for(std::chrono::seconds(activePeriod));
         m_isActive = false;
     };
@@ -174,25 +210,38 @@ void Client::sendMeasurementInfo(int measureval) {
     Message msg(Measurement);
     std::copy(std::begin(m_address), std::end(m_address), std::begin(msg.m_pipeAddress));
     msg.m_measureValue = measureval;
+    DEBUG << "sending ready measurement..\n";
     sendMessage(m_predecessor, msg);
 }
 
 void Client::sendAck(std::string address) {
     Message msg(Ack);
+    DEBUG << "sending ack to " << address << std::endl;
     m_connector->send(address, msg);
 }
 
 void Client::sendMessage(std::string address, const Message& msg) {
     m_connector->send(address, msg);
-    // await for ACK
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    MessagePair rmsg;
-    if (!m_msgBuffer.tryPop(rmsg)) {
-        // ack didn't come in time, stop the client
-        stop();
-    } else if (rmsg.second.m_type != MessageType::Ack) {
-        // popped message is not ack, then ack didnt come neither, repush it
-        m_msgBuffer.push(rmsg);
-        stop();
+    std::future<MessagePair> rmsg = std::async(std::launch::async, [this]() {
+        return m_msgBuffer.pop();
+    });
+    std::future_status status;
+    status = rmsg.wait_for(std::chrono::milliseconds(1000));
+
+    if (status != std::future_status::ready) {
+        if (rmsg.get().second.m_type != MessageType::Ack) {
+            // silently ignore..
+            m_msgBuffer.push(rmsg.get());
+        } else {
+            DEBUG << "lol where iz ack from " << address << "..\n";
+            stop();
+        }
     }
+}
+
+std::string Client::convertAddrToString(const unsigned char* addr) {
+    std::unique_ptr<char> tmp(new char[INET6_ADDRSTRLEN]());
+    inet_ntop(AF_INET6, (void*)addr,
+        tmp.get(), INET6_ADDRSTRLEN);
+    return std::string(tmp.get());
 }

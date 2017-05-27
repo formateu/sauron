@@ -19,9 +19,9 @@ BOOST_AUTO_TEST_CASE(test_halfring_ipv4_address_conversion) {
 
     //convert given ipv4 address to binary format without halfring conversion
     std::vector<int> addrTmp = {
-        255,255,255,255,
-        255,255,255,255,
-        255,255,255,255,
+        0,0,0,0,
+        0,0,0,0,
+        0,0,255,255,
         192,168,1,1
     };
 
