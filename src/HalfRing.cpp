@@ -20,7 +20,9 @@ HalfRing::~HalfRing() {
 }
 
 void HalfRing::operator()() {
-    Message msg(MessageType::Init, m_addrVec[0].c_str());
+    std::string fromAddr;
+    convertAddress(m_addrVec[0], fromAddr);
+    Message msg(MessageType::Init, fromAddr.c_str());
     m_connector->send(m_addrVec[0], msg);
     m_currAddr = 0;
 
@@ -57,9 +59,11 @@ void HalfRing::handleStateWaitingForAck(const MessagePair &messagePair) {
 void HalfRing::handleStateWaitingForInitOK(const MessagePair &messagePair) {
     if (messagePair.second.m_type == MessageType::InitOk) {
         if (m_currAddr == m_addrVec.size() - 3) {
+            std::string fromAddr;
+            convertAddress(m_addrVec[m_addrVec.size() - 1], fromAddr);
             m_connector->send(m_addrVec[m_addrVec.size() - 2],
                     Message(MessageType::InitLast,
-                        m_addrVec[m_addrVec.size() - 1].c_str()));
+                        fromAddr.c_str()));
             m_state = HalfRingState::WAITING_FOR_ACK;
         } else if (m_currAddr == m_addrVec.size() - 2){
             auto msgSenderPair = std::make_pair("127.0.0.1",
@@ -88,4 +92,57 @@ void HalfRing::handleStateInitializationFinished(const MessagePair &messagePair)
 void HalfRing::handleFinished(const MessagePair &messagePair) {
     m_connector->send(m_addrVec[0], Message(MessageType::Finish));
     m_state = HalfRingState::FINISHED;
+}
+
+void HalfRing::convertStringIPv6ToBSD(const std::string &address, std::string &output) {
+    int i = 0;
+    int bCnt = 0;
+
+    for (int i = 0; i < address.length(); i += 2) {
+        if (address[i] == ':') {
+            ++i;
+            ++bCnt;
+        }
+
+        output[(i - bCnt) / 2] = std::stoul(address.substr(i, 2), nullptr, 16);
+    }
+}
+
+void HalfRing::convertStringIPv4ToBSD(std::string address, std::string &output) {
+    address += '.';
+    const int ffendPos = 12;
+    const int ipNumSize = 4;
+
+    /**
+    * Conversion ipv4 -> ipv4 mapped ipv6
+    */
+
+    for (int i = 0; i < ffendPos; ++i) {
+        output[i] = static_cast<unsigned char>(255);
+    }
+
+    std::vector<unsigned char> res;
+    std::string s;
+
+    for (int i = 0; i < address.length(); ++i) {
+        if (address[i] == '.') {
+            res.emplace_back(static_cast<unsigned char>(std::stoi(s)));
+            s.clear();
+        }
+        else {
+            s += address[i];
+        }
+    }
+
+    for (int i = 0; i < ipNumSize; ++i) {
+        output[i + ffendPos] = res[i];
+    }
+}
+
+void HalfRing::convertAddress(const std::string &address, std::string &output) {
+    if (address.find(':')) {
+        convertStringIPv6ToBSD(address, output);
+    } else {
+        convertStringIPv4ToBSD(address, output);
+    }
 }

@@ -68,6 +68,12 @@ class HalfRing {
         void handleStateInitializationFinished(const MessagePair &messagePair);
 
         void handleFinished(const MessagePair &messagePair);
+
+        void convertStringIPv6ToBSD(const std::string &address, std::string &output);
+
+        void convertStringIPv4ToBSD(std::string address, std::string &output);
+
+        void convertAddress(const std::string &address, std::string &output);
 };
 
 #endif //SAURON_HALFRING_H
