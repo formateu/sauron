@@ -5,7 +5,7 @@
 \usepackage{lmodern}
 \usepackage{graphicx}
 
-\title{Sauron - projekt wstępny}
+\title{Sauron}
 \author{Mateusz Forc, \\ Grzegorz Staniszewski, \\ Wiktor Franus, \\ Przemysław Kopański}
 
 \begin{document}
@@ -19,8 +19,7 @@
 \section{Treść zadania}
 W pierścieniu połączone są serwer i N czujników.
 Serwer jest stale aktywny. Czujniki periodycznie budzą się i wykonują pomiar.
-Każdy czujnik próbuje odebrać komunikat z pomiarami od jednego sąsiada,
-dodać do niego swój pomiar i wysłać drugiemu sąsiadowi.
+Każdy czujnik próbuje odebrać komunikat z pomiarami od jednego sąsiada i wysłać drugiemu sąsiadowi.
 Czujniki oszczędzają energię, zatem należy minimalizować czas ich pracy i wolumin
 transmitowanych danych.
 Sieć ma tolerować pojedyncze uszkodzenie węzła lub połączenia.
@@ -39,14 +38,12 @@ zdefiniowanych komunikatów.
     \item uruchamia pomiar
     \item przechowuje informacje o czujnikach oraz wykonywanych pomiarach
     \item rozpoznaje miejsca awarii sieci i wypisuje komunikaty
-    \item w przypadku awarii jednego czujnika przystosowuje sieć do poprawnego funkcjonowania
-    \item w przypadku wykrycia więcej niż jednej awarii wyłącza system
+    \item w przypadku awarii dowolnego czujnika przystosowuje sieć do możliwie poprawnego funkcjonowania
   \end{enumerate}
   \item Czujnik
   \begin{enumerate}
-    \item periodycznie budzi się i wykonuje pomiar
-    \item próbuje odebrać komunikat z pomiarami od jednego sąsiada
-    \item dodaje do odebranego komunikatu swój pomiar i wysyła go drugiemu sąsiadowi
+    \item periodycznie budzi się, wykonuje pomiar i przesyła go do serwera
+    \item przekazuje odbierane wiadomości w stronę docelowego urządzenia
   \end{enumerate}
   \item Aplikacja wspiera IPv4 i IPv6.
   \item Konfiguracja sieci pobierana jest z pliku.
@@ -56,7 +53,7 @@ zdefiniowanych komunikatów.
 
 \begin{enumerate}
   \item Serwer jest stale aktywny.
-  \item Sieć ma tolerować pojedyncze uszkodzenie węzła lub połączenia.
+  \item Sieć ma tolerować uszkodzenia węzłów lub połączeń.
   \item Minimalizacja czasu pracy czujników i ilości transmitowanych danych.
 \end{enumerate}
 
@@ -79,22 +76,14 @@ Scenariusz alternatywny 1: (Jeden czujnik nie działa na etapie inicjalizacji)
    \item [4.] Serwer wypisuje ostrzeżenie z informacją o niedziałającym czujniku
    \item [5-6.] Jak w scenariuszu głównym
 \end{enumerate}
-Scenariusz alternatywny 2: (Więcej niż jeden czujnik nie działa na etapie inicjalizacji)
-\begin{enumerate}
-   \item [1-3.] Jak w scenariuszu głównym
-   \setcounter{enumi}{3}
-   \item Serwer wypisuje komunikat o awarii systemu
-   \item Serwer usypia działające czujniki
-   \item Serwer kończy działanie jak w PU \ref{turnoff}
-\end{enumerate}
-Scenariusz alternatywny 3: (Jeden czujnik przestaje działać po etapie inicjalizacji)
+Scenariusz alternatywny 2: (Jeden czujnik przestaje działać po etapie inicjalizacji)
 \begin{enumerate}
    \item [1-5.] Jak w scenariuszu głównym
    \setcounter{enumi}{5}
    \item Serwer wypisuje ostrzeżenie z informacją o niedziałającym czujniku
    \item Serwer wypisuje na ekran pomiary otrzymane z czujników
 \end{enumerate}
-Scenariusz alternatywny 4: (Więcej niż jeden czujnik przestaje działać po etapie inicjalizacji)
+Scenariusz alternatywny 3: (Więcej niż jeden czujnik przestaje działać po etapie inicjalizacji)
 \begin{enumerate}
    \item [1-5.] jak w scenariuszu głównym
    \setcounter{enumi}{5}
@@ -107,12 +96,7 @@ Scenariusz alternatywny 4: (Więcej niż jeden czujnik przestaje działać po et
 Scenariusz główny:
 \begin{enumerate}
    \item Serwer usypia działające czujniki
-   \item Serwer wypisuje komunikat o pomyślnym uśpieniu czujników i kończy działanie
-\end{enumerate}
-Scenariusz alternatywny 1: (Nie wszystkie czujniki zostały uśpione)
-\begin{enumerate}
-   \item Jak w scenariuszu głównym
-   \item Serwer wypisuje informację o niepoprawnie uśpionych czujnikach i kończy działanie
+   \item Serwer kończy działanie
 \end{enumerate}
 
 \subsection{Wyłączenie systemu przez użytkownika}
@@ -127,13 +111,14 @@ Scenariusz główny:
 \begin{enumerate}
   \item System operacyjny: GNU Linux (dystrybucje: ArchLinux, Ubuntu)
   \item Języki programowanie: C, C++ (aplikacja), Lua (wtyczka do Wireshark)
-  \item Biblioteki: API gniazd BSD, Boost
-  \item Narzędzia pomocnicze: Git, Gerrit, Github, gdb, Wireshark
+  \item Kompilatory: GNU C++ Compiler, Clang
+  \item Biblioteki: API gniazd BSD, Boost, YAML-CPP
+  \item Narzędzia pomocnicze: Git, Gerrit, Github, gdb, CMake, Wireshark, Jenkins, Docker
 \end{enumerate}
 
 \newpage
 \section{Architektura rozwiązania}
-Architektura rozwiązania jest połączeniem architektury pierścieniowej i klient-serwer.
+Architektura rozwiązania jest hybrydą architektur pierścieniowej oraz klient-serwer.
 W sieci pierścieniowej połączone są ze sobą czujniki - dokonujące pomiaru, wraz z serwerem głównym -
 zbierającym wyniki oraz zestawiającym całą sieć do poprawnej transmisji. Dodatkowo,
 czujniki pełnią rolę serwera pośredniczącego; ze względu na budowę sieci muszą one
@@ -146,23 +131,19 @@ odbierać i przekazywać wyniki pomiarów innych czujników oraz informacje orga
 \subsection{Inicjalizacja}
 Serwer trzyma listę adresów IP należących do pierścienia.
 Wyznacza nastepnie podziałkę w ich połowie - od tej pory komunikacja będzie odbywać się tylko w dwóch
-połowach pierścienia niezależnie zgodnie z zasadą dziel i zwyciężaj
-(oszczędzamy wolumin danych i ułatwiamy zarządzanie nimi w normalnym trybie pracy).
+połowach pierścienia niezależnie (oszczędzamy wolumin danych i ułatwiamy zarządzanie nimi w normalnym trybie pracy).
 Do wyznaczonych połówek wysyłane są adresy określające połowy pierścienia wraz z kierunkiem
 przesyłania pomiarów. Serwer oczekuje na informację zwrotną z obu połówek świadczącą o braku
 błędów podczas inicjalizacji. Każdy czujnik po wysłaniu wiadomości oczekuje na odpowiedź,
-co umożliwia wykrycie pojedynczej awarii sieci.
+co umożliwia wykrycie awarii sieci.
 
 \newpage
 Czujnik pracuje w dwóch trybach naprzemiennie:
 \begin{itemize}
-\item w trybie aktywnym (okienko czasowe), w którym oczekuje na wynik od sąsiada,
-      dokonuje pomiaru, przesyła jego wynik do drugiego sąsiada,
-      odbiera i przesyła pozostałe komunikaty,
+\item w trybie aktywnym (okienko czasowe), 
+	  w którym dokonuje pomiaru i przekazuje w kierunku serwera pomiary dokonane      przez inne wezły sieci.
 \item w trybie nieaktywnym, w którym nasłuchuje tylko na wybrane komunikaty
 \end{itemize}
-Inicjalizacja czujników następuje w pojedyńczym okienku czasowym.
-Pierwszy pomiar jest wykonany w kolejnym okienku czasowym.
 
 \subsubsection{AWARIA 1: węzeł nie odpowiada podczas inicjalizacji}
 Węzeł, który nie otrzymał odpowiedzi zwrotnej od sąsiada podczas inicjalizacji,
@@ -175,16 +156,12 @@ w sposób umożliwiający poprawną komunikację z jednym niedziałającym czujn
 %ktory to jest wezel graniczny, i w ktorym kierunku nastepuje przesylanie pomiarow
 
 \subsection{Tryb pomiaru}
-Pomiary startują automatycznie w okienku czasowym następującym po inicjalizacji
-(równocześnie we wszystkich węzłach).
-Transport wyników pomiarów rozpoczyna się w węzłach granicznych i postępuje w kierunku serwera.
-Kolejne węzły oczekują na wyniki od poprzedników,
-dokładają do zbioru własny pomiar oraz przekazują je następnikom.
-Po każdej wysłanej wiadomości węzeł oczekuje na jej potwierdzenie,
-brak potwierdzenia oznacza awarię węzła.
+Pomiary startują po otrzymaniu od serwera wiadomosci RUN.
+Węzły wysyłają wynik pomiaru w stronę serwera; każdy z nich, jeżeli otrzyma od sąsiada pomiar, przekazuje go dalej w odpowiednią stronę.
+Po każdej wysłanej wiadomości węzeł oczekuje na jej potwierdzenie od sąsiedniego węzła, brak potwierdzenia oznacza awarię węzła.
 
 \subsubsection{AWARIA 2: węzeł nie odpowiada podczas zbierania wyników pomiarów}
-Węzeł, który nie otrzymał potwierdzenia od adresata wiadomości zawierającej zbiór pomiarów,
+Węzeł, który nie otrzymał potwierdzenia od adresata wiadomości zawierającej pomiaru,
 wysyła w przeciwnym kierunku tą samą wiadomość dodając do niej informację o adresie wadliwego węzła.
 Czujnik znajdujący się po drugiej stronie wadliwego węzła,
 nie otrzymawszy w dopuszczalnym czasie od poprzednika żadnej wiadomości,
@@ -206,10 +183,8 @@ adresów IP w obu połówkach pierścienia.
 \end{itemize}
 
 \section{Sposób demonstracji rezultatów}
-Działanie systemu zostanie zaprezentowane przy pomocy kilku komputerów podłączonych
-do jednej podsieci za pomoca routera.
-Jeden z komputerów pełnić będzie rolę serwera, zaś pozostałe - czujników.
-Zademonstrowane prowadzącemu zostaną scenariusze opisane w punkcie \ref{PU}.
+Działanie systemu zostanie zaprezentowane przy pomocy narzędzia Docker,
+przy pomomcy którego zostanie stworzona wirtualna sieć pierścieniowa, w której dokona się poprawna innicjalizacja, a następnie rozpocznie się wykonywanie pomiarów.
 
 \section{Podział prac w zespole}
 Prace nad projektem wykorzystują jedną z metod programowania zwinnego,
@@ -230,7 +205,7 @@ Przydział zadań:
 \item Sprint 2 - implementacja podstawowych funkcjonalności
 \begin{itemize}
 \item Projekt komunikatów - cały zespół
-\item Wtyczka do Wireshark - Grzegorz Staniszewski, Przemysław Kopański
+\item Wtyczka do Wireshark - Przemysław Kopański
 \item Wrapper API gniazd BSD - Mateusz Forc (lider), Wiktor Franus
 \item Testy jednostkowe wrappera w zakresie podstawowym - Mateusz Forc (lider), Wiktor Franus
 \item Projekt i implementacja modułu serwera wraz z podstawowymi funkcjonalnościami
@@ -241,27 +216,37 @@ Przydział zadań:
 \item Testy jednostkowe modułów klienta w zakresie podstawowym
       - Grzegorz Staniszewski, Przemysław Kopański
 \item Podstawowe testy integracyjne aplikacji - Grzegorz Staniszewski, Przemysław Kopański
-\item Wczytywanie konfiguracji sieci z pliku - Grzegorz Staniszewski, Przemysław Kopański
-\item Aktualizacja zadań w sprincie 2 i 3 w ramach dokumentacji - Mateusz Forc (lider)
+\item Zaprojektowanie i implementacja klasy bufora wiadomości - Przemysław Kopański
+\item Budowanie aplikacji z użyciem narzędzia CMake - cały zespół
+\item Poprawa stylu kodowania - Grzegorz Staniszewski
+\item Zmiana struktury katalogów w projekcie - Mateusz Forc (lider), Wiktor Franus
+\item Utworzenie i skonfigurowanie zadań w narzędziu Jenkins (ciągła integracja) - cały zespół
 \end{itemize}
 \item Sprint 3 - kompletna implementacja wraz ze wszystkimi testami
 \begin{itemize}
 \item Uzupełnienie testów jednostkowych wrappera - Mateusz Forc (lider), Wiktor Franus
+\item Bezpieczne zamykanie aplikacji wraz z jej wszystkimi wątkami i zwalnianiem zasobów - cały zespół
+\item Projekt i implementacja zegarów synchronizujących pracę czujników - Przemysław Kopański
+\item Utworzenie i konfiguracja środowiska do testów akceptacyjnych - Przemysław Kopański
 \item Implementacja pozostałych funkcjonalności modułu serwera - Mateusz Forc (lider), Wiktor Franus
+\item Wczytywanie konfiguracji sieci z pliku - Grzegorz Staniszewski
 \item Implementacja pozostałych funkcjonalności modułu klienta
       - Grzegorz Staniszewski, Przemysław Kopański
 \item Pozostałe testy modułu serwera - Mateusz Forc (lider), Wiktor Franus
 \item Pozostałe testy modułu klienta - Grzegorz Staniszewski, Przemysław Kopański
 \item Uodpornienie programu na niepożądane parametry od użytkownika
-      - Grzegorz Staniszewski, Przemysław Kopański
+      - Grzegorz Staniszewski
+\item Aktualizacja zadań w sprincie 2 i 3 w ramach dokumentacji - Mateusz Forc (lider), Wiktor Franus
+\item Aktualizacja dokumentacji przed oddaniem projektu - cały zespół
+\item Poprawa nagłówków w plikach z kodem źródłowym  - Mateusz Forc (lider), Wiktor Franus
+\item Aktualizacja zadań na GitHubie w oparciu o narzędzie Gerrit oraz dokumentację - Mateusz Forc (lider)
+
 \end{itemize}
 \end{enumerate}
-Ze względu na dynamiczny charakter pracy kolejność i zakres zadań oraz podział na pary i sprinty
-może ulec zmianie.
 
 \section{Harmonogram prac}
-Sprint 2 - od 19.04 do 12.05 \\
-Sprint 3 - od 12.05 do 28.05 \\
+Sprint 2 - od 19.04 do 15.05 \\
+Sprint 3 - od 15.05 do 31.05 \\
 
 \section{Adres projektu}
 Repozytorium kodu dostępne jest w serwisie Github pod adresem:
