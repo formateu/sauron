@@ -4,6 +4,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{pdflscape}
 
 \title{Sauron}
 \author{Mateusz Forc, \\ Grzegorz Staniszewski, \\ Wiktor Franus, \\ Przemysław Kopański}
@@ -186,6 +188,97 @@ adresów IP w obu połówkach pierścienia.
 Działanie systemu zostanie zaprezentowane przy pomocy narzędzia Docker,
 przy pomomcy którego zostanie stworzona wirtualna sieć pierścieniowa, w której dokona się poprawna innicjalizacja, a następnie rozpocznie się wykonywanie pomiarów.
 
+\section{Opis struktury implementacyjnej systemu}
+Serwer wewnętrznie składa się z 3 obiektów - jeden główny zarządca oraz 2 podpierścienie. Główny wątek pobiera wiadomości z sieci i przekazuje je do odpowiedniego wątku półpierścienia. Synchronizuje ze sobą pracę obu podrzędnych wątków. Wątek półpierścienia zestawia połączenie i ponosi odpowiedzialność za komunikację w swoim obrębie.
+
+\begin{landscape}
+  \pagestyle{empty}
+\begin{center}
+    \centerline{\includegraphics[width=1.4\textwidth]{class_diagram}}
+    \captionof{figure}{Diagram klas wykorzystywanych w aplikacji}
+\end{center}
+\end{landscape}
+\newpage
+
+
+\section{Definicja komunikatów}
+%ich strukturę (tj. typy parametrów) i sposób ich kodowania,
+%określenie kto jakie komunikaty odbiera i wysyła.
+Komunikacja między węzłami sieci odbywa się przy użyciu zdefiniowanej przez nas
+struktury Message:
+
+\begin{verbatim}
+struct Message {
+    // wyliczeniowy typ wiadomości
+    MessageType m_type;
+
+    // adres IP wykorzystywany przy inicjalizacji i podczas wykonywania pomiarów
+    unsigned char m_pipeAddress[16];
+
+    // wynik pomiaru
+    int m_measureValue;
+
+    // czas pracy czujnika (w sek.)
+    unsigned m_activePeriod;
+
+    // czas "spania" czujnika (w sek.)
+    unsigned m_inactivePeriod;
+};
+\end{verbatim}
+
+Pole m\_type w strukturze Message może przyjmować jedną z wartości typu wyliczeniowego
+MessageType:
+
+\begin{itemize}
+\item \textbf{Init} - wysyłane przez serwer na etapie inicjalizacji w celu dołączenia do sieci kolejnego węzła. W polu m\_pipeAddress znajduje się adres IP dodawanego węzła. Czujniki otrzymując wiadomość tego typu po raz pierwszy, dołączają się do sieci (czujnik zapamiętuje adres poprzednika) i wysyłają w stronę serwera wiadomość typu InitOk. Kolejne odebranie wiadomości tego typu skutkuje zapamiętaniem adresu następnego węzła w pierścieniu i przekazaniem mu tej wiadomości.
+\item \textbf{InitOk} - wysyłane przez świeżo dołączonego do sieci klienta w stronę serwera
+\item \textbf{InitLast} - wysyłane dwukrotnie przez serwer do ostatniego klienta w półpierścieniu. Za pierwszym razem pole m\_pipeAdress zawiera adres ostatniego węzła należącego do półpierścienia. Za drugim - adres ostatniego węzła z drugiej połowy pierścienia. Niezainicjalizowany do tej pory klient (ostatni) otrzymawszy kolejno dwie takie wiadości zapamiętuje swój adres, awaryjny adres sąsiada z drugiej połowy pierścienia oraz informację o swoim krańcowym położeniu w półpierścieniu.
+\item \textbf{Run} - wysyłane przez serwer do pierwszych klientów w półpierścieniach. Klient przekazuje tą wiadomość następnikowi, sam rozpoczynając pierwszy pomiar.
+\item \textbf{Measurement} - wysyłane przez klienta w stronę serwera. W polu m\_pipeAddress umieszczony jest adres czujnika, który wykonał pomiar. Wynik pomiaru znajduje się w  polu m\_measureValue.
+\item \textbf{Finish} - wysyłane przez serwer do klienta podczas wyłączania systemu. Klient przekazuje wiadomość do następnika i kończy działanie. Używane również wewnątrz modułu serwera do informowania wątków obługujących półpierścienie o zakończeniu działania aplikacji.
+\item \textbf{Ack} - wysyłane przez węzeł sieci (serwer lub klient) do nadawcy poprzednio odebranej przez węzeł wiadomości (potwierdzenie odebrania).
+\item \textbf{Terminate} - pomocniczy typ używany wewnątrz modułów serwera i klienta (nie przesyłany przez sieć).
+\item \textbf{OneHalfInitFinish} - pomocniczy typ używany wewnątrz modułu serwera. Wiadomość tego typu umieszczana jest w buforze wątku głownego przez wątek obłsugujący półpierścień po pomyślnej inicjalizacji obsługiwanych czujników.
+\end{itemize}
+
+\section{Opis zachowania podmiotów komunikacji}
+%% TODO: opisać co się dzieje wewnątrz serwera - współpraca Server i HalfRing
+
+\subsection{Diagramy stanów}
+\begin{center}
+	\centerline{\includegraphics[width=1.0\textwidth]{server_states}}
+	\captionof{figure}{Diagram stanów głównego wątku serwera.}
+\end{center}
+\begin{center}
+	\centerline{\includegraphics[width=1.2\textwidth]{halfring_states}}
+	\captionof{figure}{Diagram stanów wątku obsługującego połowę pierścienia czujników.}
+\end{center}
+\begin{center}
+	\centerline{\includegraphics[width=1.2\textwidth]{client_states}}
+	\captionof{figure}{Diagram stanów klienta.}
+\end{center}
+
+\subsection{Opis zegarów klienta}
+Z każdym z czujników związany jest zegar, który wyzwala dokonanie pomiaru. Wykonany pomiar jest natychmiast wysyłany w stronę serwera. Przez pozostały czas trwania 'okienka czasowego' czujnik nasłuchuje na pomiary od sąsiadów i przekazuje je dalej. Po upłynięciu czasu pracy czujnik jest usypiany na okres trwania czasu nieaktywności. W tym czasie wszystkie odebrane komunikaty są ignorowane. Kolejne wyzwolenie zegara rozpoczyna nowy pomiar. Czas między kolejnymi pomiarami równy jest zatem sumie czasu pracy i czasu 'spania' czujników.
+
+\subsection{Scenariusze komunikacji}
+%wyrażone np. w MSC lub w innych diagramach komunikatów.
+%\begin{figure}
+\begin{center}
+	\centerline{\includegraphics[width=1.3\textwidth]{init_seq}}
+	\captionof{figure}{Sekwencja komunikatów podczas inicjalizacji sieci. Czujniki 1,2 i 3 należą do tego samego półpierścienia. Czujnik 4 (nie umieszczony na rysunku) jest ostatnim węzłem z drugiej połowy pierścienia.}
+	\centerline{\includegraphics[width=0.4\textwidth]{ack_seq}}
+    \captionof{figure}{Przykładowa sekwencja przedstawiająca potwierdzenie otrzymania wiadomości przez węzeł w sieci.}
+    \centerline{\includegraphics[width=1.4\textwidth]{measure_seq}}
+    \captionof{figure}{Sekwencja komunikatów podczas rozpoczynania etapu pomiarów.}
+    \centerline{\includegraphics[width=1.0\textwidth]{finish_seq}}
+    \captionof{figure}{Sekwencja komunikatów podczas kończenia pracy systemu.}
+\end{center}
+
+\section{Wnioski z wykonanego testowania}
+Aplikacja z racji na wielowątkowość, wykorzystywanie protokołu sieciowego oraz ścisłe powiązanie serwera/klienta z konkretnym portem jest problematyczna w testowaniu. Integracja serwera oraz kilku instancji klienta bez wykorzystania izolowanych wirtualnych środowisk jest w zasadzie niemożliwa. \\
+Testowanie jest procesem znacznie bardziej kosztownym czasowo niż implementacja, jednak jest to proces, w który warto inwestować czas i pieniądze gdyż zwiększa on jakość projektu oraz daje poczucie deweloperom, iż wprowadzane przez nich zmiany nie popsują działającego już kodu.
+
 \section{Podział prac w zespole}
 Prace nad projektem wykorzystują jedną z metod programowania zwinnego,
 tj. pair programming - każde zadanie przydzielane jest parze.
@@ -247,6 +340,29 @@ Przydział zadań:
 \section{Harmonogram prac}
 Sprint 2 - od 19.04 do 15.05 \\
 Sprint 3 - od 15.05 do 31.05 \\
+
+\section{Podsumowanie}
+\subsection{Niezrealizowane założenia funkcjonalne}
+Ze względu na napięte wymagania czasowe i jednoczesną chęć zrealizowania projektu wysokiej jakości, zdecydowaliśmy sie ograniczyć zakładaną funkcjonalność o następujące założenia: 
+\begin{itemize}
+    \item serwer rozpoznaje miejsca awarii sieci i wypisuje komunikaty,
+    \item w przypadku awarii dowolnego czujnika serwer przystosowuje sieć do możliwie poprawnego funkcjonowania.
+\end{itemize}
+Zaimplementowane cechy systemu zapewniają poprawną pracę w przypadku braku awarii w sieci.
+
+\subsection{Opis wyniesionych doświadczeń z realizacji projektu}
+Praca z interfejsem gniazd BSD była uciążliwa, a popełnione błędy trudne do wykrycia podczas pisania. W przyszłych projektach wymagających użycia komunikacji sieciowej zdecydujemy się z pewnością na użycie gotowych, przetestowanych i bardziej abstrakcyjnych bibliotek \\
+Realizacja projektu pozwoliła nam na poszerzenie znajomości języka C++ poprzez praktyczne stosowanie funkcji z najnowszych bibliotek standardowych. Korzystanie z narzędzi Gerrit i Git stało się dla niektórych członków zespołu nową umiejętnością, która z pewnością zostanie przez nich użyta w pracy zawodowej.\\
+Ciekawym i równie owocnym doświadczeniem była praca w parach, która niosła ze sobą wiele pozytywnych efektów, m.in. przyjemniejszą pracę nad kodem, szybsze rozwiązywanie problemów, dzielenie się wiedzą z kolegami i pogłebianie stosunków międzyludzkich.
+
+\subsection{Statystyki rozmiarów stworzonych plików}
+Liczba linii w plikach źródłowych: ok. 1800 \\
+Liczba linni w plikach z testami: ok. 1000 \\
+Wtyczka do Wireshark: ok. 60
+
+\subsection{Czas poświęcony na realizację projektu w godzinach}
+Realizacja projektu, w skład której oprócz projektowania i implementacji wchodziły także
+spotkania konsultacyjne i etapowe pochłonęła około 280 osobogodzin (średnio 70h na osobę).
 
 \section{Adres projektu}
 Repozytorium kodu dostępne jest w serwisie Github pod adresem:
