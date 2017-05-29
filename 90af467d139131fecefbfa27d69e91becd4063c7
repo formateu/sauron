@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67ccf25e_005654dd",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-29T10:08:33Z",
+      "side": 1,
+      "message": "lower case",
+      "range": {
+        "startLine": 220,
+        "startChar": 16,
+        "endLine": 220,
+        "endChar": 18
+      },
+      "revId": "90af467d139131fecefbfa27d69e91becd4063c7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
