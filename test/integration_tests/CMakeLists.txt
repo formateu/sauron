@@ -6,6 +6,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 set(SOURCE_FILES_SAURON_INTEGRATION_TEST
         IntegrationTestMain.cpp
         TestClient.cpp
+        TestServerClient.cpp
         )
 
 add_executable(sauron_integration_test

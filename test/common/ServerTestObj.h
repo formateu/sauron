@@ -20,6 +20,8 @@ public:
             : Server(msgBuffer, port, conf, connector, state)
     {}
 
+    void setConnector(Connector *connector);
+
     ServerState getState();
 
     void setState(const ServerState& newState);

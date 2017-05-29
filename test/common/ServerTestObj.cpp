@@ -10,3 +10,7 @@ ServerState ServerTestObj::getState() {
 void ServerTestObj::setState(const ServerState& newState) {
     m_state = newState;
 }
+
+void ServerTestObj::setConnector(Connector *connector) {
+    connector = connector;
+}
