@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f740ae64_6f06066c",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-30T21:17:09Z",
+      "side": 1,
+      "message": "Serwer wewnętrznie składa się z 3 obiektów - jeden główny zarządca oraz 2 podpierścienie. Główny wątek pobiera wiadomości z sieci i przekazuje je do odpowiedniego wątku półpierścienia. Synchronizuje ze sobą pracę obu podrzędnych wątków. Wątek półpierścienia zestawia połączenie i ponosi odpowiedzialność za komunikację w swoim obrębie.",
+      "revId": "704e04c5e02985897f0aff2f9bfcddc58154b2d1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e414b12c_24a5faf7",
+        "filename": "doc/sauron.tex",
+        "patchSetId": 2
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1010915
+      },
+      "writtenOn": "2017-05-30T21:17:09Z",
+      "side": 1,
+      "message": ":D",
+      "range": {
+        "startLine": 347,
+        "startChar": 160,
+        "endLine": 347,
+        "endChar": 196
+      },
+      "revId": "704e04c5e02985897f0aff2f9bfcddc58154b2d1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
