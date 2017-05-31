@@ -168,7 +168,7 @@ void Client::stop() {
     std::cout << "Stopping client..." << std::endl;
     // push any message to unlock the loop
     m_msgBuffer->push({"127.0.0.1", Message(MessageType::Terminate)});
-    //m_msgBuffer->push({"127.0.0.1", Message(MessageType::Ack)});
+    m_msgBuffer->push({"127.0.0.1", Message(MessageType::Ack)});
 }
 
 void Client::startMeasurement(unsigned activePeriod, unsigned inactivePeriod) {
