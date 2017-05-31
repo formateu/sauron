@@ -75,7 +75,7 @@ public:
     void shutdownListenThread() {}
 
 private:
-    std::shared_ptr<MessageBufferBase> &m_msgBuffer;
+    std::shared_ptr<MessageBufferBase> m_msgBuffer;
 };
 
 
