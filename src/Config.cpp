@@ -34,7 +34,11 @@ void Config::read() {
     }
 
     if (config["ip"]) {
-        m_ipVec = config["ip"].as<std::vector<std::string>>();
+        try {
+            m_ipVec = config["ip"].as<std::vector<std::string>>();
+        } catch (YAML::BadConversion e) {
+            throw std::invalid_argument("Ip list empty or contains errors.");
+        }
 
         std::set<std::string> v4_set, v6_set;
         split_addresses_by_ip_version(v4_set, v6_set);
@@ -48,10 +52,9 @@ void Config::read() {
         if (v4_set.size() != m_ipVec.size() && v6_set.size() != m_ipVec.size()) {
             throw std::invalid_argument("IP list contains duplicates.");
         }
-    }
 
-    if (m_ipVec.size() == 0) {
-        throw std::invalid_argument("IP list is empty.");
+    } else {
+        throw std::invalid_argument("IP list not provided.");
     }
 }
 
